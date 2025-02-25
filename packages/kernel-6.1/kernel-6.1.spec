@@ -45,6 +45,9 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 # options for nvidia are instead included through DRM_SIMPLE
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
 
+# Fix Lustre warning for GCC 13+
+Patch6001: 6001-lustre-fix-Werror-enum-int-mismatch.patch
+
 BuildRequires: bc
 BuildRequires: elfutils-devel
 BuildRequires: hostname
