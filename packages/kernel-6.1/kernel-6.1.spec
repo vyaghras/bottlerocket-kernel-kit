@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.128
+Version: 6.1.129
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/ffe00924daa42edd797a396d01fb21af95701161e56f101e909ddd3f70c830ef/kernel-6.1.128-136.201.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/1c0892d62277891964ac73e5be0dfd9a38ffd5173321e0aa91c73c3ff3362e67/kernel-6.1.129-138.220.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.19.64.0.noarch.rpm
@@ -175,8 +175,8 @@ Conflicts: %{_cross_os}image-feature(no-fips)
 rpmkeys --import %{S:1} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:0} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
-rpm2cpio %{S:0} | cpio -iu {,./}linux-%{version}.tar.xz {,./}config-%{_cross_arch} {,./}"*.patch" {,./}kernel.spec
-tar -xof linux-%{version}.tar.xz; rm linux-%{version}.tar.xz
+rpm2cpio %{S:0} | cpio -iu {,./}linux-%{version}.tar {,./}config-%{_cross_arch} {,./}"*.patch" {,./}kernel.spec
+tar -xof linux-%{version}.tar; rm linux-%{version}.tar
 # Count all the patches extracted from the SRPM
 patches_count=$(find -name "*.patch" | wc -l)
 # Find patch ordering based on the Source0 kernel.spec file from the SRPM.
@@ -474,7 +474,6 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/modules.dep.bin
 %{_cross_kmoddir}/modules.devname
 %{_cross_kmoddir}/modules.order
-%{_cross_kmoddir}/modules.softdep
 %{_cross_kmoddir}/modules.symbols
 %{_cross_kmoddir}/modules.symbols.bin
 %{_cross_kmoddir}/System.map
@@ -533,6 +532,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/crypto/anubis.ko.*
 %{_cross_kmoddir}/kernel/crypto/arc4.ko.*
 %{_cross_kmoddir}/kernel/crypto/asymmetric_keys/pkcs7_test_key.ko.*
+%{_cross_kmoddir}/kernel/crypto/asymmetric_keys/pkcs8_key_parser.ko.gz
 %{_cross_kmoddir}/kernel/crypto/async_tx/async_memcpy.ko.*
 %{_cross_kmoddir}/kernel/crypto/async_tx/async_pq.ko.*
 %{_cross_kmoddir}/kernel/crypto/async_tx/async_raid6_recov.ko.*
@@ -600,6 +600,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/acpi/acpi_pad.ko.*
 %{_cross_kmoddir}/kernel/drivers/acpi/video.ko.*
 %endif
+%{_cross_kmoddir}/kernel/drivers/amazon/media/v4l2-loopback/v4l2loopback.ko.gz
 %{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.ko.*
 %{_cross_kmoddir}/kernel/drivers/amazon/net/ena/ena.ko.*
 %{_cross_kmoddir}/kernel/drivers/amazon/scsi/mpi3mr/mpi3mr.ko.gz
@@ -742,6 +743,9 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/md/raid0.ko.*
 %{_cross_kmoddir}/kernel/drivers/md/raid10.ko.*
 %{_cross_kmoddir}/kernel/drivers/md/raid1.ko.*
+%{_cross_kmoddir}/kernel/drivers/media/mc/mc.ko.gz
+%{_cross_kmoddir}/kernel/drivers/media/v4l2-core/v4l2-dv-timings.ko.gz
+%{_cross_kmoddir}/kernel/drivers/media/v4l2-core/videodev.ko.gz
 %{_cross_kmoddir}/kernel/drivers/md/raid456.ko.*
 %{_cross_kmoddir}/kernel/drivers/mfd/lpc_ich.ko.*
 %{_cross_kmoddir}/kernel/drivers/mfd/lpc_sch.ko.*
