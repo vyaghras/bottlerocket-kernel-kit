@@ -1,3 +1,17 @@
+# v1.2.1 (2024-03-06)
+
+## OS Changes
+ * Update kernel-5.10 from 5.10.234-225.895 to 5.10.234-225.910 ([#63])
+ * Update kernel-5.15 from 5.15.178-120.178 to 5.15.178-120.180 ([#63])
+ * Update kernel-6.1 from 6.1.128 to 6.1.129 ([#63])
+
+[#63]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/63
+
+## Build Changes
+ * Fix Lustre warnings in GCC 13+ ([#61])
+
+[#61]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/61
+
 # v1.2.0 (2024-02-26)
 
 ## Build Changes
