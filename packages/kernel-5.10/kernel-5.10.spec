@@ -32,6 +32,9 @@ Patch2001: 2001-kbuild-add-support-for-zstd-compressed-modules.patch
 # Fixup unused code inherited from AL
 Patch5001: 5001-Revert-netfilter-nf_tables-drop-map-element-referenc.patch
 
+# Fix Lustre warning for GCC 13+
+Patch6001: 6001-lustre-fix-Werror-enum-int-mismatch.patch
+
 BuildRequires: bc
 BuildRequires: elfutils-devel
 BuildRequires: hostname
