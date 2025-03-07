@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-6cgo9pxi2o1s"
+title = "kernel CVE-2024-53166"
+cve = "CVE-2024-53166"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: block, bfq: fix bfqq uaf in bfq_limit_depth()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.129"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-03-07T01:00:15Z
+arches = ["x86_64", "aarch64"]
+version = "1.2.1"
