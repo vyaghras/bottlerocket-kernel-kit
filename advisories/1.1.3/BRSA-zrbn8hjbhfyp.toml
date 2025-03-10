@@ -10,6 +10,11 @@ package-name = "kernel-6.1"
 patched-version = "6.1.128"
 patched-epoch = "0"
 
+[[advisory.products]]
+package-name = "bottlerocket-kernel-6.1"
+patched-version = "6.1.128"
+patched-epoch = "0"
+
 [updateinfo]
 author = "mharrimn"
 issue-date = 2025-02-25T18:22:32Z

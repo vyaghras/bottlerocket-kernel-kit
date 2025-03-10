@@ -10,6 +10,11 @@ package-name = "kernel-5.15"
 patched-version = "5.15.176"
 patched-epoch = "0"
 
+[[advisory.products]]
+package-name = "bottlerocket-kernel-5.15"
+patched-version = "5.15.176"
+patched-epoch = "0"
+
 [updateinfo]
 author = "agarrcia"
 issue-date = 2025-02-04T18:59:20Z
