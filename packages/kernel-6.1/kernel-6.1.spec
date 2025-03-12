@@ -514,11 +514,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/ghash-ce.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/poly1305-neon.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/sha1-ce.ko.*
-%{_cross_kmoddir}/kernel/arch/arm64/crypto/sha256-arm64.ko.*
-%{_cross_kmoddir}/kernel/arch/arm64/crypto/sha2-ce.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/sha3-ce.ko.*
-%{_cross_kmoddir}/kernel/arch/arm64/crypto/sha512-arm64.ko.*
-%{_cross_kmoddir}/kernel/arch/arm64/crypto/sha512-ce.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/sm3-ce.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/crypto/sm4-ce-cipher.ko.*
 %{_cross_kmoddir}/kernel/arch/arm64/lib/xor-neon.ko.*
