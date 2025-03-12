@@ -1,0 +1,26 @@
+[package]
+name = "kernel-6_12"
+version = "0.1.0"
+edition = "2021"
+publish = false
+build = "../build.rs"
+
+[package.metadata.build-package]
+package-name = "kernel-6.12"
+
+[lib]
+path = "../packages.rs"
+
+[[package.metadata.build-package.external-files]]
+# Use latest-kernel-srpm-url.sh to get this.
+url = "https://cdn.amazonlinux.com/al2023/blobstore/e48aacb6891d5dc0f536065fa7b52d7b8e7bc0d809fe6f93043b7e8bb0e1fe3b/kernel6.12-6.12.20-23.97.amzn2023.src.rpm"
+sha512 = "18a717b3cb0fa6c19ca6e0567691b3349b92390f8ac6a83555efb7cf026782f20a98292fad10b40f50b2972c39a1d25bddf6c60f49bd98afdc9698e3107498bd"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
+# Use latest-neuron-srpm-url.sh to get this.
+url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm"
+sha512 = "e94ea8244f41fd546fb2aa66a793488069a26724b59a4d05355011fca2643f0874a2971e617563c5c2c402952ed160c3b85548f6013c2c60fbc41c89b39133d8"
+
+[build-dependencies]
+microcode = { path = "../microcode" }

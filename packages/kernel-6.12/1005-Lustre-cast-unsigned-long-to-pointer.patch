@@ -1,0 +1,25 @@
+From f20e03f10349e700a43bcae7fa6db1cdfcac1506 Mon Sep 17 00:00:00 2001
+From: Martin Harriman <larvacea@mac.com>
+Date: Fri, 14 Feb 2025 21:03:23 +0000
+Subject: [PATCH] Lustre: cast unsigned long to pointer
+
+---
+ net/lnet/lnet/lnet/lib-md.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/lnet/lnet/lnet/lib-md.c b/net/lnet/lnet/lnet/lib-md.c
+index ba318a2..38d35fd 100644
+--- a/net/lnet/lnet/lnet/lib-md.c
++++ b/net/lnet/lnet/lnet/lib-md.c
+@@ -99,7 +99,7 @@ lnet_kvaddr_to_page(unsigned long vaddr)
+ #endif /* HAVE_KMAP_TO_PAGE */
+ #else
+ 
+-	return virt_to_page(vaddr);
++	return virt_to_page((void *) vaddr);
+ #endif /* CONFIG_HIGHMEM */
+ }
+ EXPORT_SYMBOL(lnet_kvaddr_to_page);
+-- 
+2.47.1
+
