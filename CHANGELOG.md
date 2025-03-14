@@ -1,3 +1,17 @@
+# v1.3.0 (2024-03-06)
+
+## OS Changes
+ * Include SHA-256 and SHA-512 CPU routines in the ARM kernel image. ([#67])
+
+[#67]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/67
+
+## Build Changes
+ * Update twoliter to 0.8.0 ([#70])
+ * Update the Bottlerocket SDK to v0.60.0. ([#71])
+
+[#70]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/70
+[#71]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/71
+
 # v1.2.1 (2024-03-06)
 
 ## OS Changes
