@@ -5,7 +5,7 @@ runs:
   steps:
     - run: sudo apt -y install build-essential openssl libssl-dev pkg-config liblz4-tool clang
       shell: bash
-    - uses: actions/cache/restore@v4
+    - uses: actions/cache/restore@d4323d4df104b026a6aa633fdb11d772146be0bf
       # Restore most recent cache if available.
       with:
         path: |
