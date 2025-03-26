@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-svn5gsxxjkpe"
+title = "kernel CVE-2024-35870"
+cve = "CVE-2024-35870"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: smb: client: fix UAF in smb2_reconnect_server()"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.178"
+patched-epoch = "0"
+
+[updateinfo]
+author = "giinglis"
+issue-date = 2025-03-26T23:01:24Z
+arches = ["x86_64", "aarch64"]
+version = "2.0.0"

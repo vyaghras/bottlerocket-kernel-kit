@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-kmyppbfxta2i"
+title = "kernel CVE-2025-21647"
+cve = "CVE-2025-21647"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: sched: sch_cake: add bounds checks to host bulk flow fairness counts"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.178"
+patched-epoch = "0"
+
+[updateinfo]
+author = "giinglis"
+issue-date = 2025-03-26T23:01:24Z
+arches = ["aarch64", "x86_64"]
+version = "2.0.0"

@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-rkeswlh6i27k"
+title = "kernel CVE-2025-21702"
+cve = "CVE-2025-21702"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: pfifo_tail_enqueue: Drop new packet when sch->limit == 0"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.178"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.130"
+patched-epoch = "0"
+
+[updateinfo]
+author = "giinglis"
+issue-date = 2025-03-26T23:01:24Z
+arches = ["aarch64", "x86_64"]
+version = "2.0.0"
