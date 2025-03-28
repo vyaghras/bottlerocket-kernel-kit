@@ -2,7 +2,7 @@
 Description=NVIDIA fabric manager service
 
 [Service]
-ExecStart=/usr/libexec/nvidia/tesla/bin/nv-fabricmanager -c /etc/nvidia/fabricmanager.cfg
+ExecStart=/usr/bin/nv-fabricmanager -c /etc/nvidia/fabricmanager.cfg
 Type=simple
 TimeoutSec=0
 RestartSec=5

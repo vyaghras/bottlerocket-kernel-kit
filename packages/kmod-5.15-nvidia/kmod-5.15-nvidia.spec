@@ -49,12 +49,11 @@ Source300: nvidia-tesla-tmpfiles.conf
 Source301: nvidia-tesla-build-config.toml.in
 Source302: nvidia-open-gpu-config.toml.in
 Source303: nvidia-open-gpu-copy-only-config.toml.in
-Source304: nvidia-tesla-path.env.in
-Source305: nvidia-ld.so.conf.in
-Source306: link-tesla-kernel-modules.service.in
-Source307: load-tesla-kernel-modules.service.in
-Source308: copy-open-gpu-kernel-modules.service.in
-Source309: load-open-gpu-kernel-modules.service.in
+Source304: nvidia-ld.so.conf.in
+Source305: link-tesla-kernel-modules.service.in
+Source306: load-tesla-kernel-modules.service.in
+Source307: copy-open-gpu-kernel-modules.service.in
+Source308: load-open-gpu-kernel-modules.service.in
 
 Patch001: 0001-makefile-allow-to-use-any-kernel-arch.patch
 
@@ -173,7 +172,6 @@ jq -e '."open-gpu"[] | select(."devid" == "0x2330") | ."features"| index("kernel
 popd
 
 %install
-install -d %{buildroot}%{_cross_libexecdir}
 install -d %{buildroot}%{_cross_libdir}
 install -d %{buildroot}%{_cross_tmpfilesdir}
 install -d %{buildroot}%{_cross_unitdir}
@@ -199,6 +197,7 @@ install -p -m 0644 %{S:204} %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}
 # Begin NVIDIA tesla driver
 pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}
 # Proprietary driver
+install -d %{buildroot}%{_cross_bindir}
 install -d %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
 install -d %{buildroot}%{_cross_libdir}/nvidia/tesla
 install -d %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
@@ -216,27 +215,23 @@ install -m 0644 nvidia-open-gpu.toml %{buildroot}%{_cross_factorydir}%{_cross_sy
 sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/open-gpu/drivers/|' %{S:303} > \
   nvidia-open-gpu-copy-only.toml
 install -m 0644 nvidia-open-gpu-copy-only.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
-# Install nvidia-path environment file, will be used as a drop-in for containerd.service since
-# libnvidia-container locates and mounts helper binaries into the containers from either
-# `PATH` or `NVIDIA_PATH`
-sed -e 's|__NVIDIA_BINDIR__|%{_cross_libexecdir}/nvidia/tesla/bin|' %{S:304} > nvidia-path.env
-install -m 0644 nvidia-path.env %{buildroot}%{_cross_factorydir}/nvidia/tesla
+
 # We need to add `_cross_libdir` to the paths loaded by the ldconfig service
 # because libnvidia-container uses the `ldcache` file created by the service, to locate and mount the
 # libraries into the containers
-sed -e 's|__LIBDIR__|%{_cross_libdir}|' %{S:305} > nvidia-tesla.conf
+sed -e 's|__LIBDIR__|%{_cross_libdir}|' %{S:304} > nvidia-tesla.conf
 install -m 0644 nvidia-tesla.conf %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/ld.so.conf.d/
 
 # Services to link/copy/load modules
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:306} > link-tesla-kernel-modules.service
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:307} > load-tesla-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:305} > link-tesla-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:306} > load-tesla-kernel-modules.service
 install -p -m 0644 \
   link-tesla-kernel-modules.service \
   load-tesla-kernel-modules.service \
   %{buildroot}%{_cross_unitdir}
 
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:308} > copy-open-gpu-kernel-modules.service
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:309} > load-open-gpu-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:307} > copy-open-gpu-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:308} > load-open-gpu-kernel-modules.service
 install -p -m 0644 \
   copy-open-gpu-kernel-modules.service \
   load-open-gpu-kernel-modules.service \
@@ -282,14 +277,21 @@ install kernel-open/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/open-gpu/
 # end open driver
 
 # Binaries
-install -m 755 nvidia-smi %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
-install -m 755 nvidia-debugdump %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
-install -m 755 nvidia-cuda-mps-control %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
-install -m 755 nvidia-cuda-mps-server %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
-install -m 755 nvidia-persistenced %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/
+install -m 755 nvidia-smi %{buildroot}%{_cross_bindir}
+install -m 755 nvidia-debugdump %{buildroot}%{_cross_bindir}
+install -m 755 nvidia-cuda-mps-control %{buildroot}%{_cross_bindir}
+install -m 755 nvidia-cuda-mps-server %{buildroot}%{_cross_bindir}
+install -m 755 nvidia-persistenced %{buildroot}%{_cross_bindir}
 install -m 4755 nvidia-modprobe %{buildroot}%{_cross_bindir}
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-smi %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-smi
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-debugdump %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-debugdump
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-cuda-mps-control %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-control
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-cuda-mps-server %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-server
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-persistenced %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-persistenced
+
 %if "%{_cross_arch}" == "x86_64"
-install -m 755 nvidia-ngx-updater %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
+install -m 755 nvidia-ngx-updater %{buildroot}%{_cross_bindir}
+ln -rs %{buildroot}%{_cross_bindir}/nvidia-ngx-updater %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-ngx-updater
 %endif
 
 # Users
@@ -326,8 +328,10 @@ popd
 
 # Begin NVIDIA fabric manager binaries and topologies
 pushd fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
-install -p -m 0755 usr/bin/nv-fabricmanager %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
-install -p -m 0755 usr/bin/nvswitch-audit %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin
+install -p -m 0755 usr/bin/nv-fabricmanager %{buildroot}%{_cross_bindir}
+install -p -m 0755 usr/bin/nvswitch-audit %{buildroot}%{_cross_bindir}
+ln -rs %{buildroot}%{_cross_bindir}/nv-fabricmanager %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nv-fabricmanager
+ln -rs %{buildroot}%{_cross_bindir}/nvswitch-audit %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvswitch-audit
 
 install -d %{buildroot}%{_cross_datadir}/nvidia/tesla/nvswitch
 for t in usr/share/nvidia/nvswitch/*_topology ; do
@@ -338,9 +342,9 @@ popd
 
 %files
 %{_cross_attribution_file}
-%dir %{_cross_libexecdir}/nvidia
 %dir %{_cross_libdir}/nvidia
 %dir %{_cross_datadir}/nvidia
+%dir %{_cross_libexecdir}/nvidia
 %dir %{_cross_libdir}/modules-load.d
 %dir %{_cross_factorydir}%{_cross_sysconfdir}/drivers
 %dir %{_cross_factorydir}%{_cross_sysconfdir}/nvidia
@@ -369,6 +373,11 @@ popd
 %{_cross_libexecdir}/nvidia/tesla/bin/nv-fabricmanager
 %{_cross_libexecdir}/nvidia/tesla/bin/nvswitch-audit
 %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-persistenced
+%{_cross_bindir}/nvidia-debugdump
+%{_cross_bindir}/nvidia-smi
+%{_cross_bindir}/nv-fabricmanager
+%{_cross_bindir}/nvswitch-audit
+%{_cross_bindir}/nvidia-persistenced
 %{_cross_bindir}/nvidia-modprobe
 
 # nvswitch topologies
@@ -383,7 +392,6 @@ popd
 %{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-open-gpu.toml
 %{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-open-gpu-copy-only.toml
 %{_cross_factorydir}%{_cross_sysconfdir}/ld.so.conf.d/nvidia-tesla.conf
-%{_cross_factorydir}/nvidia/tesla/nvidia-path.env
 %{_cross_datadir}/nvidia/open-gpu-supported-devices.json
 
 # driver
@@ -499,8 +507,11 @@ popd
 %exclude %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia-drm.o
 %exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-control
 %exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-server
+%exclude %{_cross_bindir}/nvidia-cuda-mps-control
+%exclude %{_cross_bindir}/nvidia-cuda-mps-server
 %if "%{_cross_arch}" == "x86_64"
 %exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-ngx-updater
+%exclude %{_cross_bindir}/nvidia-ngx-updater
 %endif
 
 # None of these libraries are required by libnvidia-container, so they
