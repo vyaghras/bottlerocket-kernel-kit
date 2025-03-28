@@ -43,7 +43,7 @@ use std::time::Duration;
 const NVIDIA_VENDOR_ID: &str = "10DE";
 
 const DEFAULT_CONFIG_PATH: &str = "/etc/nvidia-migmanager/nvidia-migmanager.toml";
-const NVIDIA_SMI_PATH: &str = "/usr/libexec/nvidia/tesla/bin/nvidia-smi";
+const NVIDIA_SMI_PATH: &str = "/usr/bin/nvidia-smi";
 const SYSTEMCTL_PATH: &str = "/usr/bin/systemctl";
 const REBOOT_REQUIRED_MARKER_FILE: &str = "/run/nvidia-migmanager/reboot-required";
 
