@@ -3,7 +3,7 @@
 ## OS Changes
  * Update kernel-5.15 to version 5.15.178-120.187 ([#81])
  * Update kernel-6.1 to version 6.1.130-139.222 ([#81])
- * Drop kernel-5.10 and kmod-5.10-nvidia ([#80])
+ * Remove kernel-5.10 and kmod-5.10-nvidia ([#80])
 
 ## Build Changes
  * Update twoliter to 0.8.1 ([#77])
