@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.130
+Version: 6.1.131
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/c088b296cf2426b9ad402c0ab6c728177aa81b8b45ab1687b7476ab665443250/kernel-6.1.130-139.222.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/7d46bc64f4afbf05a15c34f96a30cf311ca494c3cfea17df5209bffba880c7cc/kernel-6.1.131-143.221.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.19.64.0.noarch.rpm
@@ -44,9 +44,6 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 # Drop AL revert of upstream patch to minimize delta. The necessary dependency
 # options for nvidia are instead included through DRM_SIMPLE
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
-
-# Fix Lustre warning for GCC 13+
-Patch6001: 6001-lustre-fix-Werror-enum-int-mismatch.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
@@ -635,6 +632,9 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/cpufreq/cpufreq_ondemand.ko.*
 %{_cross_kmoddir}/kernel/drivers/cpufreq/cpufreq_powersave.ko.*
 %{_cross_kmoddir}/kernel/drivers/cpufreq/cpufreq_userspace.ko.*
+%{_cross_kmoddir}/kernel/drivers/dax/device_dax.ko.*
+%{_cross_kmoddir}/kernel/drivers/dax/kmem.ko.*
+%{_cross_kmoddir}/kernel/drivers/dax/dax_pmem.ko.*
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/cpufreq/acpi-cpufreq.ko.*
 %{_cross_kmoddir}/kernel/drivers/cpufreq/pcc-cpufreq.ko.*
@@ -797,17 +797,22 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %if "%{_cross_arch}" == "aarch64"
 %{_cross_kmoddir}/kernel/drivers/net/mdio/of_mdio.ko.*
 %endif
+%{_cross_kmoddir}/kernel/drivers/nvdimm/libnvdimm.ko.*
+%{_cross_kmoddir}/kernel/drivers/nvdimm/nd_btt.ko.*
 %{_cross_kmoddir}/kernel/drivers/nvme/host/nvme-fabrics.ko.*
 %{_cross_kmoddir}/kernel/drivers/nvme/host/nvme-tcp.ko.*
+%{_cross_kmoddir}/kernel/drivers/nvdimm/nd_pmem.ko.g*
 %{_cross_kmoddir}/kernel/drivers/pci/hotplug/acpiphp_ibm.ko.*
 %{_cross_kmoddir}/kernel/drivers/pci/pci-stub.ko.*
 %if "%{_cross_arch}" == "x86_64"
+%{_cross_kmoddir}/kernel/drivers/nvdimm/nd_e820.ko.*
 %{_cross_kmoddir}/kernel/drivers/pci/controller/pci-hyperv-intf.ko.*
 %{_cross_kmoddir}/kernel/drivers/pci/hotplug/cpcihp_generic.ko.*
 %{_cross_kmoddir}/kernel/drivers/platform/x86/wmi-bmof.ko.*
 %{_cross_kmoddir}/kernel/drivers/platform/x86/wmi.ko.*
 %endif
 %if "%{_cross_arch}" == "aarch64"
+ %{_cross_kmoddir}/kernel/drivers/nvdimm/of_pmem.ko.*
 %{_cross_kmoddir}/kernel/drivers/perf/arm-cmn.ko.*
 %endif
 %{_cross_kmoddir}/kernel/drivers/pps/clients/pps-gpio.ko.*
