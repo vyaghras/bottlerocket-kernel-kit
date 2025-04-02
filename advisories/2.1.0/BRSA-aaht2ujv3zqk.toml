@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-aaht2ujv3zqk"
+title = "kernel CVE-2025-21756"
+cve = "CVE-2025-21756"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: vsock: Keep the binding until socket destruction"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.179"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.131"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-04-02T19:56:55Z
+arches = ["x86_64", "aarch64"]
+version = "2.1.0"

@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-vzjyziamhxnn"
+title = "kernel CVE-2025-21761"
+cve = "CVE-2025-21761"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: openvswitch: use RCU protection in ovs_vport_cmd_fill_info()"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.179"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.131"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-04-02T19:56:55Z
+arches = ["aarch64", "x86_64"]
+version = "2.1.0"

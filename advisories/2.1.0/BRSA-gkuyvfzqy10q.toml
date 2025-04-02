@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-gkuyvfzqy10q"
+title = "kernel CVE-2024-56549"
+cve = "CVE-2024-56549"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: cachefiles: Fix NULL pointer dereference in object->file"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.131"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-04-02T19:56:55Z
+arches = ["x86_64", "aarch64"]
+version = "2.1.0"

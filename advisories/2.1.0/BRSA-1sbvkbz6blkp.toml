@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-1sbvkbz6blkp"
+title = "kernel CVE-2025-21727"
+cve = "CVE-2025-21727"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: padata: fix UAF in padata_reorder"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.179"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.131"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-04-02T19:56:55Z
+arches = ["x86_64", "aarch64"]
+version = "2.1.0"

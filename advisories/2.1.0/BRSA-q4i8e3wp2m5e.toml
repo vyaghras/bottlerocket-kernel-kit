@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-q4i8e3wp2m5e"
+title = "kernel CVE-2025-21758"
+cve = "CVE-2025-21758"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ipv6: mcast: add RCU protection to mld_newpack()"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.179"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.131"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-04-02T19:56:55Z
+arches = ["aarch64", "x86_64"]
+version = "2.1.0"
