@@ -1,9 +1,15 @@
-# v2.0.1 (2024-04-02)
+# v2.1.0 (2024-04-02)
 
 ## OS Changes
  * Update kernel-6.1 from 6.1.130-139.222 to 6.1.131-143.221 ([#89])
+ * Update kernel-5.15 from 5.15.178-120.187 to 5.15.179-121.185 ([#91])
 
+## Build Changes
+ * Move NVIDIA helper binaries to standard filesystem location ([#84])
+
+[#84]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/84
 [#89]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/89
+[#91]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/91
 
 # v2.0.0 (2024-03-26)
 
