@@ -8,6 +8,7 @@ members = [
     "packages/kernel-6.12",
     "packages/kmod-5.15-nvidia",
     "packages/kmod-6.1-nvidia",
+    "packages/kmod-6.1-nvidia-r570",
     "packages/nvidia-migmanager",
     "packages/linux-firmware",
     "packages/microcode",
