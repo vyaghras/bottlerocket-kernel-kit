@@ -19,8 +19,8 @@ force-upstream = true
 
 [[package.metadata.build-package.external-files]]
 # Use latest-neuron-srpm-url.sh to get this.
-url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.19.64.0.noarch.rpm"
-sha512 = "f93aa097ea0515533817ce9737810cb8b025c35c3d4367c2e667292c0692d525ffbc9b7972fe957174e206a82e394cc7e076e5b399e1050f2c5f6ed129d4d739"
+url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm"
+sha512 = "e94ea8244f41fd546fb2aa66a793488069a26724b59a4d05355011fca2643f0874a2971e617563c5c2c402952ed160c3b85548f6013c2c60fbc41c89b39133d8"
 force-upstream = true
 
 [build-dependencies]
