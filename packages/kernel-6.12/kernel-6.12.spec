@@ -858,6 +858,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/fs/configfs/configfs.%{_ko}
 %{_cross_kmoddir}/kernel/fs/efivarfs/efivarfs.%{_ko}
 %{_cross_kmoddir}/kernel/fs/exfat/exfat.%{_ko}
+%{_cross_kmoddir}/kernel/fs/ext4/ext4.%{_ko}
 %{_cross_kmoddir}/kernel/fs/fat/fat.%{_ko}
 %{_cross_kmoddir}/kernel/fs/fat/msdos.%{_ko}
 %{_cross_kmoddir}/kernel/fs/fat/vfat.%{_ko}
@@ -865,6 +866,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/fs/fuse/fuse.%{_ko}
 %{_cross_kmoddir}/kernel/fs/fuse/virtiofs.%{_ko}
 %{_cross_kmoddir}/kernel/fs/isofs/isofs.%{_ko}
+%{_cross_kmoddir}/kernel/fs/jbd2/jbd2.%{_ko}
 %{_cross_kmoddir}/kernel/fs/lockd/lockd.%{_ko}
 %{_cross_kmoddir}/kernel/fs/lustre/fid/fid.%{_ko}
 %{_cross_kmoddir}/kernel/fs/lustre/fld/fld.%{_ko}
@@ -877,6 +879,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/fs/lustre/obdecho/obdecho.%{_ko}
 %{_cross_kmoddir}/kernel/fs/lustre/osc/osc.%{_ko}
 %{_cross_kmoddir}/kernel/fs/lustre/ptlrpc/ptlrpc.%{_ko}
+%{_cross_kmoddir}/kernel/fs/mbcache.%{_ko}
 %{_cross_kmoddir}/kernel/fs/netfs/netfs.%{_ko}
 %{_cross_kmoddir}/kernel/fs/nfs/blocklayout/blocklayoutdriver.%{_ko}
 %{_cross_kmoddir}/kernel/fs/nfs_common/grace.%{_ko}
@@ -955,6 +958,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/lib/crc8.%{_ko}
 %endif
+%{_cross_kmoddir}/kernel/lib/crc16.%{_ko}
 %{_cross_kmoddir}/kernel/lib/crc-itu-t.%{_ko}
 %{_cross_kmoddir}/kernel/lib/crypto/libarc4.%{_ko}
 %{_cross_kmoddir}/kernel/lib/crypto/libchacha20poly1305.%{_ko}
