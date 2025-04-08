@@ -147,6 +147,12 @@ CONFIG_FW_LOADER_COMPRESS=y
 # CONFIG_FW_LOADER_COMPRESS_XZ is not set
 CONFIG_FW_LOADER_COMPRESS_ZSTD=y
 
+# Prefer LZ4 for zram compression
+CONFIG_ZRAM_BACKEND_LZ4=y
+CONFIG_ZRAM_DEF_COMP_LZ4=y
+# CONFIG_ZRAM_BACKEND_LZO is not set
+# CONFIG_ZRAM_DEF_COMP_LZO is not set
+
 # Add virtio drivers for development setups running as guests in qemu
 CONFIG_VIRTIO_CONSOLE=m
 CONFIG_HW_RANDOM_VIRTIO=m
