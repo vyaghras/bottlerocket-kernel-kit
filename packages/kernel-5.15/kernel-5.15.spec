@@ -10,7 +10,7 @@ URL: https://www.kernel.org/
 Source0: https://cdn.amazonlinux.com/blobstore/2f27c27e414456f2b7bf405a7a4711e426006430692829026dd1d2cd2d7a20e4/kernel-5.15.179-121.185.amzn2.src.rpm
 Source1: gpgkey-99E617FE5DB527C0D8BD5F8E11CF1F95C87F5B1A.asc
 # Use latest-neuron-srpm-url.sh to get this.
-Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.19.64.0.noarch.rpm
+Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
 Source3: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 Source100: config-bottlerocket
 
