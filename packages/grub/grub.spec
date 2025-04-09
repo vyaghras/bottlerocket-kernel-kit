@@ -192,7 +192,7 @@ sed -e "s,__VERSION__,%{version},g" %{S:4} > sbat.csv
 popd
 
 %install
-MODS=(configfile echo ext2 gptprio linux normal part_gpt reboot sleep zstd search)
+MODS=(configfile echo ext2 gptprio linux normal part_gpt reboot sleep search)
 
 # These modules are needed for signature verification, which is currently only
 # done for the EFI build of GRUB.
