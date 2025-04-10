@@ -231,6 +231,9 @@ make -s\\\
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron
 %endif
 
+make -C tools/bpf/bpftool bootstrap
+./tools/bpf/bpftool/bootstrap/bpftool btf dump file vmlinux format c > vmlinux.h
+
 %install
 %kmake %{?_smp_mflags} headers_install
 %kmake %{?_smp_mflags} modules_install
@@ -312,6 +315,7 @@ chmod 600 System.map
   echo .config
   echo Module.symvers
   echo System.map
+  echo vmlinux.h
 ) | sort -u > kernel_devel_files
 
 # Install development files into the canonical location for use by downstream
