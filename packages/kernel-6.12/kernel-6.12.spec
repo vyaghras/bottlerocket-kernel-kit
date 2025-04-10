@@ -1,7 +1,9 @@
 %global debug_package %{nil}
 %global __strip /bin/true
 
-Name: %{_cross_os}kernel-6.12
+%global kmajor 6.12
+
+Name: %{_cross_os}kernel-%{kmajor}
 Version: 6.12.20
 Release: 1%{?dist}
 Summary: The Linux kernel
@@ -72,9 +74,11 @@ Conflicts: %{_cross_os}image-feature(fips)
 # No squashfs support, rely on erofs for compression
 Conflicts: %{_cross_os}image-feature(no-erofs-root-partition)
 
-# Pull in expected modules and development files.
+# No runtime kernel-devel support
+Conflicts: %{_cross_os}image-feature(external-kmod-development)
+
+# Pull in expected modules.
 Requires: %{name}-modules = %{version}-%{release}
-Requires: %{name}-devel = %{version}-%{release}
 
 # Pull in platform-dependent boot config snippets.
 Requires: (%{name}-bootconfig-aws if %{_cross_os}variant-platform(aws))
@@ -88,7 +92,7 @@ Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without 
 # Pull in FIPS-related files if needed.
 Requires: (%{name}-fips if %{_cross_os}image-feature(fips))
 
-%global _cross_ksrcdir %{_cross_usrsrc}/kernels
+%global _cross_ksrcdir %{_cross_usrsrc}/kernels/%{version}
 %global _cross_kmoddir %{_cross_libdir}/modules/%{version}
 
 %description
@@ -96,27 +100,8 @@ Requires: (%{name}-fips if %{_cross_os}image-feature(fips))
 
 %package devel
 Summary: Configured Linux kernel source for module building
-Requires: (%{name}-devel-unpacked if %{_cross_os}image-feature(erofs-root-partition) else %{name}-devel-squashed)
 
 %description devel
-%{summary}.
-
-%package devel-squashed
-Summary: Configured Linux kernel source for module building (squashed)
-
-%description devel-squashed
-%{summary}.
-
-%package devel-unpacked
-Summary: Configured Linux kernel source for module building (unpacked)
-
-%description devel-unpacked
-%{summary}.
-
-%package archive
-Summary: Archived Linux kernel source for module building
-
-%description archive
 %{summary}.
 
 %package bootconfig-aws
@@ -329,42 +314,19 @@ chmod 600 System.map
   echo System.map
 ) | sort -u > kernel_devel_files
 
-# Create squashfs of kernel-devel files (ie. /usr/src/kernels/<version>).
-#
-# -no-exports:
-# The filesystem does not need to be exported via NFS.
-#
-# -all-root:
-# Make all files owned by root rather than the build user.
-#
-# -comp zstd:
-# zstd offers compression ratios like xz and decompression speeds like lz4.
-SQUASHFS_OPTS="-no-exports -all-root -comp zstd"
-mkdir -p src_squashfs/%{version}
-tar c -T kernel_devel_files | tar x -C src_squashfs/%{version}
-mksquashfs src_squashfs kernel-devel.squashfs ${SQUASHFS_OPTS}
-
-# Create an uncompressed set of kernel-devel files in the standard location.
-install -d %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}
-tar c -T kernel_devel_files | tar x -C %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}
-
-# Create a tarball of the same files, for use outside the running system.
-# In theory we could extract these files with `unsquashfs`, but we do not want
-# to require it to be installed on the build host, and it errors out when run
-# inside Docker unless the limit for open files is lowered.
-tar cf kernel-devel.tar src_squashfs/%{version} --transform='s|src_squashfs/%{version}|kernel-devel|'
-xz -T0 kernel-devel.tar
-
-install -D kernel-devel.squashfs %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel.squashfs
-install -D kernel-devel.tar.xz %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel.tar.xz
+# Install development files into the canonical location for use by downstream
+# packages as a build dependency.
 install -d %{buildroot}%{_cross_ksrcdir}
+tar c -T kernel_devel_files | tar x -C %{buildroot}%{_cross_ksrcdir}
 
-# Replace the incorrect links from modules_install. These will be bound
-# into a host container (and unused in the host) so they must not point
-# to %{_cross_usrsrc} (eg. /x86_64-bottlerocket-linux-gnu/sys-root/...)
+# Replace the incorrect links from modules_install.
 rm -f %{buildroot}%{_cross_kmoddir}/build %{buildroot}%{_cross_kmoddir}/source
-ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{_cross_kmoddir}/build
-ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{_cross_kmoddir}/source
+ln -rs %{_cross_ksrcdir} %{buildroot}%{_cross_kmoddir}/build
+ln -rs %{_cross_ksrcdir} %{buildroot}%{_cross_kmoddir}/source
+
+# Make it easy to find sources and modules across minor version changes.
+ln -rs %{buildroot}%{_cross_ksrcdir} %{buildroot}%{_cross_usrsrc}/kernels/%{kmajor}
+ln -rs %{buildroot}%{_cross_kmoddir} %{buildroot}%{_cross_libdir}/modules/%{kmajor}
 
 # Install a copy of System.map so that module dependencies can be regenerated.
 install -p -m 0600 System.map %{buildroot}%{_cross_kmoddir}
@@ -383,6 +345,10 @@ for fipsmod in $(cat %{_sourcedir}/fipsmodules-%{_cross_arch}) ; do
   (( i+=1 ))
 done
 
+# Create the mount point and drop-in for the runtime kernel-devel directory.
+# This will be empty, but is retained for compatibility with the "release"
+# package, which expects to set up a writable mount under /usr/src/kernels.
+install -d %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}
 LOWERPATH=$(systemd-escape --path %{_cross_sharedstatedir}/kernel-devel/.overlay/lower)
 mkdir -p %{buildroot}%{_cross_unitdir}/"${LOWERPATH}.mount.d"
 sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:210} \
@@ -407,6 +373,9 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_attribution_file}
 /boot/vmlinuz
 /boot/config
+%dir %{_cross_usrsrc}/kernels
+%{_cross_datadir}/bottlerocket/kernel-devel
+%{_cross_unitdir}/*kernel*devel*.mount.d/no-squashfs.conf
 
 %files headers
 %dir %{_cross_includedir}/asm
@@ -435,19 +404,10 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_includedir}/xen/*
 
 %files devel
-%dir %{_cross_ksrcdir}
+%{_cross_usrsrc}/kernels/%{kmajor}
+%{_cross_ksrcdir}
 %{_cross_kmoddir}/source
 %{_cross_kmoddir}/build
-
-%files devel-squashed
-%{_cross_datadir}/bottlerocket/kernel-devel.squashfs
-
-%files devel-unpacked
-%{_cross_datadir}/bottlerocket/kernel-devel
-%{_cross_unitdir}/*kernel*devel*.mount.d/no-squashfs.conf
-
-%files archive
-%{_cross_datadir}/bottlerocket/kernel-devel.tar.xz
 
 %files fips
 %{_cross_unitdir}/check-fips-modules.service.d/*.conf
@@ -460,6 +420,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 
 %files modules
 %dir %{_cross_libdir}/modules
+%{_cross_libdir}/modules/%{kmajor}
 %dir %{_cross_kmoddir}
 %{_cross_kmoddir}/modules.alias
 %{_cross_kmoddir}/modules.alias.bin
