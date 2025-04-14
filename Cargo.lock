@@ -9,6 +9,7 @@ dependencies = [
  "grub",
  "kernel-5_15",
  "kernel-6_1",
+ "kernel-6_12",
  "kmod-5_15-nvidia",
  "kmod-6_1-nvidia",
  "libkcapi",
@@ -31,6 +32,13 @@ dependencies = [
 
 [[package]]
 name = "kernel-6_1"
+version = "0.1.0"
+dependencies = [
+ "microcode",
+]
+
+[[package]]
+name = "kernel-6_12"
 version = "0.1.0"
 dependencies = [
  "microcode",

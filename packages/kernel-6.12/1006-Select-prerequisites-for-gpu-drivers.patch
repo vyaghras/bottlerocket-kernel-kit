@@ -1,0 +1,29 @@
+From 574ee6cf29164ce587f525434611a76e10e4cc6e Mon Sep 17 00:00:00 2001
+From: Martin Harriman <mharrimn@amazon.com>
+Date: Sun, 30 Mar 2025 22:36:38 +0000
+Subject: [PATCH] Select prerequisites for gpu drivers
+
+---
+ drivers/gpu/drm/tiny/Kconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
+index f6889f649..98b597e13 100644
+--- a/drivers/gpu/drm/tiny/Kconfig
++++ b/drivers/gpu/drm/tiny/Kconfig
+@@ -85,6 +85,12 @@ config DRM_SIMPLEDRM
+ 	select APERTURE_HELPERS
+ 	select DRM_GEM_SHMEM_HELPER
+ 	select DRM_KMS_HELPER
++	select DRM_DISPLAY_DP_HELPER
++	select DRM_DISPLAY_HELPER
++	select DRM_KMS_HELPER
++	select DRM_SUBALLOC_HELPER
++	select DRM_TTM
++	select DRM_TTM_HELPER
+ 	help
+ 	  DRM driver for simple platform-provided framebuffers.
+ 
+-- 
+2.47.1
+
