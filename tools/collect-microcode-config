@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+OUTPUT_DIR=packages/microcode
+
+usage() {
+    cat <<EOF
+Usage: $0 -o OUTPUT-DIRECTORY
+Collect microcode configurations after building microcode package
+
+    -o, --output-dir    path to the output directory
+    -h, --help          show this help text
+EOF
+}
+
+usage_error() {
+    >&2 usage
+    bail "$1"
+}
+
+
+#
+# Parse arguments
+#
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -o|--output-dir)
+            shift; OUTPUT_DIR=$1 ;;
+        -h|--help)
+            usage; exit 0 ;;
+        *)
+            usage_error "Invalid option '$1'" ;;
+    esac
+    shift
+done
+
+readonly OUTPUT_DIR
+mkdir -p "${OUTPUT_DIR}"
+
+binaries=()
+cross_libdir="/x86_64-bottlerocket-linux-gnu/sys-root/usr/lib"
+make PACKAGE=microcode ARCH=x86_64
+for microcode_rpm in build/rpms/microcode/*.x86_64.rpm; do
+    while IFS= read -r line; do
+        relative_path="${line#"${cross_libdir}"/firmware/}"
+        binaries+=("${relative_path}")
+    done < <(rpm -ql "${microcode_rpm}" | grep "^${cross_libdir}/firmware/.*-ucode/")
+done
+
+microcode=$(echo "${binaries[@]}" | sort )
+
+cat <<EOF > "${OUTPUT_DIR}"/config-microcode
+CONFIG_EXTRA_FIRMWARE="${microcode} "
+CONFIG_EXTRA_FIRMWARE_DIR="${cross_libdir}/firmware"
+EOF
+
+

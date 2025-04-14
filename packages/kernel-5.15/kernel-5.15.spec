@@ -13,6 +13,8 @@ Source1: gpgkey-99E617FE5DB527C0D8BD5F8E11CF1F95C87F5B1A.asc
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
 Source3: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 Source100: config-bottlerocket
+Source101: config-full-bottlerocket-x86_64
+Source102: config-full-bottlerocket-aarch64
 
 # Neuron-related drop-ins.
 Source220: neuron-sysinit.target.drop-in.conf
@@ -138,13 +140,23 @@ EOF
 export ARCH="%{_cross_karch}"
 export CROSS_COMPILE="%{_cross_target}-"
 
-KCONFIG_CONFIG="arch/%{_cross_karch}/configs/%{_cross_vendor}_defconfig" \
+export KCONFIG_CONFIG="arch/%{_cross_karch}/configs/%{_cross_vendor}_defconfig"
 scripts/kconfig/merge_config.sh \
   ../config-%{_cross_arch} \
 %if "%{_cross_arch}" == "x86_64"
   ../config-microcode \
 %endif
   %{S:100}
+
+%if "%{_cross_arch}" == "x86_64"
+SOURCE_FILE="%{S:101}"
+%else
+SOURCE_FILE="%{S:102}"
+%endif
+if ! diff "${KCONFIG_CONFIG}" "${SOURCE_FILE}"; then
+  echo "error: source and build kernel configurations do not match"
+  exit 1
+fi
 
 rm -f ../config-* ../*.patch
 
