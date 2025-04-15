@@ -167,6 +167,9 @@ CONFIG_BOOT_CONFIG=y
 # Enables support for checkpoint/restore
 CONFIG_CHECKPOINT_RESTORE=y
 
+# Enable cgroup v1 cpusets controller
+CONFIG_CPUSETS_V1=y
+
 # Disable user-mode helper for bpfilter, since it relies on a more complete set
 # of userspace libraries for the target than we want to depend on at kernel
 # build time.
