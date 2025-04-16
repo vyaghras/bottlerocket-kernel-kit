@@ -48,6 +48,35 @@ CONFIG_FB=y
 CONFIG_FB_EFI=y
 CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER=y
 
+# Do not allow writes to a block device if a filesystem is mounted on it.
+# CONFIG_BLK_DEV_WRITE_MOUNTED is not set
+
+# Bottlerocket does not hibernate
+# CONFIG_HIBERNATION is not set
+
+# Do not permit processes to push characters into their controlling tty device
+# CONFIG_LEGACY_TIOCSTI is not set
+
+# Bottlerocket does not livepatch
+# CONFIG_LIVEPATCH is not set
+
+# The "magic sysrq" key is enabled. Set the default operations available
+# through a console device. All operations are always available via
+# /proc/sysrq-trigger, and this default can be overridden.
+# SysRq operations enabled by default:
+# 176 = sync (16) + remount read-only (32) + reboot/poweroff (128)
+CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE=176
+
+# We have a relocatable kernel, so randomize the kernel base address, both
+# physical and virtual.
+CONFIG_RANDOMIZE_BASE=y
+
+# Set the default state of kernel stack address randomization. With
+# randomization on, the kernel stack offset is randomized.
+# The default can be overriden via a kernel command-line option,
+# randomize_kstack_offset=[on/off].
+CONFIG_RANDOMIZE_KSTACK_OFFSET_DEFAULT=y
+
 # Turn off i915
 # CONFIG_DRM_I915 is not set
 
