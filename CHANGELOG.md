@@ -5,7 +5,7 @@
 
 [#101]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/101
 
-# v2.2.0 (2024-04-17)
+# v2.2.0 (2025-04-17)
 
 ## OS Changes
  * Add kernel 6.12 ([#93])
@@ -22,7 +22,7 @@
 [#96]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/96
 [#100]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/100
 
-# v2.1.0 (2024-04-02)
+# v2.1.0 (2025-04-02)
 
 ## OS Changes
  * Update kernel-6.1 from 6.1.130-139.222 to 6.1.131-143.221 ([#89])
@@ -35,7 +35,7 @@
 [#89]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/89
 [#91]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/91
 
-# v2.0.0 (2024-03-26)
+# v2.0.0 (2025-03-26)
 
 ## OS Changes
  * Update kernel-5.15 to version 5.15.178-120.187 ([#81])
@@ -49,7 +49,7 @@
 [#80]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/80
 [#81]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/81
 
-# v1.3.0 (2024-03-06)
+# v1.3.0 (2025-03-06)
 
 ## OS Changes
  * Include SHA-256 and SHA-512 CPU routines in the ARM kernel image. ([#67])
@@ -63,7 +63,7 @@
 [#70]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/70
 [#71]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/71
 
-# v1.2.1 (2024-03-06)
+# v1.2.1 (2025-03-06)
 
 ## OS Changes
  * Update kernel-5.10 from 5.10.234-225.895 to 5.10.234-225.910 ([#63])
@@ -77,7 +77,7 @@
 
 [#61]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/61
 
-# v1.2.0 (2024-02-26)
+# v1.2.0 (2025-02-26)
 
 ## Build Changes
  * Update `twoliter` from 0.7.2 to 0.7.3 ([#51])
