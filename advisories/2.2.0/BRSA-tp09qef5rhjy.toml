@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-tp09qef5rhjy"
+title = "kernel CVE-2024-35866"
+cve = "CVE-2024-35866"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: smb: client: fix potential UAF in cifs_dump_full_key()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.132"
+patched-epoch = "0"
+
+[updateinfo]
+author = "ceradev"
+issue-date = 2025-04-17T22:33:53Z
+arches = ["aarch64", "x86_64"]
+version = "2.2.0"
