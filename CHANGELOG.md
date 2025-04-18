@@ -1,3 +1,10 @@
+# v2.2.2 (2025-04-18)
+
+## OS Changes
+ * Update to drivers for kmod-5.15-nvidia and kmod-6.1-nvidia ([#108])
+
+[#108]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/108
+
 # v2.2.1 (2025-04-17)
 
 ## Build Changes
