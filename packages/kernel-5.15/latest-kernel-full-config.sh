@@ -53,7 +53,7 @@ merge_kernel_configs() {
     kernel_path=$PWD
 
     version="$(rpm --query --nosignature --queryformat '%{VERSION}' "${rpm_file}")"
-    readarray -t br_patches < <(find "${kernel_path}" -name "*.patch")
+    readarray -t br_patches < <(find "${kernel_path}" -maxdepth 1  -name "*.patch")
 
     tmpdir=$(mktemp -d)
     cp "${rpm_file}" "${tmpdir}/"
