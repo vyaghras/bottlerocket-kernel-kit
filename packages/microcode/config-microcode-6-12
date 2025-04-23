@@ -1,0 +1,2 @@
+CONFIG_EXTRA_FIRMWARE="amd-ucode/microcode_amd.bin amd-ucode/microcode_amd_fam15h.bin amd-ucode/microcode_amd_fam16h.bin amd-ucode/microcode_amd_fam17h.bin amd-ucode/microcode_amd_fam19h.bin intel-ucode/06-1a-05 intel-ucode/06-2c-02 intel-ucode/06-2d-06 intel-ucode/06-2d-07 intel-ucode/06-3e-04 intel-ucode/06-3f-02 intel-ucode/06-3f-04 intel-ucode/06-4f-01 intel-ucode/06-55-04 intel-ucode/06-55-07 intel-ucode/06-6a-06 intel-ucode/06-8f-08 intel-ucode/06-cf-02 "
+CONFIG_EXTRA_FIRMWARE_DIR="/x86_64-bottlerocket-linux-gnu/sys-root/usr/lib/firmware"
