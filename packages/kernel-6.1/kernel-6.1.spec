@@ -700,6 +700,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/i2c/i2c-core.ko.*
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_cm.ko.*
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_core.ko.*
+%{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_umad.ko.*
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_uverbs.ko.*
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/iw_cm.ko.*
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/rdma_cm.ko.*
