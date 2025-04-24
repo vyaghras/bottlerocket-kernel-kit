@@ -647,6 +647,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/i2c/i2c-core.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_cm.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_core.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_umad.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/ib_uverbs.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/iw_cm.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/infiniband/core/rdma_cm.%{_ko}
