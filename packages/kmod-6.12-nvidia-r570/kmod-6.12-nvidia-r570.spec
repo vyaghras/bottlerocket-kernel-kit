@@ -8,6 +8,9 @@
 %global fm_arch %{_cross_arch}
 %endif
 
+%global kernel_major 6.12
+%global kernel_sources %{_cross_usrsrc}/kernels/%{kernel_major}
+
 # With the split of the firmware binary from firmware/gsp.bin to firmware/gsp_ga10x.bin
 # and firmware/gsp_tu10x.bin the file format changed from executable to relocatable.
 # The __spec_install_post macro will by default try to strip all binary files.
@@ -57,7 +60,7 @@ Source308: load-open-gpu-kernel-modules.service.in
 
 Patch001: 0001-makefile-allow-to-use-any-kernel-arch.patch
 
-BuildRequires: %{_cross_os}kernel-6.12-archive
+BuildRequires: %{_cross_os}kernel-6.12-devel
 Requires: %{_cross_os}nvidia-migmanager
 
 %description
@@ -108,12 +111,6 @@ rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm |
 
 # Add the license.
 install -p -m 0644 %{S:2} %{S:3} .
-
-%global kernel_sources %{_builddir}/kernel-devel
-tar -xf %{_cross_datadir}/bottlerocket/kernel-devel.tar.xz
-
-%define _kernel_version %(ls %{kernel_sources}/include/config/kernel.release)
-%global _cross_kmoddir %{_cross_libdir}/modules/%{_kernel_version}
 
 # This recipe was based in the NVIDIA yum/dnf specs:
 # https://github.com/NVIDIA/yum-packaging-precompiled-kmod
@@ -179,9 +176,8 @@ install -d %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/{drivers,ld.so.c
 install -d %{buildroot}%{_cross_sysusersdir}
 install -d %{buildroot}%{_cross_bindir}
 
-KERNEL_VERSION=$(cat %{kernel_sources}/include/config/kernel.release)
 sed \
-  -e "s|__KERNEL_VERSION__|${KERNEL_VERSION}|" \
+  -e "s|__KERNEL_VERSION__|%{kernel_major}|" \
   -e "s|__PREFIX__|%{_cross_prefix}|" %{S:200} > nvidia.conf
 install -p -m 0644 nvidia.conf %{buildroot}%{_cross_tmpfilesdir}
 
