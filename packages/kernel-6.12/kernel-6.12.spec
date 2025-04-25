@@ -346,10 +346,13 @@ for fipsmod in $(cat %{_sourcedir}/fipsmodules-%{_cross_arch}) ; do
   (( i+=1 ))
 done
 
-# Create the mount point and drop-in for the runtime kernel-devel directory.
-# This will be empty, but is retained for compatibility with the "release"
-# package, which expects to set up a writable mount under /usr/src/kernels.
-install -d %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}
+# Create the mount point for the runtime kernel-devel directory, and populate
+# with the linker script that driverdog needs.
+install -d %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}/scripts
+install -p -m 0644 scripts/module.lds \
+  %{buildroot}%{_cross_datadir}/bottlerocket/kernel-devel/%{version}/scripts
+
+# Add a drop-in for compatibility with the release package's mount unit.
 LOWERPATH=$(systemd-escape --path %{_cross_sharedstatedir}/kernel-devel/.overlay/lower)
 mkdir -p %{buildroot}%{_cross_unitdir}/"${LOWERPATH}.mount.d"
 sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:210} \
@@ -375,7 +378,8 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 /boot/vmlinuz
 /boot/config
 %dir %{_cross_usrsrc}/kernels
-%{_cross_datadir}/bottlerocket/kernel-devel
+%dir %{_cross_datadir}/bottlerocket/kernel-devel
+%{_cross_datadir}/bottlerocket/kernel-devel/*
 %{_cross_unitdir}/*kernel*devel*.mount.d/no-squashfs.conf
 
 %files headers
