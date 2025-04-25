@@ -409,6 +409,9 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_includedir}/xen/*
 
 %files devel
+# Allow downstream package builds to modify these files, since they need to
+# rebuild tools for the current host architecture.
+%defattr(664, root, builder, 775)
 %{_cross_usrsrc}/kernels/%{kmajor}
 %{_cross_ksrcdir}
 %{_cross_kmoddir}/source
