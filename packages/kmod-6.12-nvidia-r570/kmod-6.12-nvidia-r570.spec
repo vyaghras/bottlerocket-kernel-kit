@@ -50,13 +50,21 @@ Source206: nvidia-persistenced.service
 # NVIDIA tesla conf files from 300 to 399
 Source300: nvidia-tesla-tmpfiles.conf
 Source301: nvidia-tesla-build-config.toml.in
-Source302: nvidia-open-gpu-config.toml.in
-Source303: nvidia-open-gpu-copy-only-config.toml.in
-Source304: nvidia-ld.so.conf.in
-Source305: link-tesla-kernel-modules.service.in
-Source306: load-tesla-kernel-modules.service.in
-Source307: copy-open-gpu-kernel-modules.service.in
-Source308: load-open-gpu-kernel-modules.service.in
+Source302: nvidia-ld.so.conf.in
+
+# Driverdog config templates from 400 to 499
+Source400: nvidia-open-gpu-config.toml.in
+Source401: nvidia-open-gpu-copy-only-config.toml.in
+Source402: nvidia-grid-config.toml.in
+Source403: nvidia-grid-copy-only-config.toml.in
+
+# Systemd service templates from 500 to 599
+Source500: link-tesla-kernel-modules.service.in
+Source501: load-tesla-kernel-modules.service.in
+Source502: copy-open-gpu-kernel-modules.service.in
+Source503: load-open-gpu-kernel-modules.service.in
+Source504: copy-grid-kernel-modules.service.in
+Source505: load-grid-kernel-modules.service.in
 
 Patch001: 0001-makefile-allow-to-use-any-kernel-arch.patch
 
@@ -82,6 +90,17 @@ Requires: %{_cross_os}variant-platform(aws)
 %description open-gpu
 %{summary}.
 
+%if "%{_cross_arch}" == "x86_64"
+%package grid
+Summary: NVIDIA %{tesla_major} GRID driver
+Version: %{tesla_ver}
+License: MIT AND GPL-2.0-only
+Requires: %{_cross_os}variant-platform(aws)
+
+%description grid
+%{summary}.
+%endif
+
 %package tesla
 Summary: NVIDIA %{tesla_major} Tesla driver
 Version: %{tesla_ver}
@@ -91,6 +110,9 @@ Requires: %{name}
 Requires: %{name}-fabricmanager
 Provides: %{name}-tesla(fabricmanager)
 Requires: %{name}-open-gpu
+%if "%{_cross_arch}" == "x86_64"
+Requires: %{name}-grid
+%endif
 
 %description tesla
 %{summary}
@@ -102,6 +124,7 @@ sh %{_sourcedir}/NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}.run -x
 # Move to the sources directory and apply patch
 pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}
 %patch 1 -p1
+cp -r kernel-open grid
 popd
 
 # Extract fabricmanager from the rpm via cpio rather than `%%setup` since the
@@ -148,6 +171,18 @@ rm nvidia{,-modeset,-peermem,-drm}.ko
 
 # End proprietary driver build
 popd
+
+%if "%{_cross_arch}" == "x86_64"
+# Begin GRID build
+pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}/grid
+
+# We set IGNORE_CC_MISMATCH even though we are using the same compiler used to
+# compile the kernel, if we don't set this flag the compilation fails
+make %{?_smp_mflags} ARCH=%{_cross_karch} IGNORE_CC_MISMATCH=1 GRID_BUILD=1 GRID_BUILD_CSP=1 SYSSRC=%{kernel_sources} CC=%{_cross_target}-gcc LD=%{_cross_target}-ld
+
+# End GRID build
+popd
+%endif
 
 # Grab the list of supported devices
 pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}/supported-gpus
@@ -199,38 +234,59 @@ install -d %{buildroot}%{_cross_libdir}/nvidia/tesla
 install -d %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
 install -d %{buildroot}%{_cross_factorydir}/nvidia/tesla
 install -d %{buildroot}%{_cross_factorydir}/nvidia/open-gpu
+%if "%{_cross_arch}" == "x86_64"
+install -d %{buildroot}%{_cross_factorydir}/nvidia/grid
+%endif
 install -d %{buildroot}%{_cross_datadir}/nvidia/open-gpu/drivers
 
 install -m 0644 %{S:300} %{buildroot}%{_cross_tmpfilesdir}/nvidia-tesla.conf
 sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/tesla/module-objects.d/|' %{S:301} > \
   nvidia-tesla.toml
 install -m 0644 nvidia-tesla.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
-sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/open-gpu/drivers/|' %{S:302} > \
+sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/open-gpu/drivers/|' %{S:400} > \
   nvidia-open-gpu.toml
 install -m 0644 nvidia-open-gpu.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
-sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/open-gpu/drivers/|' %{S:303} > \
+sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/open-gpu/drivers/|' %{S:401} > \
   nvidia-open-gpu-copy-only.toml
 install -m 0644 nvidia-open-gpu-copy-only.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+
+%if "%{_cross_arch}" == "x86_64"
+sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/grid/drivers/|' %{S:402} > \
+  nvidia-grid.toml
+install -m 0644 nvidia-grid.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+sed -e 's|__NVIDIA_MODULES__|%{_cross_datadir}/nvidia/grid/drivers/|' %{S:403} > \
+  nvidia-grid-copy-only.toml
+install -m 0644 nvidia-grid-copy-only.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+%endif
 # We need to add `_cross_libdir` to the paths loaded by the ldconfig service
 # because libnvidia-container uses the `ldcache` file created by the service,
 # to locate and mount the libraries into the containers
-sed -e 's|__LIBDIR__|%{_cross_libdir}|' %{S:304} > nvidia-tesla.conf
+sed -e 's|__LIBDIR__|%{_cross_libdir}|' %{S:302} > nvidia-tesla.conf
 install -m 0644 nvidia-tesla.conf %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/ld.so.conf.d/
 
 # Services to link/copy/load modules
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:305} > link-tesla-kernel-modules.service
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:306} > load-tesla-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:500} > link-tesla-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:501} > load-tesla-kernel-modules.service
 install -p -m 0644 \
   link-tesla-kernel-modules.service \
   load-tesla-kernel-modules.service \
   %{buildroot}%{_cross_unitdir}
 
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:307} > copy-open-gpu-kernel-modules.service
-sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:308} > load-open-gpu-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:502} > copy-open-gpu-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:503} > load-open-gpu-kernel-modules.service
 install -p -m 0644 \
   copy-open-gpu-kernel-modules.service \
   load-open-gpu-kernel-modules.service \
   %{buildroot}%{_cross_unitdir}
+
+%if "%{_cross_arch}" == "x86_64"
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:504} > copy-grid-kernel-modules.service
+sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:505} > load-grid-kernel-modules.service
+install -p -m 0644 \
+  copy-grid-kernel-modules.service \
+  load-grid-kernel-modules.service \
+  %{buildroot}%{_cross_unitdir}
+%endif
 
 # proprietary driver
 install kernel/nvidia.mod.o %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
@@ -270,6 +326,26 @@ install kernel-open/nvidia-peermem.ko %{buildroot}%{_cross_datadir}/nvidia/open-
 # drm
 install kernel-open/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/open-gpu/drivers/
 # end open driver
+
+%if "%{_cross_arch}" == "x86_64"
+# GRID driver
+install -d %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install grid/nvidia.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+
+# uvm
+install grid/nvidia-uvm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+
+# modeset
+install grid/nvidia-modeset.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+
+# peermem
+install grid/nvidia-peermem.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+
+# drm
+install grid/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+
+# End GRID driver
+%endif
 
 # Binaries
 install -m 755 nvidia-smi %{buildroot}%{_cross_bindir}
@@ -362,6 +438,10 @@ popd
 %{_cross_unitdir}/load-tesla-kernel-modules.service
 %{_cross_unitdir}/copy-open-gpu-kernel-modules.service
 %{_cross_unitdir}/load-open-gpu-kernel-modules.service
+%if "%{_cross_arch}" == "x86_64"
+%{_cross_unitdir}/copy-grid-kernel-modules.service
+%{_cross_unitdir}/load-grid-kernel-modules.service
+%endif
 
 # Binaries
 %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-debugdump
@@ -401,6 +481,10 @@ popd
 %{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-tesla.toml
 %{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-open-gpu.toml
 %{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-open-gpu-copy-only.toml
+%if "%{_cross_arch}" == "x86_64"
+%{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-grid.toml
+%{_cross_factorydir}%{_cross_sysconfdir}/drivers/nvidia-grid-copy-only.toml
+%endif
 %{_cross_factorydir}%{_cross_sysconfdir}/ld.so.conf.d/nvidia-tesla.conf
 %{_cross_datadir}/nvidia/open-gpu-supported-devices.json
 
@@ -554,20 +638,25 @@ popd
 %dir %{_cross_datadir}/nvidia/open-gpu/drivers
 %dir %{_cross_factorydir}/nvidia/open-gpu
 
-# driver
 %{_cross_datadir}/nvidia/open-gpu/drivers/nvidia.ko
-
-# uvm
 %{_cross_datadir}/nvidia/open-gpu/drivers/nvidia-uvm.ko
-
-# modeset
 %{_cross_datadir}/nvidia/open-gpu/drivers/nvidia-modeset.ko
-
-# drm
 %{_cross_datadir}/nvidia/open-gpu/drivers/nvidia-drm.ko
-
-# peermem
 %{_cross_datadir}/nvidia/open-gpu/drivers/nvidia-peermem.ko
+
+# GRID driver files
+%if "%{_cross_arch}" == "x86_64"
+%files grid
+%license COPYING
+%dir %{_cross_datadir}/nvidia/grid/drivers
+%dir %{_cross_factorydir}/nvidia/grid
+
+%{_cross_datadir}/nvidia/grid/drivers/nvidia.ko
+%{_cross_datadir}/nvidia/grid/drivers/nvidia-uvm.ko
+%{_cross_datadir}/nvidia/grid/drivers/nvidia-modeset.ko
+%{_cross_datadir}/nvidia/grid/drivers/nvidia-drm.ko
+%{_cross_datadir}/nvidia/grid/drivers/nvidia-peermem.ko
+%endif
 
 %files fabricmanager
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.cfg

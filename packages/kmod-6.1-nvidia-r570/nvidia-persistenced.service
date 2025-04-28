@@ -1,6 +1,6 @@
 [Unit]
 Description=NVIDIA Persistence Daemon
-After=load-tesla-kernel-modules.service load-open-gpu-kernel-modules.service
+After=load-tesla-kernel-modules.service load-open-gpu-kernel-modules.service load-grid-kernel-modules.service
 
 [Service]
 Type=forking
