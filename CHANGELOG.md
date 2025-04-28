@@ -1,3 +1,34 @@
+# v2.3.0 (2025-04-28)
+
+## OS Changes
+ * Drop zstd module from GRUB ([#98])
+ * Update development-related packaging for kernel-6.12 and move kmod-6.12-nvidia-r570 to kernel-6.12-devel ([#99], [#118])
+ * Add package definitions for NVIDIA R570 driver ([#95])
+ * Update kernel-6.12 to 6.12.22 ([#110])
+ * Set config options for kernel hardening ([#111])
+ * Add Infiniband User MAD and autoload for Fabric Manager ([#116], [#119])
+ * Add GRID drivers to kmod-6.1-nvidia-r570 and kmod-6.12-nvidia-r570 ([#113])
+
+## Build Changes
+ * Update generate kernel config scripts to fix globbing ([#109])
+ * Remove force upstream for neuron ([#112])
+ * Remove unused patch from kernel-6.12 ([#115])
+ * Bump twoliter to 0.9.0 ([#107])
+
+[#95]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/95
+[#98]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/98
+[#99]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/99
+[#107]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/107
+[#109]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/109
+[#110]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/110
+[#111]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/111
+[#112]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/112
+[#113]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/113
+[#115]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/115
+[#116]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/116
+[#118]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/118
+[#119]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/119
+
 # v2.2.2 (2025-04-18)
 
 ## OS Changes
