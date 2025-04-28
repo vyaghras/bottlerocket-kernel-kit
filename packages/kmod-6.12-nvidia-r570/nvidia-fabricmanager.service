@@ -1,5 +1,7 @@
 [Unit]
 Description=NVIDIA fabric manager service
+Wants=modprobe@ib_umad.service
+After=modprobe@ib_umad.service
 
 [Service]
 ExecStart=/usr/bin/nv-fabricmanager -c /etc/nvidia/fabricmanager.cfg
