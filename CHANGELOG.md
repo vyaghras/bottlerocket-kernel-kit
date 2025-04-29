@@ -1,3 +1,10 @@
+# v2.3.1 (2025-04-29)
+
+## OS Changes
+ * Update kernel-6.1 to version 6.1.134-150.224 ([#122])
+
+[#122]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/122
+
 # v2.3.0 (2025-04-28)
 
 ## OS Changes
