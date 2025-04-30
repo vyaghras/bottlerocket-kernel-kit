@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-rchkviw47hkd"
+title = "kernel CVE-2022-49728"
+cve = "CVE-2022-49728"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ipv6: Fix signed integer overflow in __ip6_append_data"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.180"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-04-30T19:30:27Z
+arches = ["x86_64", "aarch64"]
+version = "2.3.2"

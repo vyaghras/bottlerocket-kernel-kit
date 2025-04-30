@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-e8gvjo9xlq7a"
+title = "kernel CVE-2022-49465"
+cve = "CVE-2022-49465"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: blk-throttle: Set BIO_THROTTLED when bio has been throttled"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.180"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-04-30T19:30:27Z
+arches = ["aarch64", "x86_64"]
+version = "2.3.2"
