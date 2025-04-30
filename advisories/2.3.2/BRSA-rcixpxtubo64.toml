@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-rcixpxtubo64"
+title = "kernel CVE-2022-49636"
+cve = "CVE-2022-49636"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: vlan: fix memory leak in vlan_newlink()"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.180"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-04-30T19:30:27Z
+arches = ["aarch64", "x86_64"]
+version = "2.3.2"

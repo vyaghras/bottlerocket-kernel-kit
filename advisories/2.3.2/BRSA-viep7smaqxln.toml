@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-viep7smaqxln"
+title = "kernel CVE-2024-47745"
+cve = "CVE-2024-47745"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: mm: call the security_mmap_file() LSM hook in remap_file_pages()"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.180"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-04-30T19:30:27Z
+arches = ["x86_64", "aarch64"]
+version = "2.3.2"
