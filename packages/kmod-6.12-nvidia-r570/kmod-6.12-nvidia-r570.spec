@@ -69,7 +69,13 @@ Source505: load-grid-kernel-modules.service.in
 Patch001: 0001-makefile-allow-to-use-any-kernel-arch.patch
 
 BuildRequires: %{_cross_os}kernel-6.12-devel
+Requires: %{_cross_os}kernel-6.12
 Requires: %{_cross_os}nvidia-migmanager
+Requires: %{name}-tesla
+Requires: %{name}-open-gpu
+%if "%{_cross_arch}" == "x86_64"
+Requires: %{name}-grid
+%endif
 
 %description
 %{summary}.
@@ -86,6 +92,7 @@ Summary: NVIDIA %{tesla_major} Open GPU driver
 Version: %{tesla_ver}
 License: MIT AND GPL-2.0-only
 Requires: %{_cross_os}variant-platform(aws)
+Requires: %{name}
 
 %description open-gpu
 %{summary}.
@@ -96,6 +103,7 @@ Summary: NVIDIA %{tesla_major} GRID driver
 Version: %{tesla_ver}
 License: MIT AND GPL-2.0-only
 Requires: %{_cross_os}variant-platform(aws)
+Requires: %{name}
 
 %description grid
 %{summary}.
@@ -109,10 +117,6 @@ Requires: %{_cross_os}variant-platform(aws)
 Requires: %{name}
 Requires: %{name}-fabricmanager
 Provides: %{name}-tesla(fabricmanager)
-Requires: %{name}-open-gpu
-%if "%{_cross_arch}" == "x86_64"
-Requires: %{name}-grid
-%endif
 
 %description tesla
 %{summary}
