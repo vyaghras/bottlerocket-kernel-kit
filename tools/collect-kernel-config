@@ -38,7 +38,7 @@ readonly output_dir
 mkdir -p ${output_dir}
 echo "Created ${output_dir}"
 
-for kernel in 5.15 6.1; do
+for kernel in 5.15 6.1 6.12; do
     for arch in x86_64 aarch64; do
 	rpm2cpio ./build/rpms/kernel-${kernel}/bottlerocket-kernel-${kernel}-${kernel}*.${arch}.rpm | cpio --extract --to-stdout ./boot/config > ${output_dir}/config-${kernel}-${arch}.config
     done
