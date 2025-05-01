@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-dvk8feip6pjw"
+title = "kernel CVE-2025-21926"
+cve = "CVE-2025-21926"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: net: gso: fix ownership in __udp_gso_segment"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.22"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-04-28T23:26:21Z
+arches = ["aarch64", "x86_64"]
+version = "2.3.0"

@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-tbne3lsrxho1"
+title = "kernel CVE-2025-21751"
+cve = "CVE-2025-21751"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: net/mlx5: HWS, change error flow on matcher disconnect"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.23"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-05-01T20:55:52Z
+arches = ["x86_64", "aarch64"]
+version = "2.3.3"
