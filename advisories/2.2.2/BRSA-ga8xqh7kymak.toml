@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-ga8xqh7kymak"
+title = "kmod-nvidia CVE-2025-23244"
+cve = "CVE-2025-23244"
+severity = "high"
+description = "NVIDIA GPU Display Driver for Linux contains a vulnerability which could allow escalated permissions"
+
+[[advisory.products]]
+package-name = "kmod-5.15-nvidia"
+patched-version = "535.247.01"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia"
+patched-version = "535.247.01"
+patched-epoch = "1"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-04-21T23:15:04Z
+arches = ["aarch64", "x86_64"]
+version = "2.2.2"
