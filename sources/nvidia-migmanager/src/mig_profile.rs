@@ -142,6 +142,44 @@ impl MigGpuProfile for NvidiaH200_141gbMigProfile {
     }
 }
 
+#[derive(Deserialize)]
+pub(crate) enum NvidiaB200_180gbMigProfile {
+    #[serde(alias = "1g.23gb")]
+    #[serde(alias = "7")]
+    Mig1g23gb,
+
+    #[serde(alias = "1g.45gb")]
+    #[serde(alias = "4")]
+    Mig1g45gb,
+
+    #[serde(alias = "2g.45gb")]
+    #[serde(alias = "3")]
+    Mig2g45gb,
+
+    #[serde(alias = "3g.90gb")]
+    #[serde(alias = "2")]
+    Mig3g90gb,
+
+    #[serde(alias = "7g.180gb")]
+    #[serde(alias = "1")]
+    #[serde(other)]
+    Mig7g180gb,
+}
+
+impl MigGpuProfile for NvidiaB200_180gbMigProfile {
+    fn get_mig_profile(&self) -> &str {
+        match self {
+            NvidiaB200_180gbMigProfile::Mig7g180gb => "7g.180gb",
+            NvidiaB200_180gbMigProfile::Mig3g90gb => "3g.90gb,3g.90gb",
+            NvidiaB200_180gbMigProfile::Mig2g45gb => "2g.45gb,2g.45gb,2g.45gb",
+            NvidiaB200_180gbMigProfile::Mig1g45gb => "1g.45gb,1g.45gb,1g.45gb,1g.45gb",
+            NvidiaB200_180gbMigProfile::Mig1g23gb => {
+                "1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb"
+            }
+        }
+    }
+}
+
 pub(crate) trait MigGpuProfile: for<'de> Deserialize<'de> {
     fn get_mig_profile(&self) -> &str;
 }
