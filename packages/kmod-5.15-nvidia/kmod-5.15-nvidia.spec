@@ -126,6 +126,11 @@ pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}/kernel-open
 # we don't set this flag the compilation fails
 make %{?_smp_mflags} ARCH=%{_cross_karch} IGNORE_CC_MISMATCH=1 SYSSRC=%{kernel_sources} CC=%{_cross_target}-gcc LD=%{_cross_target}-ld
 
+# Strip symbols out of the .ko files
+for module in *.ko; do
+  %{_cross_target}-strip -g --strip-unneeded "${module}"
+done
+
 # end open driver build
 popd
 
