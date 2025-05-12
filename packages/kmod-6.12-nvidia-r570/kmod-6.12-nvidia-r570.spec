@@ -278,6 +278,7 @@ install -m 755 nvidia-cuda-mps-control %{buildroot}%{_cross_bindir}
 install -m 755 nvidia-cuda-mps-server %{buildroot}%{_cross_bindir}
 install -m 755 nvidia-persistenced %{buildroot}%{_cross_bindir}
 install -m 4755 nvidia-modprobe %{buildroot}%{_cross_bindir}
+install -m 755 nvoptix.bin %{buildroot}%{_cross_datadir}/nvidia/
 ln -rs %{buildroot}%{_cross_bindir}/nvidia-smi %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-smi
 ln -rs %{buildroot}%{_cross_bindir}/nvidia-debugdump %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-debugdump
 ln -rs %{buildroot}%{_cross_bindir}/nvidia-cuda-mps-control %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-control
@@ -477,6 +478,7 @@ popd
 %{_cross_libdir}/nvidia/tesla/libnvidia-fbc.so.1
 %{_cross_libdir}/nvidia/tesla/libnvoptix.so.%{tesla_ver}
 %{_cross_libdir}/nvidia/tesla/libnvoptix.so.1
+%{_cross_datadir}/nvidia/nvoptix.bin
 
 # Graphics GLVND libs
 %{_cross_libdir}/nvidia/tesla/libnvidia-glvkspirv.so.%{tesla_ver}
