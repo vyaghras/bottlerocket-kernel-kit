@@ -1,8 +1,7 @@
 # Because Bottlerocket does not have an initramfs, modules required to mount
 # the root filesystem must be set to y.
 
-# The root filesystem is ext4 or erofs
-CONFIG_EXT4_FS=y
+# The root filesystem is erofs
 CONFIG_EROFS_FS=y
 
 # compress arm64 kernels
@@ -148,6 +147,12 @@ CONFIG_FW_LOADER_COMPRESS=y
 # CONFIG_FW_LOADER_COMPRESS_XZ is not set
 CONFIG_FW_LOADER_COMPRESS_ZSTD=y
 
+# Prefer LZ4 for zram compression
+CONFIG_ZRAM_BACKEND_LZ4=y
+CONFIG_ZRAM_DEF_COMP_LZ4=y
+# CONFIG_ZRAM_BACKEND_LZO is not set
+# CONFIG_ZRAM_DEF_COMP_LZO is not set
+
 # Add virtio drivers for development setups running as guests in qemu
 CONFIG_VIRTIO_CONSOLE=m
 CONFIG_HW_RANDOM_VIRTIO=m
@@ -161,6 +166,9 @@ CONFIG_BOOT_CONFIG=y
 
 # Enables support for checkpoint/restore
 CONFIG_CHECKPOINT_RESTORE=y
+
+# Enable cgroup v1 cpusets controller
+CONFIG_CPUSETS_V1=y
 
 # Disable user-mode helper for bpfilter, since it relies on a more complete set
 # of userspace libraries for the target than we want to depend on at kernel
