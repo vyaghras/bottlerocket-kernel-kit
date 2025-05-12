@@ -1,0 +1,11 @@
+[Unit]
+Description=Write GUID for NVLink Subnet Manager
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/ghostdog write-infiniband-primary-guid /etc/nvidia/nvlsm.env
+RemainAfterExit=true
+StandardError=journal+console
+
+[Install]
+WantedBy=nvlsm.service

@@ -21,6 +21,7 @@ kmod-6_1-nvidia = { path = "../../packages/kmod-6.1-nvidia" }
 kmod-6_1-nvidia-r570 = { path = "../../packages/kmod-6.1-nvidia-r570" }
 kmod-6_12-nvidia-r570 = { path = "../../packages/kmod-6.12-nvidia-r570" }
 nvidia-migmanager = { path = "../../packages/nvidia-migmanager" }
+nvlsm = { path = "../../packages/nvlsm" }
 linux-firmware = { path = "../../packages/linux-firmware" }
 microcode = { path = "../../packages/microcode" }
 libkcapi = { path = "../../packages/libkcapi" }

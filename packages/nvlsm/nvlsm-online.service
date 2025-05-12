@@ -1,0 +1,14 @@
+[Unit]
+Description=Wait for NVLink Subnet Manager
+After=nvlsm.service
+Requires=nvlsm.service
+
+[Service]
+Type=oneshot
+ExecCondition=[ -s /etc/nvidia/nvlsm.env ]
+ExecStart=/bin/sleep 5
+RemainAfterExit=true
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target
