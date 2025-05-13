@@ -1,3 +1,23 @@
+# v2.4.0 (TBD)
+
+## OS Changes
+ * Improve dependency resolution for NVIDIA kmods ([#133])
+ * Prevent version mismatches between NVIDIA kmods and kernels ([#133])
+ * Strip NVIDIA open GPU and GRID kernel modules ([#139])
+ * Provide nvoptix.bin through NVIDIA kmod 570 for 6.12 kernel ([#141])
+ * Enable cpusets for cgroups v1 in the 6.12 kernel ([#143])
+ * Prefer LZ4 compression over LZO for zram in 6.12 kernel ([#143])
+ * Make ext4 support a module for the 6.12 kernel ([#143])
+
+## Build Changes
+ * Bump twoliter to 0.10.0 ([#135])
+
+ [#133]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/133
+ [#135]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/135
+ [#139]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/139
+ [#141]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/141
+ [#143]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/143
+
 # v2.3.3 (2025-05-01)
 
 ## OS Changes
