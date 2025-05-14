@@ -6,6 +6,10 @@ pub(crate) enum NvidiaA100_40gbMigProfile {
     #[serde(alias = "7")]
     Mig1g5gb,
 
+    #[serde(alias = "1g.10gb")]
+    #[serde(alias = "4")]
+    Mig1g10gb,
+
     #[serde(alias = "2g.10gb")]
     #[serde(alias = "3")]
     Mig2g10gb,
@@ -26,6 +30,7 @@ impl MigGpuProfile for NvidiaA100_40gbMigProfile {
             NvidiaA100_40gbMigProfile::Mig7g40gb => "7g.40gb",
             NvidiaA100_40gbMigProfile::Mig3g20gb => "3g.20gb,3g.20gb",
             NvidiaA100_40gbMigProfile::Mig2g10gb => "2g.10gb,2g.10gb,2g.10gb",
+            NvidiaA100_40gbMigProfile::Mig1g10gb => "1g.10gb,1g.10gb,1g.10gb,1g.10gb",
             NvidiaA100_40gbMigProfile::Mig1g5gb => {
                 "1g.5gb,1g.5gb,1g.5gb,1g.5gb,1g.5gb,1g.5gb,1g.5gb"
             }
@@ -38,6 +43,10 @@ pub(crate) enum NvidiaA100_80gbMigProfile {
     #[serde(alias = "1g.10gb")]
     #[serde(alias = "7")]
     Mig1g10gb,
+
+    #[serde(alias = "1g.20gb")]
+    #[serde(alias = "4")]
+    Mig1g20gb,
 
     #[serde(alias = "2g.20gb")]
     #[serde(alias = "3")]
@@ -59,6 +68,7 @@ impl MigGpuProfile for NvidiaA100_80gbMigProfile {
             NvidiaA100_80gbMigProfile::Mig7g80gb => "7g.80gb",
             NvidiaA100_80gbMigProfile::Mig3g40gb => "3g.40gb,3g.40gb",
             NvidiaA100_80gbMigProfile::Mig2g20gb => "2g.20gb,2g.20gb,2g.20gb",
+            NvidiaA100_80gbMigProfile::Mig1g20gb => "1g.20gb,1g.20gb,1g.20gb,1g.20gb",
             NvidiaA100_80gbMigProfile::Mig1g10gb => {
                 "1g.10gb,1g.10gb,1g.10gb,1g.10gb,1g.10gb,1g.10gb,1g.10gb"
             }
@@ -137,6 +147,44 @@ impl MigGpuProfile for NvidiaH200_141gbMigProfile {
             NvidiaH200_141gbMigProfile::Mig1g35gb => "1g.35gb,1g.35gb,1g.35gb,1g.35gb",
             NvidiaH200_141gbMigProfile::Mig1g18gb => {
                 "1g.18gb,1g.18gb,1g.18gb,1g.18gb,1g.18gb,1g.18gb,1g.18gb"
+            }
+        }
+    }
+}
+
+#[derive(Deserialize)]
+pub(crate) enum NvidiaB200_180gbMigProfile {
+    #[serde(alias = "1g.23gb")]
+    #[serde(alias = "7")]
+    Mig1g23gb,
+
+    #[serde(alias = "1g.45gb")]
+    #[serde(alias = "4")]
+    Mig1g45gb,
+
+    #[serde(alias = "2g.45gb")]
+    #[serde(alias = "3")]
+    Mig2g45gb,
+
+    #[serde(alias = "3g.90gb")]
+    #[serde(alias = "2")]
+    Mig3g90gb,
+
+    #[serde(alias = "7g.180gb")]
+    #[serde(alias = "1")]
+    #[serde(other)]
+    Mig7g180gb,
+}
+
+impl MigGpuProfile for NvidiaB200_180gbMigProfile {
+    fn get_mig_profile(&self) -> &str {
+        match self {
+            NvidiaB200_180gbMigProfile::Mig7g180gb => "7g.180gb",
+            NvidiaB200_180gbMigProfile::Mig3g90gb => "3g.90gb,3g.90gb",
+            NvidiaB200_180gbMigProfile::Mig2g45gb => "2g.45gb,2g.45gb,2g.45gb",
+            NvidiaB200_180gbMigProfile::Mig1g45gb => "1g.45gb,1g.45gb,1g.45gb,1g.45gb",
+            NvidiaB200_180gbMigProfile::Mig1g23gb => {
+                "1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb,1g.23gb"
             }
         }
     }
