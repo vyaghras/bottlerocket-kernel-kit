@@ -59,8 +59,8 @@ merge_kernel_configs() {
     cp "${rpm_file}" "${tmpdir}/"
     pushd "${tmpdir}" || bail "Could not move around"
 
-    rpm2cpio "${rpm_file}" | cpio -iu {,./}linux-"${version}".tar.xz {,.}config-x86_64 {,.}config-aarch64 {,./}"*.patch" {,./}kernel.spec
-    tar -xof linux-"${version}".tar.xz; rm linux-"${version}".tar.xz
+    rpm2cpio "${rpm_file}" | cpio -iu {,./}linux-"${version}".tar {,.}config-x86_64 {,.}config-aarch64 {,./}"*.patch" {,./}kernel.spec
+    tar -xof linux-"${version}".tar; rm linux-"${version}".tar
 
     # Find patch ordering based on the upstream SRPM and apply in that order
     readarray -t patches < <(grep -P "^Patch\d+" kernel.spec | sort -n -k1.6 | grep -oP "^Patch\d+: \K.*\.patch$" kernel.spec)
