@@ -7,7 +7,7 @@ Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/blobstore/3b6f33f4c20859f5c0ed89c10346530dbaebb54a0bf12be76101a17a52bac8e4/kernel-5.15.180-122.191.amzn2.src.rpm
+Source0: https://cdn.amazonlinux.com/blobstore/457e553c616457a4ba0f1899e03fca43c089f93cb83fd921514bf67fd541ce00/kernel-5.15.180-123.192.amzn2.src.rpm
 Source1: gpgkey-99E617FE5DB527C0D8BD5F8E11CF1F95C87F5B1A.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
