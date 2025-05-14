@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ea9drgxbg890"
+title = "kernel CVE-2022-49168"
+cve = "CVE-2022-49168"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: btrfs: do not clean up repair bio if submit fails"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.180"
+patched-epoch = "0"
+
+[updateinfo]
+author = "mharrimn"
+issue-date = 2025-05-14T21:12:46Z
+arches = ["aarch64", "x86_64"]
+version = "2.4.0"
