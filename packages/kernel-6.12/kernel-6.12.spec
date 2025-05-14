@@ -4,13 +4,13 @@
 %global kmajor 6.12
 
 Name: %{_cross_os}kernel-%{kmajor}
-Version: 6.12.23
+Version: 6.12.25
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/f183a3597b33df4ee0a4eaa32de802eac8a2bd7fac833682475310601b5f3eb9/kernel6.12-6.12.23-29.97.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/affe4afff48d5589bf6dd4b04c59a853822b8d36c785d3d9006fb18f7b35b6c3/kernel6.12-6.12.25-32.101.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
@@ -1361,6 +1361,9 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_user.%{_ko}
 %{_cross_kmoddir}/kernel/security/keys/encrypted-keys/encrypted-keys.%{_ko}
 %{_cross_kmoddir}/kernel/security/keys/trusted-keys/trusted.%{_ko}
+%if "%{_cross_arch}" == "x86_64"
+%{_cross_kmoddir}/kernel/virt/lib/irqbypass.ko
+%endif
 
 %if "%{_cross_arch}" == "x86_64"
 %files modules-neuron
