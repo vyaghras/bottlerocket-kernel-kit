@@ -256,3 +256,6 @@ CONFIG_DRM_SIMPLEDRM=m
 
 # Add ib_umad module
 CONFIG_INFINIBAND_USER_MAD=m
+
+# Enable CephFS SELinux labels
+CONFIG_CEPH_FS_SECURITY_LABEL=y
