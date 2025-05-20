@@ -1,3 +1,20 @@
+# v2.5.0 (2025-05-20)
+
+## OS Changes
+ * Provide NVLink Subnet Manager as a dependency for NVIDIA Fabric Manager ([#142])
+ * Add MIG profiles for NVIDIA A100 and B200 GPUs ([#136])
+ * Enable CephFS SELinux labels in kernel-6.12 ([#154]) Thanks, @vholer!
+
+## Build Changes
+ * Bump twoliter to 0.10.1 ([#150])
+ * Maintain full kernel configuration for kernel-6.12 ([#114])
+
+[#114]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/114
+[#136]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/136
+[#142]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/142
+[#150]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/150
+[#154]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/154
+
 # v2.4.0 (2025-05-14)
 
 ## OS Changes
