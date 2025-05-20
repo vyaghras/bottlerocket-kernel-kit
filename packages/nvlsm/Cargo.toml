@@ -1,0 +1,25 @@
+[package]
+name = "nvlsm"
+version = "0.1.0"
+edition = "2021"
+publish = false
+build = "../build.rs"
+
+[lib]
+path = "../packages.rs"
+
+[[package.metadata.build-package.external-files]]
+url = "https://s3.amazonaws.com/EULA/NVidiaEULAforAWS.pdf"
+sha512 = "e1926fe99afc3ab5b2f2744fcd53b4046465aefb2793e2e06c4a19455a3fde895e00af1415ff1a5804c32e6a2ed0657e475de63da6c23a0e9c59feeef52f3f58"
+
+[[package.metadata.build-package.external-files]]
+url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvlsm-2025.03.1-1.x86_64.rpm"
+sha512 = "62d31434d050d7857fc06971e11a9842a9280552d46f7a072fd60f494fb75edf2550f0012ae685bda1cbcc1971df2812186ee3a2746050e2a69462b70b82ac8e"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
+url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvlsm-2025.03.1-1.aarch64.rpm"
+sha512 = "f9a533a3736329a44189b632ccd9af5bcb83735c17f2375f98bf2126009d5426c47afc908686c0d5f0a6cd828883ad789dcca6e336cf480e2a0f979e92aa17b4"
+force-upstream = true
+
+[build-dependencies]

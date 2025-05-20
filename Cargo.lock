@@ -18,6 +18,7 @@ dependencies = [
  "linux-firmware",
  "microcode",
  "nvidia-migmanager",
+ "nvlsm",
  "shim",
 ]
 
@@ -88,6 +89,10 @@ version = "0.1.0"
 
 [[package]]
 name = "nvidia-migmanager"
+version = "0.1.0"
+
+[[package]]
+name = "nvlsm"
 version = "0.1.0"
 
 [[package]]

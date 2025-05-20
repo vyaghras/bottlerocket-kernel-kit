@@ -1,0 +1,16 @@
+[Unit]
+Description=NVLink Subnet Manager
+After=infiniband-guid.service
+Requires=infiniband-guid.service
+
+[Service]
+Type=simple
+PIDFile=/run/nvidia-fabricmanager/nvlsm.pid
+ExecCondition=[ -s /etc/nvidia/nvlsm.env ]
+EnvironmentFile=-/etc/nvidia/nvlsm.env
+ExecStart=/usr/bin/nvlsm -F /usr/share/nvidia/nvlsm/nvlsm.conf -f stdout --pid_file /var/run/nvidia-fabricmanager/nvlsm.pid $GUID_ARG
+Restart=Always
+StandardError=journal+console
+
+[Install]
+WantedBy=multi-user.target

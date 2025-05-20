@@ -25,7 +25,7 @@ Summary: NVIDIA r570 drivers for the 6.1 kernel
 License: Apache-2.0 OR MIT
 URL: http://www.nvidia.com/
 
-# NVIDIA archives from 0 to 199
+# NVIDIA archives and license files from 0 to 199
 # NVIDIA .run scripts for kernel and userspace drivers
 Source0: https://us.download.nvidia.com/tesla/%{tesla_ver}/NVIDIA-Linux-x86_64-%{tesla_ver}.run
 Source1: https://us.download.nvidia.com/tesla/%{tesla_ver}/NVIDIA-Linux-aarch64-%{tesla_ver}.run
@@ -43,6 +43,7 @@ Source203: nvidia-fabricmanager.service
 Source204: nvidia-fabricmanager.cfg
 Source205: nvidia-sysusers.conf
 Source206: nvidia-persistenced.service
+Source207: fabricmanager.env
 
 # NVIDIA tesla conf files from 300 to 399
 Source300: nvidia-tesla-tmpfiles.conf
@@ -80,6 +81,7 @@ Requires: %{name}-grid
 %package fabricmanager
 Summary: NVIDIA fabricmanager config and service files
 Requires: %{name}-tesla(fabricmanager)
+Requires: %{_cross_os}nvlsm
 
 %description fabricmanager
 %{summary}.
@@ -242,6 +244,7 @@ install -p -m 0644 %{S:202} %{buildroot}%{_cross_libdir}/modules-load.d/nvidia-d
 install -p -m 0644 %{S:203} %{buildroot}%{_cross_unitdir}
 install -d %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/nvidia
 install -p -m 0644 %{S:204} %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.cfg
+install -p -m 0644 %{S:207} %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.env
 
 # Begin NVIDIA tesla driver
 pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}
@@ -678,4 +681,5 @@ popd
 
 %files fabricmanager
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.cfg
+%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.env
 %{_cross_unitdir}/nvidia-fabricmanager.service
