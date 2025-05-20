@@ -1,6 +1,6 @@
-# kernel-6.1
+# kernel-6.12
 
-This package contains the Bottlerocket Linux kernel of the 6.1 series.
+This package contains the Bottlerocket Linux kernel of the 6.12 series.
 
 
 ## Testing of Configuration Changes
@@ -15,8 +15,8 @@ script from the this repository to ensure the configuration for any of the combi
 $ ./tools/latest-kernel-full-config.sh -r ./path/to/srpm
 ```
 
-Any resulting diff in a [`config-full-bottlerocket-aarch64`](https://github.com/bottlerocket-os/bottlerocket-kernel-kit/blob/develop/packages/kernel-6.1/config-full-bottlerocket-aarch64) 
-or [`config-full-bottlerocket-x86_64`](https://github.com/bottlerocket-os/bottlerocket-kernel-kit/blob/develop/packages/kernel-6.1/config-full-bottlerocket-x86_64) file should be PR'd to this package for review.
+Any resulting diff in a [`config-full-bottlerocket-aarch64`](https://github.com/bottlerocket-os/bottlerocket-kernel-kit/blob/develop/packages/kernel-6.12/config-full-bottlerocket-aarch64) 
+or [`config-full-bottlerocket-x86_64`](https://github.com/bottlerocket-os/bottlerocket-kernel-kit/blob/develop/packages/kernel-6.12/config-full-bottlerocket-x86_64) file should be PR'd to this package for review.
 Changes that can have an effect on the resulting kernel configuration include:
 
 * explicit kernel configuration changes
