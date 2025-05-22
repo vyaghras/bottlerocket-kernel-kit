@@ -47,9 +47,6 @@ CONFIG_FB=y
 CONFIG_FB_EFI=y
 CONFIG_FRAMEBUFFER_CONSOLE_DEFERRED_TAKEOVER=y
 
-# Do not allow writes to a block device if a filesystem is mounted on it.
-# CONFIG_BLK_DEV_WRITE_MOUNTED is not set
-
 # Bottlerocket does not hibernate
 # CONFIG_HIBERNATION is not set
 
