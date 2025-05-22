@@ -1,3 +1,14 @@
+# v2.5.1 (2025-05-22)
+
+## OS Changes
+ * Re-enable writes to mounted block devices in kernel-6.12 to fix online resize of ext4 filesystems ([#158])
+
+## Build Changes
+ * Move kernel config script to common location and extract SDK from Twoliter metadata ([#157])
+
+[#157]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/157
+[#158]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/158
+
 # v2.5.0 (2025-05-20)
 
 ## OS Changes
