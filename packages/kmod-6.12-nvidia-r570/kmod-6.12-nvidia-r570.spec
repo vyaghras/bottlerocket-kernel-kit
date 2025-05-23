@@ -331,6 +331,18 @@ install kernel/nvidia-drm.o %{buildroot}/%{_cross_datadir}/nvidia/tesla/module-o
 install -d %{buildroot}%{_cross_datadir}/nvidia/open-gpu/drivers/
 install kernel-open/nvidia.ko %{buildroot}%{_cross_datadir}/nvidia/open-gpu/drivers/
 
+# add various vulkan icd/config
+install -d %{buildroot}%{_cross_datadir}/vulkan/icd.d
+install -d %{buildroot}%{_cross_datadir}/vulkan/implicit_layer.d
+install -m 0644 nvidia_icd.json %{buildroot}%{_cross_datadir}/vulkan/icd.d/nvidia_icd.json
+install -m 0644 nvidia_layers.json %{buildroot}%{_cross_datadir}/vulkan/icd.d/nvidia_layers.json
+install -d %{buildroot}%{_cross_datadir}/glvnd/egl_vendor.d
+install -m 0644 10_nvidia.json %{buildroot}%{_cross_datadir}/glvnd/egl_vendor.d/10_nvidia.json
+install -d %{buildroot}%{_cross_datadir}/egl/egl_external_platform.d
+install -m 0644 10_nvidia_wayland.json %{buildroot}%{_cross_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
+install -m 0644 15_nvidia_gbm.json %{buildroot}%{_cross_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
+ln -rs %{buildroot}%{_cross_datadir}/vulkan/icd.d/nvidia_layers.json %{buildroot}%{_cross_datadir}/vulkan/implicit_layer.d/nvidia_layers.json
+
 # uvm
 install kernel-open/nvidia-uvm.ko %{buildroot}%{_cross_datadir}/nvidia/open-gpu/drivers/
 
@@ -444,12 +456,19 @@ popd
 %files tesla
 %license NVidiaEULAforAWS.pdf
 %license fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive/usr/share/doc/nvidia-fabricmanager/third-party-notices.txt
+%dir %{_cross_datadir}/egl
+%dir %{_cross_datadir}/egl/egl_external_platform.d
+%dir %{_cross_datadir}/glvnd
+%dir %{_cross_datadir}/glvnd/egl_vendor.d
 %dir %{_cross_datadir}/nvidia/tesla
-%dir %{_cross_libexecdir}/nvidia/tesla/bin
-%dir %{_cross_libdir}/nvidia/tesla
-%dir %{_cross_libdir}/firmware/nvidia/%{tesla_ver}
 %dir %{_cross_datadir}/nvidia/tesla/module-objects.d
+%dir %{_cross_datadir}/vulkan
+%dir %{_cross_datadir}/vulkan/icd.d
+%dir %{_cross_datadir}/vulkan/implicit_layer.d
 %dir %{_cross_factorydir}/nvidia/tesla
+%dir %{_cross_libdir}/firmware/nvidia/%{tesla_ver}
+%dir %{_cross_libdir}/nvidia/tesla
+%dir %{_cross_libexecdir}/nvidia/tesla/bin
 
 # Service files for link/copy/loading drivers
 %{_cross_unitdir}/link-tesla-kernel-modules.service
@@ -528,6 +547,14 @@ popd
 
 # systemd units
 %{_cross_unitdir}/nvidia-persistenced.service
+
+# ICD / vendor descriptors
+%{_cross_datadir}/vulkan/icd.d/nvidia_icd.json
+%{_cross_datadir}/vulkan/icd.d/nvidia_layers.json
+%{_cross_datadir}/vulkan/implicit_layer.d/nvidia_layers.json
+%{_cross_datadir}/glvnd/egl_vendor.d/10_nvidia.json
+%{_cross_datadir}/egl/egl_external_platform.d/10_nvidia_wayland.json
+%{_cross_datadir}/egl/egl_external_platform.d/15_nvidia_gbm.json
 
 # We only install the libraries required by all the DRIVER_CAPABILITIES, described here:
 # https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/user-guide.html#driver-capabilities
