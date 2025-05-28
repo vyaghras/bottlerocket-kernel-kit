@@ -14,12 +14,12 @@ sha512 = "e1926fe99afc3ab5b2f2744fcd53b4046465aefb2793e2e06c4a19455a3fde895e00af
 
 [[package.metadata.build-package.external-files]]
 url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvlsm-2025.03.1-1.x86_64.rpm"
-sha512 = "62d31434d050d7857fc06971e11a9842a9280552d46f7a072fd60f494fb75edf2550f0012ae685bda1cbcc1971df2812186ee3a2746050e2a69462b70b82ac8e"
+sha512 = "24ccbc168f0ab0f96c8154fcbd942381f493488fe66328fb1f07ce02b2f4af0e52fd8f2cc62b8a6c5ebd5f6ef4bdbf7373fa96df437b7b7d16acf54566a65765"
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
 url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvlsm-2025.03.1-1.aarch64.rpm"
-sha512 = "f9a533a3736329a44189b632ccd9af5bcb83735c17f2375f98bf2126009d5426c47afc908686c0d5f0a6cd828883ad789dcca6e336cf480e2a0f979e92aa17b4"
+sha512 = "3e7be45f89da67fea91040c89357bb81867ce93cc4951fd56d6eb8f3e7f22ee6cd75b368b27ebca9b83e442422d9d314882ada66526c36f76a38f74c66e6b058"
 force-upstream = true
 
 [build-dependencies]
