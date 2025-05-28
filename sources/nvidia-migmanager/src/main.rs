@@ -332,8 +332,7 @@ fn process_unknown_gpu_mig_config(gpu: &str, mig_profile: &str) -> Result<()> {
     // number of partitions of the GPU will be minimum of
     // 7/(compute slices in each partition) and (total VRAM / VRAM of each partition)
     let num_slices: usize = min(gpu_ram / slice_ram, 7 / compute_slices);
-    let profile_string = std::iter::repeat(mig_profile)
-        .take(num_slices)
+    let profile_string = std::iter::repeat_n(mig_profile, num_slices)
         .collect::<Vec<_>>()
         .join(",");
 
@@ -567,7 +566,7 @@ mod error {
 
         #[snafu(display("Failed to execute '{:?}': {}", command, source))]
         ExecutionFailure {
-            command: Command,
+            command: Box<Command>,
             source: std::io::Error,
         },
 
