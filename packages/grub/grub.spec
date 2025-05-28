@@ -119,7 +119,7 @@ rm -r build-aux m4
 
 ./bootstrap
 
-%global grub_cflags -pipe -fno-stack-protector -fno-strict-aliasing
+%global grub_cflags -Os -pipe -fno-stack-protector -fno-strict-aliasing
 %global grub_ldflags -static
 %global _configure ../configure
 
