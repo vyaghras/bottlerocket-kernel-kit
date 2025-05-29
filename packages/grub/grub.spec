@@ -85,18 +85,6 @@ BuildRequires: gettext-devel
 %description
 %{summary}.
 
-%package modules
-Summary: Modules for the bootloader with support for Linux and more
-
-%description modules
-%{summary}.
-
-%package tools
-Summary: Tools for the bootloader with support for Linux and more
-
-%description tools
-%{summary}.
-
 %prep
 rpmkeys --import %{S:1} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:0} --dbpath "${PWD}/rpmdb"
@@ -131,7 +119,7 @@ rm -r build-aux m4
 
 ./bootstrap
 
-%global grub_cflags -pipe -fno-stack-protector -fno-strict-aliasing
+%global grub_cflags -Os -pipe -fno-stack-protector -fno-strict-aliasing
 %global grub_ldflags -static
 %global _configure ../configure
 
@@ -200,9 +188,8 @@ VERIFY_MODS=(pgp crypto gcry_sha256 gcry_sha512 gcry_dsa gcry_rsa)
 
 %if "%{_cross_arch}" == "x86_64"
 pushd bios-build
-%make_install
 mkdir -p %{buildroot}%{biosdir}
-%{buildroot}%{_cross_bindir}/grub-mkimage \
+./grub-mkimage \
   -c %{S:2} \
   -d ./grub-core/ \
   -O "i386-pc" \
@@ -215,14 +202,13 @@ popd
 %endif
 
 pushd efi-build
-%make_install
 mkdir -p %{buildroot}%{efidir}
 
 # Make sure the `.pubkey` section is large enough to cover a replacement
 # certificate, or `objcopy` may silently retain the existing section.
 truncate -s 4096 empty.pubkey
 
-%{buildroot}%{_cross_bindir}/grub-mkimage \
+./grub-mkimage \
   -c %{S:3} \
   -d ./grub-core/ \
   -O "%{_cross_grub_efi_format}" \
@@ -243,49 +229,3 @@ popd
 %endif
 %dir %{efidir}
 %{efidir}/%{efi_image}
-%{_cross_sbindir}/grub-bios-setup
-%exclude %{_cross_bashdir}
-%exclude %{_cross_infodir}
-%exclude %{_cross_libexecdir}
-%exclude %{_cross_localedir}
-%exclude %{_cross_sysconfdir}
-%exclude %{_cross_unitdir}
-
-%files modules
-%dir %{_cross_libdir}/grub
-%{_cross_libdir}/grub/*
-
-%files tools
-%{_cross_bindir}/grub-editenv
-%{_cross_bindir}/grub-file
-%{_cross_bindir}/grub-fstest
-%{_cross_bindir}/grub-glue-efi
-%{_cross_bindir}/grub-kbdcomp
-%{_cross_bindir}/grub-menulst2cfg
-%{_cross_bindir}/grub-mkimage
-%{_cross_bindir}/grub-mklayout
-%{_cross_bindir}/grub-mknetdir
-%{_cross_bindir}/grub-mkpasswd-pbkdf2
-%{_cross_bindir}/grub-mkrelpath
-%{_cross_bindir}/grub-mkrescue
-%{_cross_bindir}/grub-mkstandalone
-%{_cross_bindir}/grub-render-label
-%{_cross_bindir}/grub-script-check
-%{_cross_bindir}/grub-syslinux2cfg
-%{_cross_sbindir}/grub-get-kernel-settings
-%{_cross_sbindir}/grub-install
-%{_cross_sbindir}/grub-macbless
-%{_cross_sbindir}/grub-mkconfig
-%{_cross_sbindir}/grub-ofpathname
-%{_cross_sbindir}/grub-probe
-%{_cross_sbindir}/grub-reboot
-%{_cross_sbindir}/grub-set-bootflag
-%{_cross_sbindir}/grub-set-default
-%{_cross_sbindir}/grub-set-password
-%{_cross_sbindir}/grub-sparc64-setup
-%{_cross_sbindir}/grub-switch-to-blscfg
-
-%dir %{_cross_datadir}/grub
-%{_cross_datadir}/grub/grub-mkconfig_lib
-
-%changelog
