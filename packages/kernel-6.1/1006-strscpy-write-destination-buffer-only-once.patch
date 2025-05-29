@@ -1,0 +1,127 @@
+From 9022ed0e7e65734d83a0648648589b9fbea8e8c9 Mon Sep 17 00:00:00 2001
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 1 Dec 2024 09:23:33 -0800
+Subject: [PATCH] strscpy: write destination buffer only once
+
+The point behind strscpy() was to once and for all avoid all the
+problems with 'strncpy()' and later broken "fixed" versions like
+strlcpy() that just made things worse.
+
+So strscpy not only guarantees NUL-termination (unlike strncpy), it also
+doesn't do unnecessary padding at the destination.  But at the same time
+also avoids byte-at-a-time reads and writes by _allowing_ some extra NUL
+writes - within the size, of course - so that the whole copy can be done
+with word operations.
+
+It is also stable in the face of a mutable source string: it explicitly
+does not read the source buffer multiple times (so an implementation
+using "strnlen()+memcpy()" would be wrong), and does not read the source
+buffer past the size (like the mis-design that is strlcpy does).
+
+Finally, the return value is designed to be simple and unambiguous: if
+the string cannot be copied fully, it returns an actual negative error,
+making error handling clearer and simpler (and the caller already knows
+the size of the buffer).  Otherwise it returns the string length of the
+result.
+
+However, there was one final stability issue that can be important to
+callers: the stability of the destination buffer.
+
+In particular, the same way we shouldn't read the source buffer more
+than once, we should avoid doing multiple writes to the destination
+buffer: first writing a potentially non-terminated string, and then
+terminating it with NUL at the end does not result in a stable result
+buffer.
+
+Yes, it gives the right result in the end, but if the rule for the
+destination buffer was that it is _always_ NUL-terminated even when
+accessed concurrently with updates, the final byte of the buffer needs
+to always _stay_ as a NUL byte.
+
+[ Note that "final byte is NUL" here is literally about the final byte
+  in the destination array, not the terminating NUL at the end of the
+  string itself. There is no attempt to try to make concurrent reads and
+  writes give any kind of consistent string length or contents, but we
+  do want to guarantee that there is always at least that final
+  terminating NUL character at the end of the destination array if it
+  existed before ]
+
+This is relevant in the kernel for the tsk->comm[] array, for example.
+Even without locking (for either readers or writers), we want to know
+that while the buffer contents may be garbled, it is always a valid C
+string and always has a NUL character at 'comm[TASK_COMM_LEN-1]' (and
+never has any "out of thin air" data).
+
+So avoid any "copy possibly non-terminated string, and terminate later"
+behavior, and write the destination buffer only once.
+
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+[vyaghras:
+  - backport to 6.1
+  - apply changes in original patch to strscpy, since sized_strscpy
+    doesn't exist in 6.1
+]
+Signed-off-by: Shikha Vyaghra <vyaghras@amazon.com>
+Signed-off-by: Arnaldo Garcia Rincon <agarrcia@amazon.com>
+---
+ lib/string.c | 24 ++++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/lib/string.c b/lib/string.c
+index 3371d26a0e39..f2915577e056 100644
+--- a/lib/string.c
++++ b/lib/string.c
+@@ -172,6 +172,13 @@ EXPORT_SYMBOL(strlcpy);
+  * * The number of characters copied (not including the trailing %NUL)
+  * * -E2BIG if count is 0 or @src was truncated.
+  */
++
++#ifdef __BIG_ENDIAN
++# define ALLBUTLAST_BYTE_MASK (~255ul)
++#else
++# define ALLBUTLAST_BYTE_MASK (~0ul >> 8)
++#endif
++
+ ssize_t strscpy(char *dest, const char *src, size_t count)
+ {
+ 	const struct word_at_a_time constants = WORD_AT_A_TIME_CONSTANTS;
+@@ -215,13 +222,18 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+ 			*(unsigned long *)(dest+res) = c & zero_bytemask(data);
+ 			return res + find_zero(data);
+ 		}
++		count -= sizeof(unsigned long);
++		if (unlikely(!count)) {
++			c &= ALLBUTLAST_BYTE_MASK;
++			*(unsigned long *)(dest+res) = c;
++			return -E2BIG;
++		}
+ 		*(unsigned long *)(dest+res) = c;
+ 		res += sizeof(unsigned long);
+-		count -= sizeof(unsigned long);
+ 		max -= sizeof(unsigned long);
+ 	}
+ 
+-	while (count) {
++	while (count > 1) {
+ 		char c;
+ 
+ 		c = src[res];
+@@ -232,11 +244,11 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+ 		count--;
+ 	}
+ 
+-	/* Hit buffer length without finding a NUL; force NUL-termination. */
+-	if (res)
+-		dest[res-1] = '\0';
++	/* Force NUL-termination. */
++	dest[res] = '\0';
+ 
+-	return -E2BIG;
++	/* Return E2BIG if the source didn't stop */
++	return src[res] ? -E2BIG : res;
+ }
+ EXPORT_SYMBOL(strscpy);
+ #endif
+-- 
+2.49.0
+
