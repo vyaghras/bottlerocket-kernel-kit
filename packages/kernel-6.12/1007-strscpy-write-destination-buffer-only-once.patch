@@ -58,35 +58,29 @@ So avoid any "copy possibly non-terminated string, and terminate later"
 behavior, and write the destination buffer only once.
 
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-[vyaghras:
-  - backport to 6.1
-  - apply changes in original patch to strscpy, since sized_strscpy
-    doesn't exist in 6.1]
-Signed-off-by: Shikha Vyaghra <vyaghras@amazon.com>
 Signed-off-by: Arnaldo Garcia Rincon <agarrcia@amazon.com>
 ---
- lib/string.c | 24 ++++++++++++++++++------
- 1 file changed, 18 insertions(+), 6 deletions(-)
+ lib/string.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
 
 diff --git a/lib/string.c b/lib/string.c
-index 3371d26a0e39..f2915577e056 100644
+index e657809fa718..b632c71df1a5 100644
 --- a/lib/string.c
 +++ b/lib/string.c
-@@ -172,6 +172,13 @@ EXPORT_SYMBOL(strlcpy);
-  * * The number of characters copied (not including the trailing %NUL)
-  * * -E2BIG if count is 0 or @src was truncated.
-  */
-+
+@@ -104,6 +104,12 @@ char *strncpy(char *dest, const char *src, size_t count)
+ EXPORT_SYMBOL(strncpy);
+ #endif
+ 
 +#ifdef __BIG_ENDIAN
 +# define ALLBUTLAST_BYTE_MASK (~255ul)
 +#else
 +# define ALLBUTLAST_BYTE_MASK (~0ul >> 8)
 +#endif
 +
- ssize_t strscpy(char *dest, const char *src, size_t count)
+ ssize_t sized_strscpy(char *dest, const char *src, size_t count)
  {
  	const struct word_at_a_time constants = WORD_AT_A_TIME_CONSTANTS;
-@@ -215,13 +222,18 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+@@ -154,13 +160,18 @@ ssize_t sized_strscpy(char *dest, const char *src, size_t count)
  			*(unsigned long *)(dest+res) = c & zero_bytemask(data);
  			return res + find_zero(data);
  		}
@@ -107,7 +101,7 @@ index 3371d26a0e39..f2915577e056 100644
  		char c;
  
  		c = src[res];
-@@ -232,11 +244,11 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+@@ -171,11 +182,11 @@ ssize_t sized_strscpy(char *dest, const char *src, size_t count)
  		count--;
  	}
  
@@ -121,8 +115,8 @@ index 3371d26a0e39..f2915577e056 100644
 +	/* Return E2BIG if the source didn't stop */
 +	return src[res] ? -E2BIG : res;
  }
- EXPORT_SYMBOL(strscpy);
- #endif
+ EXPORT_SYMBOL(sized_strscpy);
+ 
 -- 
 2.49.0
 
