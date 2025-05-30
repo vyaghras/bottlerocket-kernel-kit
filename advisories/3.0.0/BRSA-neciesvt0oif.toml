@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-neciesvt0oif"
+title = "kernel CVE-2024-53128"
+cve = "CVE-2024-53128"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: sched/task_stack: fix object_is_on_stack() for KASAN tagged pointers"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.182"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-05-30T16:37:04Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.0"

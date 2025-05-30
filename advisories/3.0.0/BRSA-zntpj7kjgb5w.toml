@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-zntpj7kjgb5w"
+title = "kernel CVE-2024-50258"
+cve = "CVE-2024-50258"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: net: fix crash when config small gso_max_size/gso_ipv4_max_size"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.182"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-05-30T16:37:04Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.0"

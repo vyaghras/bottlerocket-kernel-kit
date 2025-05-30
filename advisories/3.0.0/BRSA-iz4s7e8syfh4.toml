@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-iz4s7e8syfh4"
+title = "kernel CVE-2024-26686"
+cve = "CVE-2024-26686"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: fs/proc: do_task_stat: use sig->stats_lock to gather the threads/children stats"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.182"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-05-30T16:37:04Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.0"
