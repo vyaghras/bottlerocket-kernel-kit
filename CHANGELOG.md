@@ -1,3 +1,21 @@
+# v3.0.0 (2025-05-30)
+
+## OS Changes
+ * Provide Vulkan ICD configuration files for the 6.1 and 6.12 NVIDIA kmods ([#138]) Thanks, @iterion!
+ * Remove GRUB's tools and modules subpackages ([#163])
+ * Backport patch to ensure NUL-terminated task comm buffer ([#168])
+ * Update kernel-5.15 to version 5.15.182-123.190 ([#169])
+
+## Build Changes
+ * Update nvlsm SHA value to match upstream ([#160])
+ * Build GRUB with optimizations ([#163])
+
+[#138]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/138
+[#160]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/160
+[#163]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/163
+[#168]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/168
+[#169]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/169
+
 # v2.5.1 (2025-05-22)
 
 ## OS Changes
