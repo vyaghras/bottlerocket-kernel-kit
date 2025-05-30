@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-2xhmn7imgebv"
+title = "kernel CVE-2024-46784"
+cve = "CVE-2024-46784"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: net: mana: Fix error handling in mana_create_txq/rxq's NAPI cleanup"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.182"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-05-30T16:37:04Z
+arches = ["aarch64", "x86_64"]
+version = "3.0.0"
