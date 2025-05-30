@@ -147,6 +147,7 @@ merge_kernel_configs() {
             -e CROSS_COMPILE=/usr/bin/${arch}-bottlerocket-linux-gnu- \
             -e KCONFIG_CONFIG=bottlerocket_${arch}_defconfig \
             -w /linux-"${version}" \
+            -u "$(id -u)":1000 \
             --name "${arch}-kernel-${version}-config-merger" \
             "${sdk_image}" \
             ./scripts/kconfig/merge_config.sh \
