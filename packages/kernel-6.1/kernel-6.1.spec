@@ -46,6 +46,8 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 # Drop AL revert of upstream patch to minimize delta. The necessary dependency
 # options for nvidia are instead included through DRM_SIMPLE
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
+# Backport patch to ensure NUL-terminated task->comm buffer 
+Patch1006: 1006-strscpy-write-destination-buffer-only-once.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel

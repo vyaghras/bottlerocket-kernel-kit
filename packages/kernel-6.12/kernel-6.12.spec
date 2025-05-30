@@ -52,6 +52,8 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 Patch1005: 1005-Lustre-cast-unsigned-long-to-pointer.patch
 # Select prerequisites for GPU drivers
 Patch1006: 1006-Select-prerequisites-for-gpu-drivers.patch
+# Backport patch to ensure NUL-terminated task->comm buffer
+Patch1007: 1007-strscpy-write-destination-buffer-only-once.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
