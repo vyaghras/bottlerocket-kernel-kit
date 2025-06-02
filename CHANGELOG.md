@@ -1,3 +1,14 @@
+# v3.0.1 (2025-06-02)
+
+## OS Changes
+ * Update kernel-6.12 from 6.12.25-32.101 to 6.12.29-33.102 ([#177])
+
+## Build Changes
+ * Fix user mapping to run the bottlerocket-sdk container in tools/latest-kernel-full-config.sh ([#175])
+
+[#175]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/175
+[#177]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/177
+
 # v3.0.0 (2025-05-30)
 
 ## OS Changes
