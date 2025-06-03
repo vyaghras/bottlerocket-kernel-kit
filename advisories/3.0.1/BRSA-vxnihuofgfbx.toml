@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-vxnihuofgfbx"
+title = "kernel CVE-2025-22108"
+cve = "CVE-2025-22108"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: bnxt_en: Mask the bd_cnt field in the TX BD properly"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.29"
+patched-epoch = "0"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-06-03T16:52:15Z
+arches = ["aarch64", "x86_64"]
+version = "3.0.1"
