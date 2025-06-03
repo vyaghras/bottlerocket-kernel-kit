@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-6hhqppgsd2oo"
+title = "kernel CVE-2025-21817"
+cve = "CVE-2025-21817"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: block: mark GFP_NOIO around sysfs ->store()"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.29"
+patched-epoch = "0"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-06-03T16:52:15Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.1"

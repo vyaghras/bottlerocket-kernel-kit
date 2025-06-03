@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-98houg1wf8od"
+title = "kernel CVE-2025-21807"
+cve = "CVE-2025-21807"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: block: fix queue freeze vs limits lock order in sysfs store methods"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.29"
+patched-epoch = "0"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-06-03T16:52:15Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.1"
