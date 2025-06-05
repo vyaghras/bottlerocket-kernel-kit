@@ -2,17 +2,7 @@
 
 set -e -o pipefail
 
-#
 # Common error handling
-#
-
-# Cleanup all tmp files/directories
-cleanup() {
-    rm -rf "$tmpdir"
-}
-
-trap cleanup INT EXIT
-
 bail() {
     if [[ $# -gt 0 ]]; then
         >&2 echo "Error: $*"
@@ -26,16 +16,23 @@ usage() {
 Usage: $(basename "$0") -r RPM_FILE
 
 Extract kernel configurations from an RPM, merge with Bottlerocket's, and write out to a file, per architecture (x86_64 and aarch64).
-Run from the top-level bottlerocket-kernel-kit directory with the following parameters:
+
+This script provides functions intended to be run inside the bottlerocket-sdk container.
+For typical usage, run 'make full-config RPM_FILE=/path/to/kernel-source.rpm' from the top-level bottlerocket-kernel-kit directory.
+
+Direct script usage (for development/debugging):
     -r RPM_FILE    Path to RPM file
     -h             Display this help message
 
-Dependencies:
+Dependencies (when running directly):
     - docker
     - rpm2cpio
     - cpio
     - tar
     - tq
+
+Note: The inner_full_config() function is designed to run within the bottlerocket-sdk container environment
+and expects specific mount points and toolchain paths to be available.
 EOF
 }
 
@@ -70,31 +67,28 @@ resolve_bottlerocket_sdk() {
     echo "${registry}/${name}:v${version}"
 }
 
-# expect $pwd to be packages/kernel-${kver}
-merge_kernel_configs() {
-    rpm_file=$1
-    sdk_image=$2
-    kernel_path=$PWD
+# Function to perform the kernel configuration merging inside Docker container
+inner_full_config() {
+    pushd /work || bail "Unable to enter /work (bind mount to tmp dir)"
 
-    version="$(rpm --query --nosignature --queryformat '%{VERSION}' "${rpm_file}")"
+    version="$(rpm --query --nosignature --queryformat '%{VERSION}' kernel-source.rpm)"
     majorminor=${version%.*} # Trim after last '.', e.g. 6.1.132 -> 6.1
     if [ "${majorminor}" == "6.12" ]; then
         # kernel 6.12 has a patch file that is not applied to the kernel sources, so
         # only pick up the 1000-series kernel patches for our purposes here.
-        readarray -t br_patches < <(find "${kernel_path}" -maxdepth 1 -name "10*.patch")
+        readarray -t br_patches < <(find /kernel-package -maxdepth 1 -name "10*.patch")
         spec_file="kernel6.12.spec"
         microcode_file="config-microcode-6-12"
     else
-        readarray -t br_patches < <(find "${kernel_path}" -maxdepth 1 -name "*.patch")
+        readarray -t br_patches < <(find /kernel-package -maxdepth 1 -name "*.patch")
         spec_file="kernel.spec"
         microcode_file="config-microcode"
     fi
 
-    tmpdir=$(mktemp -d)
-    cp "${rpm_file}" "${tmpdir}/"
-    pushd "${tmpdir}" || bail "Could not move around"
+    kernel_path=/kernel-package
 
-    rpm2cpio "${rpm_file}" | cpio -iu {,./}linux-"${version}".tar{,.xz} {,./}config-x86_64 {,./}config-aarch64 {,./}"*.patch" {,./}"${spec_file}"
+    rpm2cpio kernel-source.rpm | cpio -iu {,./}linux-"${version}".tar{,.xz} {,./}config-x86_64 {,./}config-aarch64 {,./}"*.patch" {,./}"${spec_file}"
+
     # Upstream source is either xz compressed tarball or plain tarball
     if [ -f "./linux-${version}.tar" ]; then
         tar -xof linux-"${version}".tar; rm linux-"${version}".tar
@@ -102,9 +96,10 @@ merge_kernel_configs() {
         tar -xof linux-"${version}".tar.xz; rm linux-"${version}".tar.xz
     fi
 
-    # Find patch ordering based on the upstream SRPM and apply in that order
+    # Find upstream patch ordering based on the upstream SRPM so we can apply in that order
     readarray -t patches < <(grep -P "^Patch\d+" "${spec_file}" | sort -n -k1.6 | grep -oP "^Patch\d+: \K.*\.patch$" "${spec_file}")
 
+    # Enter the source directory extracted from the tarball and patch
     pushd "linux-${version}" || bail "Could not move into linux-${version}"
 
     # Patches from the upstream
@@ -114,99 +109,32 @@ merge_kernel_configs() {
 
     # Patches from bottlerocket
     for patch in "${br_patches[@]}"; do
-        echo "Applying ${patch}"
+        echo "Applying bottlerocket patch ${patch}"
         patch -p1 <"$patch"
     done
 
-    popd || bail "Could not move around - 'popd' failed. Lets stop before we break anything further."
+    popd || bail "Could not move around - 'popd' back to /work failed. Lets stop before we break anything further."
 
     for arch in "x86_64" "aarch64"; do
 
+        export CROSS_COMPILE=/usr/bin/${arch}-bottlerocket-linux-gnu-
+        export KCONFIG_CONFIG=bottlerocket_${arch}_defconfig
+
         br_cfg="${kernel_path}/config-bottlerocket"
-        microcode_cfg="${kernel_path}/../microcode/${microcode_file}"
-        al_cfg="${PWD}/config-${arch}"
-        linux_src="${PWD}/linux-${version}"
+        microcode_cfg="/microcode/${microcode_file}"
 
         pushd "linux-${version}" || bail "Could not move into linux-${version}"
 
         if [ "${arch}" = "aarch64" ]; then
             karch="arm64"
-            script_args=("../config-${arch}" "../config-bottlerocket")
+            script_args=("../config-${arch}" "${br_cfg}")
         elif [ "${arch}" = "x86_64" ]; then
             karch="x86"
-            script_args=("../config-${arch}" "../config-microcode" "../config-bottlerocket")
+            script_args=("../config-${arch}" "${microcode_cfg}" "${br_cfg}")
         fi
 
-        # mount config files and start the sdk docker container
-        docker run --rm \
-            -v "${br_cfg}":/config-bottlerocket \
-            -v "${microcode_cfg}":/config-microcode \
-            -v "${al_cfg}":/config-${arch} \
-            -v "${linux_src}":/linux-"${version}" \
-            -e ARCH="${karch}" \
-            -e CROSS_COMPILE=/usr/bin/${arch}-bottlerocket-linux-gnu- \
-            -e KCONFIG_CONFIG=bottlerocket_${arch}_defconfig \
-            -w /linux-"${version}" \
-            -u "$(id -u)":1000 \
-            --name "${arch}-kernel-${version}-config-merger" \
-            "${sdk_image}" \
-            ./scripts/kconfig/merge_config.sh \
-            "${script_args[@]}"
-
-        mv -f "bottlerocket_${arch}_defconfig" "${kernel_path}/config-full-bottlerocket-${arch}"
-        popd || bail "Could not move around - 'popd' failed. Lets stop before we break anything further."
+        ARCH=${karch} ./scripts/kconfig/merge_config.sh "${script_args[@]}"
+        mv -f "bottlerocket_${arch}_defconfig" "${kernel_path}/config-full-bottlerocket-${arch}" || bail "Failed to create config-full-bottlerocket-${arch}"
+        popd || bail "Could not move around - 'popd' failed in merge_config loop. Lets stop before we break anything further."
     done
-
-    popd || bail "Could not move around - 'popd' failed. Lets stop before we break anything further."
-
 }
-
-################################################################################
-# START MAIN CONTROL FLOW
-################################################################################
-
-# parse arguments
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -r|--rpm-file)
-            shift; rpm_file="$1" ;;
-        *)
-            usage_error "Invalid option '$1'" ;;
-    esac
-    shift
-done
-
-# Verify all required parameters are provided
-if [ -z "${rpm_file}" ]; then
-    echo "Error: Missing required parameters"
-    usage
-    exit 1
-fi
-
-rpm_file=$(realpath "${rpm_file}")
-
-# Check if the RPM file exists
-if [ ! -f "${rpm_file}" ]; then
-    bail "RPM file not found: ${rpm_file}"
-fi
-
-# Check dependencies
-check_dependencies
-
-# Get SDK image from Twoliter.lock and/or Twoliter.override
-sdk_image=$(resolve_bottlerocket_sdk)
-
-# Parse RPM file for kernel version (6.1, 6.12, etc.)
-kver=$(rpm --query --nosignature --queryformat '%{VERSION}' "${rpm_file}" | sed 's/\.[^.]*$//')
-
-# pushd into kernel dir
-pushd packages || bail "Could not move into packages"
-pushd kernel-"${kver}" || bail "Could not move into packages/kernel-${kver}"
-
-# Merge configs
-merge_kernel_configs "${rpm_file}" "${sdk_image}"
-
-# Exit kernel-${kver}/ dir
-popd  || bail "Could not move around - 'popd' failed."
-# Exit packages/ dir
-popd  || bail "Could not move around - 'popd' failed."
