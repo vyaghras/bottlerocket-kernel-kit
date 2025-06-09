@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 5.15.182 Kernel Configuration
+# Linux/arm64 5.15.184 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -2094,7 +2094,7 @@ CONFIG_SCSI_SCAN_ASYNC=y
 # CONFIG_SCSI_SPI_ATTRS is not set
 # CONFIG_SCSI_FC_ATTRS is not set
 CONFIG_SCSI_ISCSI_ATTRS=m
-# CONFIG_SCSI_SAS_ATTRS is not set
+CONFIG_SCSI_SAS_ATTRS=m
 # CONFIG_SCSI_SAS_LIBSAS is not set
 # CONFIG_SCSI_SRP_ATTRS is not set
 # end of SCSI Transports
@@ -4359,7 +4359,7 @@ CONFIG_AMAZON_DRIVER_UPDATES=y
 CONFIG_AMAZON_ENA_ETHERNET=m
 CONFIG_AMAZON_EFA_INFINIBAND=m
 # CONFIG_AMAZON_IGB_UIO is not set
-# CONFIG_AMAZON_SCSI_SMARTPQI is not set
+CONFIG_AMAZON_SCSI_SMARTPQI=m
 # end of Device Drivers
 
 #
