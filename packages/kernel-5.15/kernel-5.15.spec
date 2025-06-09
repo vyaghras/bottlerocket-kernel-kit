@@ -50,6 +50,9 @@ Requires: %{_cross_os}microcode-licenses
 Requires: %{name}-modules = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 
+# Pull in default mkfs conf for xfsprogs.
+Requires: (%{name}-mkfs-xfs-conf if %{_cross_os}xfsprogs)
+
 # Pull in platform-dependent modules.
 %if "%{_cross_arch}" == "x86_64"
 Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without %{_cross_os}variant-flavor(nvidia)))
@@ -83,6 +86,12 @@ Summary: Archived Linux kernel source for module building
 Summary: Modules for the Linux kernel
 
 %description modules
+%{summary}.
+
+%package mkfs-xfs-conf
+Summary: mkfs configurations for the XFS filesystem
+
+%description mkfs-xfs-conf
 %{summary}.
 
 %if "%{_cross_arch}" == "x86_64"
@@ -308,6 +317,10 @@ ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{kernel_libdir}/source
 # Install a copy of System.map so that module dependencies can be regenerated.
 install -p -m 0600 System.map %{buildroot}%{kernel_libdir}
 
+# Add symlink for kernel 5.15 xfsprogs-mkfs defaults in the default path.
+mkdir -p %{buildroot}%{_cross_datadir}/xfsprogs/mkfs
+ln -s lts_5.15.conf %{buildroot}%{_cross_datadir}/xfsprogs/mkfs/default.conf
+
 %if "%{_cross_arch}" == "x86_64"
 # Add Neuron-related drop-ins to load the module when the hardware is present.
 mkdir -p %{buildroot}%{_cross_unitdir}/sysinit.target.d
@@ -322,6 +335,9 @@ install -p -m 0644 %{S:221} %{buildroot}%{_cross_unitdir}/modprobe@neuron.servic
 %{_cross_attribution_file}
 /boot/vmlinuz
 /boot/config
+
+%files mkfs-xfs-conf
+%{_cross_datadir}/xfsprogs/mkfs/default.conf
 
 %files modules
 %dir %{_cross_libdir}/modules
