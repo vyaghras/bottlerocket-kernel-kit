@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-5.15
-Version: 5.15.182
+Version: 5.15.184
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/blobstore/73ddac272f5e3ae99bb724b93d40930b1d31f928c7b3e7baddd39eb0fcedbdb5/kernel-5.15.182-123.190.amzn2.src.rpm
+Source0: https://cdn.amazonlinux.com/blobstore/769fc12891f0fb43f6e4d578cc269386eec708a8555a3660d203c1aa8dab89f3/kernel-5.15.184-125.190.amzn2.src.rpm
 Source1: gpgkey-99E617FE5DB527C0D8BD5F8E11CF1F95C87F5B1A.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
@@ -107,8 +107,8 @@ Summary: Header files for the Linux kernel for use by glibc
 rpmkeys --import %{S:1} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:0} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
-rpm2cpio %{S:0} | cpio -iu {,./}linux-%{version}.tar {,./}config-%{_cross_arch} {,./}"*.patch" {,./}kernel.spec
-tar -xof linux-%{version}.tar; rm linux-%{version}.tar
+rpm2cpio %{S:0} | cpio -iu {,./}linux-%{version}.tar.xz {,./}config-%{_cross_arch} {,./}"*.patch" {,./}kernel.spec
+tar -xof linux-%{version}.tar.xz; rm linux-%{version}.tar.xz
 # Count all the patches extracted from the SRPM
 patches_count=$(find -name "*.patch" | wc -l)
 # Find patch ordering based on the Source0 kernel.spec file from the SRPM.
