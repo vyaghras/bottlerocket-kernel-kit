@@ -1,3 +1,12 @@
+# v3.0.2 (2025-06-09)
+
+## OS Changes
+ * Update kernel 5.15 from 5.15.182 to 5.15.184 ([#185])
+ * Update r570 NVIDIA driver to 570.148.08 ([#166])
+
+[#166]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/166
+[#185]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/185
+
 # v3.0.1 (2025-06-02)
 
 ## OS Changes
