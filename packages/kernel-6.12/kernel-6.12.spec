@@ -84,6 +84,9 @@ Conflicts: %{_cross_os}image-feature(external-kmod-development)
 # Pull in expected modules.
 Requires: %{name}-modules = %{version}-%{release}
 
+# Pull in default mkfs conf for xfsprogs.
+Requires: (%{name}-mkfs-xfs-conf if %{_cross_os}xfsprogs)
+
 # Pull in platform-dependent boot config snippets.
 Requires: (%{name}-bootconfig-aws if %{_cross_os}variant-platform(aws))
 Requires: (%{name}-bootconfig-vmware if %{_cross_os}variant-platform(vmware))
@@ -124,6 +127,12 @@ Summary: Boot config snippet for the Linux kernel on VMware
 Summary: Modules for the Linux kernel
 
 %description modules
+%{summary}.
+
+%package mkfs-xfs-conf
+Summary: mkfs configurations for the XFS filesystem
+
+%description mkfs-xfs-conf
 %{summary}.
 
 %if "%{_cross_arch}" == "x86_64"
@@ -372,6 +381,10 @@ mkdir -p %{buildroot}%{_cross_unitdir}/"${LOWERPATH}.mount.d"
 sed -e 's|PREFIX|%{_cross_prefix}|g' %{S:210} \
   > %{buildroot}%{_cross_unitdir}/"${LOWERPATH}.mount.d"/no-squashfs.conf
 
+# Add symlink for kernel 6.12 xfsprogs-mkfs defaults in the default path.
+mkdir -p %{buildroot}%{_cross_datadir}/xfsprogs/mkfs
+ln -s lts_6.12.conf %{buildroot}%{_cross_datadir}/xfsprogs/mkfs/default.conf
+
 %if "%{_cross_arch}" == "x86_64"
 # Add Neuron-related drop-ins to load the module when the hardware is present.
 mkdir -p %{buildroot}%{_cross_unitdir}/sysinit.target.d
@@ -395,6 +408,9 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %dir %{_cross_datadir}/bottlerocket/kernel-devel
 %{_cross_datadir}/bottlerocket/kernel-devel/*
 %{_cross_unitdir}/*kernel*devel*.mount.d/no-squashfs.conf
+
+%files mkfs-xfs-conf
+%{_cross_datadir}/xfsprogs/mkfs/default.conf
 
 %files headers
 %dir %{_cross_includedir}/asm

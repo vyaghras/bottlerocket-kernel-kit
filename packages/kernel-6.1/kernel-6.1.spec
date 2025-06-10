@@ -67,6 +67,9 @@ Requires: %{_cross_os}microcode-licenses
 Requires: %{name}-modules = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 
+# Pull in default mkfs conf for xfsprogs.
+Requires: (%{name}-mkfs-xfs-conf if %{_cross_os}xfsprogs)
+
 # Pull in platform-dependent boot config snippets.
 Requires: (%{name}-bootconfig-aws if %{_cross_os}variant-platform(aws))
 Requires: (%{name}-bootconfig-vmware if %{_cross_os}variant-platform(vmware))
@@ -134,6 +137,12 @@ Summary: Boot config snippet for the Linux kernel on bare metal
 Summary: Modules for the Linux kernel
 
 %description modules
+%{summary}.
+
+%package mkfs-xfs-conf
+Summary: mkfs configurations for the XFS filesystem
+
+%description mkfs-xfs-conf
 %{summary}.
 
 %package modules-metal
@@ -381,6 +390,10 @@ ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{_cross_kmoddir}/source
 # Install a copy of System.map so that module dependencies can be regenerated.
 install -p -m 0600 System.map %{buildroot}%{_cross_kmoddir}
 
+# Add symlink for kernel 6.1 xfsprogs-mkfs defaults in the default path.
+mkdir -p %{buildroot}%{_cross_datadir}/xfsprogs/mkfs
+ln -s lts_6.1.conf %{buildroot}%{_cross_datadir}/xfsprogs/mkfs/default.conf
+
 # Ensure that each required FIPS module is loaded as a dependency of the
 # check-fips-module.service. The list of FIPS modules is different across
 # kernels but the check is consistent: it loads the "tcrypt" module after
@@ -420,6 +433,9 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_attribution_file}
 /boot/vmlinuz
 /boot/config
+
+%files mkfs-xfs-conf
+%{_cross_datadir}/xfsprogs/mkfs/default.conf
 
 %files headers
 %dir %{_cross_includedir}/asm
