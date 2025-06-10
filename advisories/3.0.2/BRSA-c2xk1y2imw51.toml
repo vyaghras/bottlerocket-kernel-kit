@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-c2xk1y2imw51"
+title = "kernel CVE-2023-52757"
+cve = "CVE-2023-52757"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: smb: client: fix potential deadlock when releasing mids"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.184"
+patched-epoch = "0"
+
+[updateinfo]
+author = "mharrimn"
+issue-date = 2025-06-10T16:19:48Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.2"

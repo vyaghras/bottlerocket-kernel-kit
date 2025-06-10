@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ueyt6h6v17s0"
+title = "kernel CVE-2024-56751"
+cve = "CVE-2024-56751"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ipv6: release nexthop on device removal The CI is hitting some aperiodic hangup at device removal time in the"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.184"
+patched-epoch = "0"
+
+[updateinfo]
+author = "mharrimn"
+issue-date = 2025-06-10T16:19:48Z
+arches = ["aarch64", "x86_64"]
+version = "3.0.2"

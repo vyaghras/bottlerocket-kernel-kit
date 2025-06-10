@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-diymqkfe6t7r"
+title = "kernel CVE-2022-48893"
+cve = "CVE-2022-48893"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: drm/i915/gt: Cleanup partial engine discovery failures"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.184"
+patched-epoch = "0"
+
+[updateinfo]
+author = "mharrimn"
+issue-date = 2025-06-10T16:19:48Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.2"
