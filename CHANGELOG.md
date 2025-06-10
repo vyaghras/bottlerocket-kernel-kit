@@ -1,3 +1,16 @@
+# v3.1.0 (2025-06-11)
+
+## OS Changes
+ * Update kernels 6.1 and 6.12 to the latest upstream ([#194])
+ * Include libnvidia-gpucomp.so ([#181]) Thanks, @tzmtl!
+
+## Build Changes
+ * Use SDK version v0.62.0 ([#190])
+
+[#181]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/181
+[#190]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/190
+[#194]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/194
+
 # v3.0.2 (2025-06-09)
 
 ## OS Changes
