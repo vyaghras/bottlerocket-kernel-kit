@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-yybcw3x0yzuj"
+title = "kernel CVE-2025-37914"
+cve = "CVE-2025-37914"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: net_sched: ets: Fix double list add in class with netem as child qdisc"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.184"
+patched-epoch = "0"
+
+[updateinfo]
+author = "mharrimn"
+issue-date = 2025-06-10T16:19:48Z
+arches = ["x86_64", "aarch64"]
+version = "3.0.2"
