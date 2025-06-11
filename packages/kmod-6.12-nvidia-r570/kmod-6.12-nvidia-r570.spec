@@ -581,6 +581,7 @@ popd
 %{_cross_libdir}/nvidia/tesla/libnvidia-allocator.so.1
 %{_cross_libdir}/nvidia/tesla/libOpenCL.so.1.0.0
 %{_cross_libdir}/nvidia/tesla/libOpenCL.so.1
+%{_cross_libdir}/nvidia/tesla/libnvidia-gpucomp.so.%{tesla_ver}
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_libdir}/nvidia/tesla/libnvidia-pkcs11.so.%{tesla_ver}
 %{_cross_libdir}/nvidia/tesla/libnvidia-pkcs11-openssl3.so.%{tesla_ver}
@@ -670,7 +671,6 @@ popd
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1.0.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1.0.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-gpucomp.so.%{tesla_ver}
 %if "%{_cross_arch}" == "x86_64"
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.%{tesla_ver}
