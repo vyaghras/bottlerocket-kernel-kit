@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.134 Kernel Configuration
+# Linux/arm64 6.1.140 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -4762,6 +4762,7 @@ CONFIG_AMAZON_ENA_ETHERNET=m
 CONFIG_AMAZON_EFA_INFINIBAND=m
 # CONFIG_AMAZON_IGB_UIO is not set
 CONFIG_AMAZON_SCSI_MPI3MR=m
+# CONFIG_AMAZON_SCSI_SMARTPQI is not set
 CONFIG_V4L2_LOOPBACK=m
 # end of Device Drivers
 
