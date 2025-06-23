@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-q4gjtwl9wciq"
+title = "kernel CVE-2025-22062"
+cve = "CVE-2025-22062"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: sctp: add mutual exclusion in proc_sctp_do_udp_port()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.140"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-06-11T19:52:52Z
+arches = ["x86_64", "aarch64"]
+version = "3.1.0"
