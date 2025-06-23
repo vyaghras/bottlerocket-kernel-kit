@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-2ppotm8dqxli"
+title = "kernel CVE-2024-36927"
+cve = "CVE-2024-36927"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ipv4: Fix uninit-value access in __ip_make_skb()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.140"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-06-11T19:52:52Z
+arches = ["aarch64", "x86_64"]
+version = "3.1.0"
