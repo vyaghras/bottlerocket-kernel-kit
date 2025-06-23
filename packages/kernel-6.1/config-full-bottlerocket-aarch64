@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.140 Kernel Configuration
+# Linux/arm64 6.1.141 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -1106,7 +1106,6 @@ CONFIG_SKB_EXTENSIONS=y
 CONFIG_PACKET=y
 CONFIG_PACKET_DIAG=m
 CONFIG_UNIX=y
-CONFIG_UNIX_SCM=y
 CONFIG_AF_UNIX_OOB=y
 CONFIG_UNIX_DIAG=m
 CONFIG_TLS=m
