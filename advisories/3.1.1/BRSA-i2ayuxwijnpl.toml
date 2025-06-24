@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-i2ayuxwijnpl"
+title = "kernel CVE-2025-38004"
+cve = "CVE-2025-38004"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: can: bcm: add locking for bcm_op runtime updates"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.185"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.141"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-06-24T19:00:50Z
+arches = ["x86_64", "aarch64"]
+version = "3.1.1"
