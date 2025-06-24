@@ -1,3 +1,11 @@
+# v3.1.1 (2025-07-24)
+
+## OS Changes
+ * Update kernels 5.15, 6.1 and 6.12 to the latest upstream ([#199]) ([#201])
+
+[#199]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/199
+[#201]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/201
+
 # v3.1.0 (2025-06-11)
 
 ## OS Changes
