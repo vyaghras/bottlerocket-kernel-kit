@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-gggy8vlf4ynb"
+title = "kernel CVE-2025-21816"
+cve = "CVE-2025-21816"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: hrtimers: Force migrate away hrtimers queued after CPUHP_AP_HRTIMERS_DYING"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.141"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-06-24T19:00:50Z
+arches = ["x86_64", "aarch64"]
+version = "3.1.1"
