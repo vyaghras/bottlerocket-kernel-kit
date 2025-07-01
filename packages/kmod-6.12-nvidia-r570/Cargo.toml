@@ -37,6 +37,16 @@ sha512 = "c6425cb53bb7915f5912e49c2b4182fe9875eb60759c15e130ae6d323dc168ad860451
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
+url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-imex-570-570.148.08-1.x86_64.rpm"
+sha512 = "846e3f2c6dab2bf097771ec01720cf98ccd30f0dcbad09826d708e29f896982642bad866c38fc116c02f6f0a3feea3eaef69034380dc303dbb50aeee079ed01a"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
+url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-imex-570-570.148.08-1.aarch64.rpm"
+sha512 = "13c1ac2f8650a909ea826fbd41c4ba3378a6c83aa6d38996c2a5509aa49f70a90c023ccaa1e1cad6ecd6808e721cc4effcf02f4cc21f0f2a0fc4043a105ba1bd"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
 url = "https://raw.githubusercontent.com/NVIDIA/open-gpu-kernel-modules/570/COPYING"
 sha512 = "f9cee68cbb12095af4b4e92d01c210461789ef41c70b64efefd6719d0b88468b7a67a3629c432d4d9304c730b5d1a942228a5bcc74a03ab1c411c77c758cd938"
 force-upstream = true
