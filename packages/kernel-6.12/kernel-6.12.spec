@@ -1387,6 +1387,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.%{_ko}
 %endif
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_algo.%{_ko}
+%{_cross_kmoddir}/kernel/net/xfrm/xfrm_interface.%{_ko}
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_ipcomp.%{_ko}
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_user.%{_ko}
 %{_cross_kmoddir}/kernel/security/keys/encrypted-keys/encrypted-keys.%{_ko}
