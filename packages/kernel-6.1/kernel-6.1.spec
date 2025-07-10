@@ -1447,6 +1447,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/net/vmw_vsock/vmw_vsock_vmci_transport.ko.*
 %endif
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_algo.ko.*
+%{_cross_kmoddir}/kernel/net/xfrm/xfrm_interface.*
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_ipcomp.ko.*
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_user.ko.*
 %{_cross_kmoddir}/kernel/security/keys/encrypted-keys/encrypted-keys.ko.*
