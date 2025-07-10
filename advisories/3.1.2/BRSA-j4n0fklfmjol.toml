@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-j4n0fklfmjol"
+title = "kernel CVE-2025-38001"
+cve = "CVE-2025-38001"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: net_sched: hfsc: Address reentrant enqueue adding class to eltree twice"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.35"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-07-10T23:19:39Z
+arches = ["aarch64", "x86_64"]
+version = "3.1.2"

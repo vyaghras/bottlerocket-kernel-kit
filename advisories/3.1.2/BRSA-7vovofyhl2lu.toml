@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-7vovofyhl2lu"
+title = "kernel CVE-2023-52935"
+cve = "CVE-2023-52935"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: mm/khugepaged: fix ->anon_vma race"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.186"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-07-10T23:19:39Z
+arches = ["x86_64", "aarch64"]
+version = "3.1.2"

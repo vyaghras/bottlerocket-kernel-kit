@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-sikxddodyozp"
+title = "kernel CVE-2025-22112"
+cve = "CVE-2025-22112"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: eth: bnxt: fix out-of-range access of vnic_info array"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.35"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-07-10T23:19:39Z
+arches = ["x86_64", "aarch64"]
+version = "3.1.2"
