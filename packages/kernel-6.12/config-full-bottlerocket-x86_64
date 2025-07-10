@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/x86 6.12.31 Kernel Configuration
+# Linux/x86 6.12.35 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="x86_64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -1224,7 +1224,7 @@ CONFIG_XFRM_OFFLOAD=y
 CONFIG_XFRM_ALGO=m
 CONFIG_XFRM_USER=m
 # CONFIG_XFRM_USER_COMPAT is not set
-# CONFIG_XFRM_INTERFACE is not set
+CONFIG_XFRM_INTERFACE=m
 CONFIG_XFRM_SUB_POLICY=y
 CONFIG_XFRM_MIGRATE=y
 CONFIG_XFRM_STATISTICS=y
