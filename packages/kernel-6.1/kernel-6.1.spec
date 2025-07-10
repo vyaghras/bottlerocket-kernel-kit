@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.140
+Version: 6.1.141
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/4bc5f6a434e2c9a9c70796d03f4a967ff73277f48acaf48629c30ca7807aa9a7/kernel-6.1.140-154.222.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/0285c660c03eff65aa135b66b30d8c037c43e52510e63f1572fd256eededff75/kernel-6.1.141-165.249.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
@@ -1448,6 +1448,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %endif
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_algo.ko.*
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_ipcomp.ko.*
+%{_cross_kmoddir}/kernel/net/xfrm/xfrm_interface.ko.*
 %{_cross_kmoddir}/kernel/net/xfrm/xfrm_user.ko.*
 %{_cross_kmoddir}/kernel/security/keys/encrypted-keys/encrypted-keys.ko.*
 %{_cross_kmoddir}/kernel/security/keys/trusted-keys/trusted.ko.*
