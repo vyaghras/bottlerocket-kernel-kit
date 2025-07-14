@@ -5,9 +5,9 @@
 # Both `lib/libgrpc_mgr.so` and `sbin/nvlsm` have RPATHs set to `opt/nvidia/nvlsm` which causes the RPATH check to fail.
 %global __brp_check_rpaths %{nil}
 %if "%{?_cross_arch}" == "aarch64"
-%global fm_arch sbsa
+%global nvidia_arch sbsa
 %else
-%global fm_arch %{_cross_arch}
+%global nvidia_arch %{_cross_arch}
 %endif
 
 Name: %{_cross_os}nvlsm
@@ -35,14 +35,14 @@ Source204: nvlsm-ld.so.conf.in
 %prep
 # Extract Subnet Manager from the rpm via cpio rather than `%%setup` since the
 # correct source is architecture-dependent.
-mkdir nvlsm-linux-%{fm_arch}-%{nvlsm_ver}-archive
-rpm2cpio %{_sourcedir}/nvlsm-%{nvlsm_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D nvlsm-linux-%{fm_arch}-%{nvlsm_ver}-archive
+mkdir nvlsm-linux-%{nvidia_arch}-%{nvlsm_ver}-archive
+rpm2cpio %{_sourcedir}/nvlsm-%{nvlsm_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D nvlsm-linux-%{nvidia_arch}-%{nvlsm_ver}-archive
 
 # Add the license.
 install -p -m 0644 %{S:2} .
 
 %install
-pushd nvlsm-linux-%{fm_arch}-%{nvlsm_ver}-archive
+pushd nvlsm-linux-%{nvidia_arch}-%{nvlsm_ver}-archive
 
 # Install binary
 install -d %{buildroot}%{_cross_bindir}
@@ -73,7 +73,7 @@ install -m 0644 nvlsm.conf %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/
 %files
 %{_cross_attribution_file}
 %license NVidiaEULAforAWS.pdf
-%license nvlsm-linux-%{fm_arch}-%{nvlsm_ver}-archive/usr/share/nvidia/nvlsm/third-party-notices.txt
+%license nvlsm-linux-%{nvidia_arch}-%{nvlsm_ver}-archive/usr/share/nvidia/nvlsm/third-party-notices.txt
 
 %{_cross_bindir}/nvlsm
 
