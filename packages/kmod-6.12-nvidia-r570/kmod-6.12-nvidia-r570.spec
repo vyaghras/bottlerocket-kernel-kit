@@ -3,9 +3,9 @@
 %global tesla_patch 08
 %global tesla_ver %{tesla_major}.%{tesla_minor}.%{tesla_patch}
 %if "%{?_cross_arch}" == "aarch64"
-%global fm_arch sbsa
+%global nvidia_arch sbsa
 %else
-%global fm_arch %{_cross_arch}
+%global nvidia_arch %{_cross_arch}
 %endif
 
 %global kernel_major 6.12
@@ -135,8 +135,8 @@ popd
 
 # Extract fabricmanager from the rpm via cpio rather than `%%setup` since the
 # correct source is architecture-dependent.
-mkdir fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
-rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
+mkdir fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
+rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 
 # Add the license.
 install -p -m 0644 %{S:2} %{S:3} .
@@ -429,7 +429,7 @@ install -p -m 0644 supported-gpus/open-gpu-supported-devices.json %{buildroot}%{
 popd
 
 # Begin NVIDIA fabric manager binaries and topologies
-pushd fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
+pushd fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 install -p -m 0755 usr/bin/nv-fabricmanager %{buildroot}%{_cross_bindir}
 install -p -m 0755 usr/bin/nvswitch-audit %{buildroot}%{_cross_bindir}
 ln -rs %{buildroot}%{_cross_bindir}/nv-fabricmanager %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nv-fabricmanager
@@ -455,7 +455,7 @@ popd
 
 %files tesla
 %license NVidiaEULAforAWS.pdf
-%license fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive/usr/share/doc/nvidia-fabricmanager/third-party-notices.txt
+%license fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive/usr/share/doc/nvidia-fabricmanager/third-party-notices.txt
 %dir %{_cross_datadir}/egl
 %dir %{_cross_datadir}/egl/egl_external_platform.d
 %dir %{_cross_datadir}/glvnd
