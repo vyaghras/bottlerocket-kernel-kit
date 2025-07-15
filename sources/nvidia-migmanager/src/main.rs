@@ -524,7 +524,7 @@ fn run() -> Result<()> {
 
 fn main() {
     if let Err(e) = run() {
-        eprintln!("{}", e);
+        eprintln!("{e}");
         process::exit(1);
     }
 }
@@ -684,8 +684,7 @@ mod test {
 
         let num_slices: usize = min(gpu_ram / slice_ram, 7 / compute_slices);
 
-        let profile_string = std::iter::repeat(mig_profile)
-            .take(num_slices)
+        let profile_string = std::iter::repeat_n(mig_profile, num_slices)
             .collect::<Vec<_>>()
             .join(",");
 
