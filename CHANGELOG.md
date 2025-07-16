@@ -1,4 +1,11 @@
- # v3.1.2 (2025-07-10)
+# v3.2.0 (2025-07-16)
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.63.0 ([#211])
+
+[#211]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/211
+
+# v3.1.2 (2025-07-10)
 
  ## OS Changes
  * Update kernels from 5.15.185 to 5.15.186 ([#208])
