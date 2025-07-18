@@ -5,6 +5,9 @@
 CONFIG_EXT4_FS=y
 CONFIG_EROFS_FS=y
 
+# compress arm64 kernels
+CONFIG_EFI_ZBOOT=y
+
 # btrfs support for compatibility
 CONFIG_BTRFS_FS=m
 CONFIG_BTRFS_FS_POSIX_ACL=y
