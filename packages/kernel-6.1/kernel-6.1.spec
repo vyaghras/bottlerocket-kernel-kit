@@ -182,6 +182,10 @@ Conflicts: %{_cross_os}image-feature(no-fips)
 %{summary}.
 
 %prep
+%if "%{_cross_arch}" == "aarch64"
+%global _cross_kimage vmlinuz.efi
+%endif
+
 rpmkeys --import %{S:1} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:0} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
