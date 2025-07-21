@@ -119,6 +119,12 @@ CONFIG_SECURITY_LOCKDOWN_LSM_EARLY=y
 # Disable SafeSetID LSM
 # CONFIG_SECURITY_SAFESETID is not set
 
+# Enable landlock
+CONFIG_SECURITY_LANDLOCK=y
+
+# Add landlock to the list of LSMs.
+CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,apparmor,bpf"
+
 # enable /proc/config.gz
 CONFIG_IKCONFIG=y
 CONFIG_IKCONFIG_PROC=y
