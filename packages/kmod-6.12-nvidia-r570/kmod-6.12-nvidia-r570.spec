@@ -3,9 +3,9 @@
 %global tesla_patch 08
 %global tesla_ver %{tesla_major}.%{tesla_minor}.%{tesla_patch}
 %if "%{?_cross_arch}" == "aarch64"
-%global fm_arch sbsa
+%global nvidia_arch sbsa
 %else
-%global fm_arch %{_cross_arch}
+%global nvidia_arch %{_cross_arch}
 %endif
 
 %global kernel_major 6.12
@@ -38,6 +38,10 @@ Source3: COPYING
 # fabricmanager for NVSwitch
 Source10: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-fabric-manager-%{tesla_ver}-1.x86_64.rpm
 Source11: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-fabric-manager-%{tesla_ver}-1.aarch64.rpm
+
+# IMEX for GB200
+Source20: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-imex-%{tesla_ver}-1.x86_64.rpm
+Source21: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-imex-%{tesla_ver}-1.aarch64.rpm
 
 # Common NVIDIA conf files from 200 to 299
 Source200: nvidia-tmpfiles.conf.in
@@ -85,8 +89,16 @@ Requires: %{name}-grid
 Summary: NVIDIA fabricmanager config and service files
 Requires: %{name}-tesla(fabricmanager)
 Requires: %{_cross_os}nvlsm
+Requires: %{name}-imex
 
 %description fabricmanager
+%{summary}.
+
+%package imex
+Summary: NVIDIA IMEX config and service files
+Requires: %{name}
+
+%description imex
 %{summary}.
 
 %package open-gpu
@@ -135,11 +147,16 @@ popd
 
 # Extract fabricmanager from the rpm via cpio rather than `%%setup` since the
 # correct source is architecture-dependent.
-mkdir fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
-rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
+mkdir fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
+rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 
 # Add the license.
 install -p -m 0644 %{S:2} %{S:3} .
+
+# Extract imex from the rpm via cpio rather than `%%setup` since the
+# correct source is architecture-dependent.
+mkdir imex-%{nvidia_arch}-%{tesla_ver}-archive
+rpm2cpio %{_sourcedir}/nvidia-imex-%{tesla_major}-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D imex-%{nvidia_arch}-%{tesla_ver}-archive
 
 # This recipe was based in the NVIDIA yum/dnf specs:
 # https://github.com/NVIDIA/yum-packaging-precompiled-kmod
@@ -429,7 +446,7 @@ install -p -m 0644 supported-gpus/open-gpu-supported-devices.json %{buildroot}%{
 popd
 
 # Begin NVIDIA fabric manager binaries and topologies
-pushd fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive
+pushd fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 install -p -m 0755 usr/bin/nv-fabricmanager %{buildroot}%{_cross_bindir}
 install -p -m 0755 usr/bin/nvswitch-audit %{buildroot}%{_cross_bindir}
 ln -rs %{buildroot}%{_cross_bindir}/nv-fabricmanager %{buildroot}%{_cross_libexecdir}/nvidia/tesla/bin/nv-fabricmanager
@@ -439,6 +456,13 @@ install -d %{buildroot}%{_cross_datadir}/nvidia/tesla/nvswitch
 for t in usr/share/nvidia/nvswitch/*_topology ; do
   install -p -m 0644 "${t}" %{buildroot}%{_cross_datadir}/nvidia/tesla/nvswitch
 done
+
+popd
+
+# Begin IMEX binaries and configuration files
+pushd imex-%{nvidia_arch}-%{tesla_ver}-archive
+install -p -m 0755 usr/bin/nvidia-imex %{buildroot}%{_cross_bindir}
+install -p -m 0755 usr/bin/nvidia-imex-ctl %{buildroot}%{_cross_bindir}
 
 popd
 
@@ -455,7 +479,7 @@ popd
 
 %files tesla
 %license NVidiaEULAforAWS.pdf
-%license fabricmanager-linux-%{fm_arch}-%{tesla_ver}-archive/usr/share/doc/nvidia-fabricmanager/third-party-notices.txt
+%license fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive/usr/share/doc/nvidia-fabricmanager/third-party-notices.txt
 %dir %{_cross_datadir}/egl
 %dir %{_cross_datadir}/egl/egl_external_platform.d
 %dir %{_cross_datadir}/glvnd
@@ -708,3 +732,7 @@ popd
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.cfg
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.env
 %{_cross_unitdir}/nvidia-fabricmanager.service
+
+%files imex
+%{_cross_bindir}/nvidia-imex
+%{_cross_bindir}/nvidia-imex-ctl
