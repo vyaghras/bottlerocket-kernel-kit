@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.141
+Version: 6.1.144
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/0285c660c03eff65aa135b66b30d8c037c43e52510e63f1572fd256eededff75/kernel-6.1.141-165.249.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/205e4c6d323103674430088738794ebd068c0c2c21a09d11b6a3b98bc176643e/kernel-6.1.144-170.251.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
@@ -698,9 +698,11 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/tiny/simpledrm.ko.*
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/drm_buddy.ko.*
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/drm_ttm_helper.ko.*
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/display/drm_display_helper.ko.*
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/i915/i915.ko.*
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/ttm/ttm.ko.*
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/vmwgfx/vmwgfx.ko.*
 %endif
 %{_cross_kmoddir}/kernel/drivers/hid/hid-generic.ko.*
 %{_cross_kmoddir}/kernel/drivers/hid/hid-multitouch.ko.*
