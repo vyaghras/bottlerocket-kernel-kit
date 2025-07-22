@@ -4,13 +4,13 @@
 %global kmajor 6.12
 
 Name: %{_cross_os}kernel-%{kmajor}
-Version: 6.12.35
+Version: 6.12.37
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/545853ad31318a391c4d62347bca6060c1a31f8f9765322793d7322aaa58ebb8/kernel6.12-6.12.35-55.103.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/ce5ad35d1c33c79e01a6202cc296334941982074afe0962ec160e35864ea5552/kernel6.12-6.12.37-61.105.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
@@ -658,6 +658,11 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/tiny/simpledrm.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/display/drm_display_helper.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/ttm/ttm.%{_ko}
+
+%if "%{_cross_arch}" == "x86_64"
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/vmwgfx/vmwgfx.%{_ko}
+%endif
+
 %{_cross_kmoddir}/kernel/drivers/hid/hid-generic.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/hid/hid-multitouch.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/hid/uhid.%{_ko}
