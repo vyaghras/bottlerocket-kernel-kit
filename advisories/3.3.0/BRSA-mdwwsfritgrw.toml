@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-mdwwsfritgrw"
+title = "kernel CVE-2025-38062"
+cve = "CVE-2025-38062"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: genirq/msi: Store the IOMMU IOVA directly in msi_desc instead of iommu_cookie"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.187"
+patched-epoch = "0"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-07-23T20:30:40Z
+arches = ["x86_64", "aarch64"]
+version = "3.3.0"
