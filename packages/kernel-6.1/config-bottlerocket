@@ -5,6 +5,9 @@
 CONFIG_EXT4_FS=y
 CONFIG_EROFS_FS=y
 
+# compress arm64 kernels
+CONFIG_EFI_ZBOOT=y
+
 # btrfs support for compatibility
 CONFIG_BTRFS_FS=m
 CONFIG_BTRFS_FS_POSIX_ACL=y
@@ -116,6 +119,12 @@ CONFIG_SECURITY_LOCKDOWN_LSM_EARLY=y
 # Disable SafeSetID LSM
 # CONFIG_SECURITY_SAFESETID is not set
 
+# Enable landlock
+CONFIG_SECURITY_LANDLOCK=y
+
+# Add landlock to the list of LSMs.
+CONFIG_LSM="landlock,lockdown,yama,loadpin,safesetid,integrity,selinux,smack,tomoyo,apparmor,bpf"
+
 # enable /proc/config.gz
 CONFIG_IKCONFIG=y
 CONFIG_IKCONFIG_PROC=y
@@ -154,6 +163,11 @@ CONFIG_MODULE_COMPRESS_GZIP=y
 CONFIG_FW_LOADER_COMPRESS=y
 # CONFIG_FW_LOADER_COMPRESS_XZ is not set
 CONFIG_FW_LOADER_COMPRESS_ZSTD=y
+
+# Prefer LZ4 for zram compression
+CONFIG_ZRAM_DEF_COMP="lz4"
+CONFIG_ZRAM_DEF_COMP_LZ4=y
+# CONFIG_ZRAM_DEF_COMP_LZO is not set
 
 # Add virtio drivers for development setups running as guests in qemu
 CONFIG_VIRTIO_CONSOLE=m
