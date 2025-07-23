@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-up35qjdami6r"
+title = "kernel CVE-2025-37945"
+cve = "CVE-2025-37945"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: net: phy: allow MDIO bus PM ops to start/stop state machine for phylink-controlled PHY"
+
+[[advisory.products]]
+package-name = "kernel-5.15"
+patched-version = "5.15.187"
+patched-epoch = "0"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-07-23T20:30:40Z
+arches = ["x86_64", "aarch64"]
+version = "3.3.0"
