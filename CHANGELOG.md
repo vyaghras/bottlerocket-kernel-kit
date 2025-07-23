@@ -1,3 +1,22 @@
+# v3.3.0 (2025-07-23)
+## Build Changes
+* Updated to Twoliter 0.11.0 ([#215])
+
+## OS Chnages
+* Update kernels from 5.15.186 to 5.15.187-130.192 ([#219])
+* Update kernels from 6.1.141-165.249 to 6.1.144-170.251 ([#217])
+* Update kernels from 6.12.31-35.92 to 6.12.37-61.105 ([#218])
+* Update 6.1 kernel config to more closely match 6.12 ([#216])
+* Enable Landlock LSM in 6.1 and 6.12 kernels ([#216])
+* Add IMEX for 6.12 NVIDIA R570 driver ([#204])
+
+[#204]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/204
+[#215]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/215
+[#216]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/216
+[#217]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/217
+[#218]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/218
+[#219]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/219
+
 # v3.2.0 (2025-07-16)
 
 ## Build Changes
