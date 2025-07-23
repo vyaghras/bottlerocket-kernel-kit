@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.1.141 Kernel Configuration
+# Linux/arm64 6.1.144 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -1096,7 +1096,9 @@ CONFIG_SECRETMEM=y
 # CONFIG_ANON_VMA_NAME is not set
 CONFIG_USERFAULTFD=y
 CONFIG_HAVE_ARCH_USERFAULTFD_MINOR=y
-# CONFIG_LRU_GEN is not set
+CONFIG_LRU_GEN=y
+# CONFIG_LRU_GEN_ENABLED is not set
+# CONFIG_LRU_GEN_STATS is not set
 CONFIG_LOCK_MM_AND_FIND_VMA=y
 
 #
