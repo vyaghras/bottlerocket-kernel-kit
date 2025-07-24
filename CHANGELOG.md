@@ -1,3 +1,10 @@
+# v3.3.1 (2025-07-25)
+## OS Changes
+ * Update r570 NVIDIA driver to 570.172.08 ([#223])
+ * Update r535 NVIDIA driver to 535.261.03 ([#223])
+
+[#223]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/223
+
 # v3.3.0 (2025-07-23)
 ## Build Changes
 * Updated to Twoliter 0.11.0 ([#215])
