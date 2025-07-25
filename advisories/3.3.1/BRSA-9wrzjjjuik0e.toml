@@ -1,0 +1,32 @@
+[advisory]
+id = "BRSA-9wrzjjjuik0e"
+title = "kmod-nvidia CVE-2025-23277"
+cve = "CVE-2025-23277"
+severity = "high"
+description = "NVIDIA Display Driver in the kernel mode driver, may allow access to memory outside bounds permitted under normal use cases. This might lead to denial of service, data tampering, or information disclosure."
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-5.15-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-07-25T18:12:09Z
+arches = ["x86_64", "aarch64"]
+version = "3.3.1"

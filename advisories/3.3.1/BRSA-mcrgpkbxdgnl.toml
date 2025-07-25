@@ -1,0 +1,32 @@
+[advisory]
+id = "BRSA-mcrgpkbxdgnl"
+title = "kmod-nvidia CVE-2025-23279"
+cve = "CVE-2025-23279"
+severity = "high"
+description = "NVIDIA .run Installer contains a race condition. This might lead to code execution, escalation of privileges, information disclosure, denial of service, or data tampering."
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-5.15-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-07-25T18:14:15Z
+arches = ["x86_64", "aarch64"]
+version = "3.3.1"

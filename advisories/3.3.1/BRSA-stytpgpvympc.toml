@@ -1,0 +1,32 @@
+[advisory]
+id = "BRSA-stytpgpvympc"
+title = "kmod-nvidia CVE-2025-23278"
+cve = "CVE-2025-23278"
+severity = "high"
+description = "NVIDIA Display Driver might cause an improper index validation by issuing a call with crafted parameters. This might lead to data tampering  or denial of service."
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.172.08"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-5.15-nvidia"
+patched-version = "535.261.03"
+patched-epoch = "1"
+
+[updateinfo]
+author = "rpkelly"
+issue-date = 2025-07-25T18:12:36Z
+arches = ["x86_64", "aarch64"]
+version = "3.3.1"
