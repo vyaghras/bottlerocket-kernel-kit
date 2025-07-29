@@ -3,11 +3,8 @@ resolver = "2"
 members = [
     "kits/bottlerocket-kernel-kit",
     "packages/grub",
-    "packages/kernel-5.15",
     "packages/kernel-6.1",
     "packages/kernel-6.12",
-    "packages/kmod-5.15-nvidia",
-    "packages/kmod-6.1-nvidia",
     "packages/kmod-6.1-nvidia-r570",
     "packages/kmod-6.12-nvidia-r570",
     "packages/nvidia-migmanager",

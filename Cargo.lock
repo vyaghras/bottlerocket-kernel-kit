@@ -7,11 +7,8 @@ name = "bottlerocket-kernel-kit"
 version = "0.1.0"
 dependencies = [
  "grub",
- "kernel-5_15",
  "kernel-6_1",
  "kernel-6_12",
- "kmod-5_15-nvidia",
- "kmod-6_1-nvidia",
  "kmod-6_1-nvidia-r570",
  "kmod-6_12-nvidia-r570",
  "libkcapi",
@@ -27,13 +24,6 @@ name = "grub"
 version = "0.1.0"
 
 [[package]]
-name = "kernel-5_15"
-version = "0.1.0"
-dependencies = [
- "microcode",
-]
-
-[[package]]
 name = "kernel-6_1"
 version = "0.1.0"
 dependencies = [
@@ -45,20 +35,6 @@ name = "kernel-6_12"
 version = "0.1.0"
 dependencies = [
  "microcode",
-]
-
-[[package]]
-name = "kmod-5_15-nvidia"
-version = "0.1.0"
-dependencies = [
- "kernel-5_15",
-]
-
-[[package]]
-name = "kmod-6_1-nvidia"
-version = "0.1.0"
-dependencies = [
- "kernel-6_1",
 ]
 
 [[package]]
