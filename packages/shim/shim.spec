@@ -7,8 +7,8 @@
 %global shim_efi_image shim%{_cross_efi_arch}.efi
 %global mokm_efi_image mm%{_cross_efi_arch}.efi
 
-%global shimver 15.8
-%global commit 5914984a1ffeab841f482c791426d7ca9935a5e6
+%global shimver 16.0
+%global commit 18d98bfb34be583a5fe2987542e4b15e0db9cb61
 
 Name: %{_cross_os}shim
 Version: %{shimver}
