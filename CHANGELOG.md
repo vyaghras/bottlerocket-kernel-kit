@@ -1,3 +1,15 @@
+# v4.0.0 (2025-08-04)
+## OS Changes
+ * Drop kernel 5.15 and R535 NVIDIA kmod packages ([#226])
+ * Update grub and shim packages ([#228])
+ * Update kernel from 6.12.37-61.105 to 6.12.40-63.107 ([#229])
+ * Update kernel from 6.1.144-170.251 to 6.1.147-172.259  ([#230])
+
+[#226]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/226
+[#228]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/228
+[#229]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/229
+[#230]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/230
+
 # v3.3.1 (2025-07-25)
 ## OS Changes
  * Update r570 NVIDIA driver to 570.172.08 ([#223])
