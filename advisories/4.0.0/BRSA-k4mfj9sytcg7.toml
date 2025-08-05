@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-k4mfj9sytcg7"
+title = "grub CVE-2025-0622"
+cve = "CVE-2025-0622"
+severity = "moderate"
+description = "A flaw was found in GRUB where variable hooks are not properly removed during module unload in PGP, normal, and gettext modules, potentially leading to use-after-free conditions."
+
+[[advisory.products]]
+package-name = "grub"
+patched-version = "2.0.6"
+patched-epoch = "1"
+
+[updateinfo]
+author = "giinglis"
+issue-date = 2025-08-04T22:34:58Z
+arches = ["aarch64", "x86_64"]
+version = "4.0.0"
