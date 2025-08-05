@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-hyvdvzwmmufq"
+title = "grub CVE-2024-45775"
+cve = "CVE-2024-45775"
+severity = "moderate"
+description = "A flaw was found in GRUB's extended command dispatcher. The `grub_extcmd_dispatcher()` function fails to check for memory allocation failures, leading to null pointer processing and potential crashes."
+
+[[advisory.products]]
+package-name = "grub"
+patched-version = "2.0.6"
+patched-epoch = "1"
+
+[updateinfo]
+author = "giinglis"
+issue-date = 2025-08-04T22:34:58Z
+arches = ["x86_64", "aarch64"]
+version = "4.0.0"
