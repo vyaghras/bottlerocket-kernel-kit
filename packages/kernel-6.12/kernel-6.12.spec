@@ -887,6 +887,23 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/xen/xen-gntdev.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/xen/xen-privcmd.%{_ko}
 %endif
+
+%{_cross_kmoddir}/kernel/drivers/scsi/scsi_transport_sas.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/iscsi_boot_sysfs.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/iscsi_tcp.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/libiscsi.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/libiscsi_tcp.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/scsi_mod.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/scsi_transport_iscsi.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/sd_mod.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/virtio_scsi.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/target/loopback/tcm_loop.%{_ko}
+
+%if "%{_cross_arch}" == "x86_64"
+%{_cross_kmoddir}/kernel/drivers/scsi/hv_storvsc.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/scsi/vmw_pvscsi.%{_ko}
+%endif
+
 %{_cross_kmoddir}/kernel/fs/binfmt_misc.%{_ko}
 %{_cross_kmoddir}/kernel/fs/cachefiles/cachefiles.%{_ko}
 %{_cross_kmoddir}/kernel/fs/ceph/ceph.%{_ko}

@@ -217,12 +217,23 @@ CONFIG_EXT4_USE_FOR_EXT2=y
 
 # Provide minimal iSCSI via TCP support for initiator and target mode
 # initiator side
+CONFIG_SCSI=m
 CONFIG_ISCSI_TCP=m
 CONFIG_ISCSI_BOOT_SYSFS=m
 CONFIG_SCSI_ISCSI_ATTRS=m
 # target side
 CONFIG_ISCSI_TARGET=m
 # CONFIG_INFINIBAND_ISERT is not set
+
+# Disable unused SCSI functionality.
+# CONFIG_XEN_SCSI_FRONTEND is not set
+# CONFIG_CHR_DEV_ST is not set
+# CONFIG_BLK_DEV_SR is not set
+# CONFIG_CHR_DEV_SG is not set
+# CONFIG_CHR_DEV_SCH is not set
+
+# SCSI Transports
+CONFIG_VMWARE_PVSCSI=m
 
 # Disable DAMON subsystem. We currently do not have a good use-case for DAMON.
 # CONFIG_DAMON is not set
@@ -248,10 +259,11 @@ CONFIG_DRM_SIMPLEDRM=m
 # CONFIG_ATA is not set
 # CONFIG_SATA_AHCI is not set
 # CONFIG_ATA_PIIX is not set
-# CONFIG_SCSI is not set
 # CONFIG_SCSI_MPI3MR is not set
 # CONFIG_SCSI_MPT3SAS is not set
 # CONFIG_SCSI_SMARTPQI is not set
+# CONFIG_USB_STORAGE is not set
+# CONFIG_CDROM_PKTCDVD is not set
 # CONFIG_SCSI_SAS_ATTRS
 
 # Add ib_umad module
