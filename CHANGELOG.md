@@ -1,3 +1,11 @@
+# v4.0.0 (2025-08-11)
+## OS Changes
+ * Update kernel from 6.12.40-63.107 to 6.12.40-63.114 ([#239])
+ * Update kernel from 6.1.147-172.259 to 6.1.147-172.266 ([#240])
+
+[#239]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/239
+[#240]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/240
+
 # v4.0.0 (2025-08-04)
 ## OS Changes
  * Drop kernel 5.15 and R535 NVIDIA kmod packages ([#226])
