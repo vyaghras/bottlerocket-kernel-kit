@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-0uijefxa1rwu"
+title = "kernel CVE-2025-22115"
+cve = "CVE-2025-22115"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: btrfs: fix block group refcount race in btrfs_create_pending_block_groups()"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.40"
+patched-epoch = "0"
+
+[updateinfo]
+author = "dhwanise"
+issue-date = 2025-08-11T20:57:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.0.1"
