@@ -126,7 +126,7 @@ Requires: %{name}
 %package tesla
 Summary: NVIDIA %{tesla_major} Tesla driver
 Version: %{tesla_ver}
-License: LicenseRef-NVIDIA-AWS-EULA
+License: LicenseRef-NVIDIA-AWS-EULA AND GPL-2.0-only
 Requires: %{_cross_os}variant-platform(aws)
 Requires: %{name}
 Requires: %{name}-fabricmanager
@@ -326,6 +326,9 @@ install -p -m 0644 \
 install kernel/nvidia.mod.o %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
 install kernel/nvidia/nv-interface.o %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
 install kernel/nvidia/nv-kernel.o_binary %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d/nv-kernel.o
+
+# module-common object
+install kernel/.module-common.o %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d/.module-common.o
 
 # uvm
 install kernel/nvidia-uvm.mod.o %{buildroot}%{_cross_datadir}/nvidia/tesla/module-objects.d
@@ -553,6 +556,7 @@ popd
 %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia.mod.o
 %{_cross_datadir}/nvidia/tesla/module-objects.d/nv-interface.o
 %{_cross_datadir}/nvidia/tesla/module-objects.d/nv-kernel.o
+%{_cross_datadir}/nvidia/tesla/module-objects.d/.module-common.o
 
 # uvm
 %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia-uvm.mod.o
