@@ -1,3 +1,15 @@
+# v4.1.0 (2025-08-19)
+## OS Changes
+* Provide missing kernel module details for r570 Tesla drivers in 6.12 ([#234])
+* Enable SCSI for VMware ([#237])
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.64.0 ([#248])
+
+[#234]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/234
+[#237]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/237
+[#248]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/248
+
 # v4.0.1 (2025-08-11)
 ## OS Changes
  * Update kernel from 6.12.40-63.107 to 6.12.40-63.114 ([#239])
