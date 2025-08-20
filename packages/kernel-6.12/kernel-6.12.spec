@@ -13,7 +13,7 @@ URL: https://www.kernel.org/
 Source0: https://cdn.amazonlinux.com/al2023/blobstore/8d0c6b5bec3d237426610b35ee6d90b147f09becd3a62304794c67a471e250e3/kernel6.12-6.12.40-63.114.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
-Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.20.28.0.noarch.rpm
+Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
 Source3: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 
 Source100: config-bottlerocket
@@ -36,9 +36,6 @@ Source221: modprobe@neuron.service.drop-in.conf
 # Bootconfig snippets to adjust the default kernel command line for the platform.
 Source300: bootconfig-aws.conf
 Source301: bootconfig-vmware.conf
-
-# Patch for neuron source tree
-Source400: neuron-resolve-static-const-compiler-warnings.patch
 
 # Help out-of-tree module builds run `make prepare` automatically.
 Patch1001: 1001-Makefile-add-prepare-target-for-external-modules.patch
@@ -231,7 +228,6 @@ rpmkeys --checksig %{S:2} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
 rpm2cpio %{S:2} | cpio -idmu './usr/src/aws-neuronx-*'
 find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron \;
-patch -p1 -d neuron < %{S:400}
 rm -r usr
 %endif
 
