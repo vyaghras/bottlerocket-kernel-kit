@@ -48,6 +48,8 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
 # Backport patch to ensure NUL-terminated task->comm buffer 
 Patch1006: 1006-strscpy-write-destination-buffer-only-once.patch
+# Backport patch to prevent race conditions in SMB's open_cached_dir
+Patch1007: 1007-smb-client-Avoid-race-in-open_cached_dir-with-lease-.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
