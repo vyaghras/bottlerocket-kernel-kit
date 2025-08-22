@@ -1,4 +1,4 @@
-From 9022ed0e7e65734d83a0648648589b9fbea8e8c9 Mon Sep 17 00:00:00 2001
+From ed2be07555332ec51bb1a0197c60b6db08c10226 Mon Sep 17 00:00:00 2001
 From: Linus Torvalds <torvalds@linux-foundation.org>
 Date: Sun, 1 Dec 2024 09:23:33 -0800
 Subject: [PATCH] strscpy: write destination buffer only once
@@ -58,10 +58,8 @@ So avoid any "copy possibly non-terminated string, and terminate later"
 behavior, and write the destination buffer only once.
 
 Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
-[vyaghras:
-  - backport to 6.1
-  - apply changes in original patch to strscpy, since sized_strscpy
-    doesn't exist in 6.1]
+[vyaghras: adjust context since e6584c3964f2f ("string: Allow 2-argument
+strscpy()") is not present]
 Signed-off-by: Shikha Vyaghra <vyaghras@amazon.com>
 Signed-off-by: Arnaldo Garcia Rincon <agarrcia@amazon.com>
 ---
@@ -69,7 +67,7 @@ Signed-off-by: Arnaldo Garcia Rincon <agarrcia@amazon.com>
  1 file changed, 18 insertions(+), 6 deletions(-)
 
 diff --git a/lib/string.c b/lib/string.c
-index 3371d26a0e39..f2915577e056 100644
+index c4b8349ff058..9b963182326b 100644
 --- a/lib/string.c
 +++ b/lib/string.c
 @@ -172,6 +172,13 @@ EXPORT_SYMBOL(strlcpy);
@@ -86,7 +84,7 @@ index 3371d26a0e39..f2915577e056 100644
  ssize_t strscpy(char *dest, const char *src, size_t count)
  {
  	const struct word_at_a_time constants = WORD_AT_A_TIME_CONSTANTS;
-@@ -215,13 +222,18 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+@@ -222,13 +229,18 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
  			*(unsigned long *)(dest+res) = c & zero_bytemask(data);
  			return res + find_zero(data);
  		}
@@ -107,7 +105,7 @@ index 3371d26a0e39..f2915577e056 100644
  		char c;
  
  		c = src[res];
-@@ -232,11 +244,11 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
+@@ -239,11 +251,11 @@ ssize_t strscpy(char *dest, const char *src, size_t count)
  		count--;
  	}
  
@@ -124,5 +122,5 @@ index 3371d26a0e39..f2915577e056 100644
  EXPORT_SYMBOL(strscpy);
  #endif
 -- 
-2.49.0
+2.50.1
 
