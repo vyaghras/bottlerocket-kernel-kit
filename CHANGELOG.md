@@ -1,3 +1,15 @@
+# v4.2.0 (2025-08-25)
+## OS Changes
+* Update to neuron 2.21.37.0 ([#250])
+* Backport patch to prevent race with lease breaks in SMB's ([#253])
+
+## Build Changes
+* Updated to Twoliter 0.12.0 ([#251])
+
+[#250]:https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/250
+[#251]:https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/251
+[#253]:https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/253
+
 # v4.1.0 (2025-08-19)
 ## OS Changes
 * Provide missing kernel module details for r570 Tesla drivers in 6.12 ([#234])
