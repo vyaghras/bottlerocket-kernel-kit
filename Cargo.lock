@@ -11,6 +11,7 @@ dependencies = [
  "kernel-6_12",
  "kmod-6_1-nvidia-r570",
  "kmod-6_12-nvidia-r570",
+ "kmod-6_12-nvidia-r580",
  "libkcapi",
  "linux-firmware",
  "microcode",
@@ -46,6 +47,13 @@ dependencies = [
 
 [[package]]
 name = "kmod-6_12-nvidia-r570"
+version = "0.1.0"
+dependencies = [
+ "kernel-6_12",
+]
+
+[[package]]
+name = "kmod-6_12-nvidia-r580"
 version = "0.1.0"
 dependencies = [
  "kernel-6_12",
