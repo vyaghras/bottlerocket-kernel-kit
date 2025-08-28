@@ -415,11 +415,11 @@ sed \
 install -p -m 0644 neuron.conf %{buildroot}%{_cross_tmpfilesdir}/
 install -d 0644 %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
 # inf1
-sed -e 's|__NEURON_MODULES__|%{_cross_datadir}/neuron|' %{S:221} > \
+sed -e 's|__NEURON_MODULES__|%{_cross_libexecdir}/neuron|' %{S:221} > \
   neuron-inf1.toml
 install -m 0644 neuron-inf1.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
 # latest
-sed -e 's|__NEURON_MODULES__|%{_cross_datadir}/neuron|' %{S:222} > \
+sed -e 's|__NEURON_MODULES__|%{_cross_libexecdir}/neuron|' %{S:222} > \
   neuron-latest.toml
 install -m 0644 neuron-latest.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
 install -p -m 0644 %{S:223} %{S:224} %{buildroot}%{_cross_unitdir}
