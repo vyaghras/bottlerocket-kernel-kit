@@ -12,9 +12,11 @@ URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
 Source0: https://cdn.amazonlinux.com/al2023/blobstore/90e970acea5d658008c0707a6c4953b0e877f85b122cd967525bfecb043af96b/kernel6.12-6.12.46-66.121.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
-# Use latest-neuron-srpm-url.sh to get this.
+# Use latest-2.21-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
-Source3: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
+# Use latest-neuron-srpm-url.sh to get this.
+Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.7.0.noarch.rpm
+Source4: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 
 # Custom Bottlerocket kernel configurations.
 Source100: config-bottlerocket
@@ -33,9 +35,12 @@ Source202: fipsmodules-aarch64
 # Adjust kernel-devel mount behavior if not squashfs.
 Source210: var-lib-kernel-devel-lower.mount.drop-in.conf.in
 
-# Neuron-related drop-ins.
-Source220: neuron-sysinit.target.drop-in.conf
-Source221: modprobe@neuron.service.drop-in.conf
+# Neuron-related configuration and unit files
+Source220: neuron-tmpfiles.conf
+Source221: neuron-inf1.toml
+Source222: neuron-latest.toml
+Source223: load-neuron-inf1-modules.service
+Source224: load-neuron-latest-modules.service
 
 # Bootconfig snippets to adjust the default kernel command line for the platform.
 Source300: bootconfig-aws.conf
@@ -228,11 +233,20 @@ rm -f ../config-* ../*.patch
 
 %if "%{_cross_arch}" == "x86_64"
 cd %{_builddir}
-rpmkeys --import %{S:3} --dbpath "${PWD}/rpmdb"
+# 2.21 for inf1 support
+rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:2} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
 rpm2cpio %{S:2} | cpio -idmu './usr/src/aws-neuronx-*'
-find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron \;
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2_21 \;
+rm -r usr
+
+# latest neuron driver
+rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
+rpmkeys --checksig %{S:3} --dbpath "${PWD}/rpmdb"
+rm -rf "${PWD}/rpmdb"
+rpm2cpio %{S:3} | cpio -idmu './usr/src/aws-neuronx-*'
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_latest \;
 rm -r usr
 %endif
 
@@ -252,7 +266,8 @@ make -s\\\
 %kmake %{?_smp_mflags} modules
 
 %if "%{_cross_arch}" == "x86_64"
-%kmake %{?_smp_mflags} M=%{_builddir}/neuron
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2_21
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_latest
 %endif
 
 make -C tools/bpf/bpftool bootstrap
@@ -263,7 +278,12 @@ make -C tools/bpf/bpftool bootstrap
 %kmake %{?_smp_mflags} modules_install
 
 %if "%{_cross_arch}" == "x86_64"
-%kmake %{?_smp_mflags} M=%{_builddir}/neuron modules_install
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2_21 M=%{_builddir}/neuron_2_21 modules_install
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_latest M=%{_builddir}/neuron_latest modules_install
+mv %{buildroot}%{_cross_kmoddir}/neuron_2_21/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
+mv %{buildroot}%{_cross_kmoddir}/neuron_latest/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
 %endif
 
 install -d %{buildroot}/boot
@@ -387,12 +407,23 @@ mkdir -p %{buildroot}%{_cross_datadir}/xfsprogs/mkfs
 ln -s lts_6.12.conf %{buildroot}%{_cross_datadir}/xfsprogs/mkfs/default.conf
 
 %if "%{_cross_arch}" == "x86_64"
-# Add Neuron-related drop-ins to load the module when the hardware is present.
-mkdir -p %{buildroot}%{_cross_unitdir}/sysinit.target.d
-install -p -m 0644 %{S:220} %{buildroot}%{_cross_unitdir}/sysinit.target.d/neuron.conf
+# Add Neuron-related configuration files to load the module when the hardware is present.
+install -d 0644 %{buildroot}%{_cross_tmpfilesdir}
+sed \
+  -e "s|__KERNEL_VERSION__|%{kmajor}|" \
+  -e "s|__PREFIX__|%{_cross_prefix}|" %{S:220} > neuron.conf
+install -p -m 0644 neuron.conf %{buildroot}%{_cross_tmpfilesdir}/
+install -d 0644 %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+# inf1
+sed -e 's|__NEURON_MODULES__|%{_cross_datadir}/neuron|' %{S:221} > \
+  neuron-inf1.toml
+install -m 0644 neuron-inf1.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+# latest
+sed -e 's|__NEURON_MODULES__|%{_cross_datadir}/neuron|' %{S:222} > \
+  neuron-latest.toml
+install -m 0644 neuron-latest.toml %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/drivers
+install -p -m 0644 %{S:223} %{S:224} %{buildroot}%{_cross_unitdir}
 
-mkdir -p %{buildroot}%{_cross_unitdir}/modprobe@neuron.service.d
-install -p -m 0644 %{S:221} %{buildroot}%{_cross_unitdir}/modprobe@neuron.service.d/neuron.conf
 %endif
 
 # Install platform-specific bootconfig snippets.
@@ -1412,9 +1443,13 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 
 %if "%{_cross_arch}" == "x86_64"
 %files modules-neuron
-%{_cross_kmoddir}/updates/neuron.%{_ko}
-%{_cross_unitdir}/sysinit.target.d/neuron.conf
-%{_cross_unitdir}/modprobe@neuron.service.d/neuron.conf
+%{_cross_libexecdir}/neuron/neuron_2_21/neuron.%{_ko}
+%{_cross_libexecdir}/neuron/neuron_latest/neuron.%{_ko}
+%{_cross_tmpfilesdir}/neuron.conf
+%{_cross_unitdir}/load-neuron-inf1-modules.service
+%{_cross_unitdir}/load-neuron-latest-modules.service
+%{_cross_factorydir}%{_cross_sysconfdir}/drivers/neuron-inf1.toml
+%{_cross_factorydir}%{_cross_sysconfdir}/drivers/neuron-latest.toml
 %endif
 
 %changelog

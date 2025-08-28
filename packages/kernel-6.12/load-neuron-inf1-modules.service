@@ -1,0 +1,19 @@
+[Unit]
+Description=Load Neuron Inf1 modules
+After=local-fs.target
+Requires=local-fs.target
+# Disable manual restarts to prevent loading kernel modules
+# that weren't linked by the running system
+RefuseManualStart=true
+RefuseManualStop=true
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/ghostdog match-driver neuron inf1
+ExecStart=/usr/bin/driverdog --modules-set neuron-inf1 link-modules
+ExecStart=/usr/bin/driverdog --modules-set neuron-inf1 load-modules
+RemainAfterExit=true
+StandardError=journal+console
+
+[Install] 
+RequiredBy=drivers.target
