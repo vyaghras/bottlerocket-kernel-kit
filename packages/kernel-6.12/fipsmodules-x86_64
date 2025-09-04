@@ -18,7 +18,6 @@ sha512-ssse3
 cipher_null
 des3_ede
 aes
-cfb
 dh
 ecdh
 aesni-intel
@@ -31,7 +30,6 @@ ccm
 authenc
 hmac
 cmac
-ofb
 cts
 lzo
 essiv
