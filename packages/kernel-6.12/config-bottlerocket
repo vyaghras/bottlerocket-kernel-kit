@@ -88,10 +88,6 @@ CONFIG_SECURITY_YAMA=y
 # Do not allow SELinux to use `enforcing=0` behavior.
 # CONFIG_SECURITY_SELINUX_DEVELOP is not set
 
-# Check the protection applied by the kernel for mmap and mprotect,
-# rather than the protection requested by userspace.
-CONFIG_SECURITY_SELINUX_CHECKREQPROT_VALUE=0
-
 # Enable support for the kernel lockdown security module.
 CONFIG_SECURITY_LOCKDOWN_LSM=y
 
