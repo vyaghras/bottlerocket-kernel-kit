@@ -376,7 +376,7 @@ CONFIG_QLCNIC_SRIOV=y
 # CONFIG_NETXEN_NIC is not set
 
 # Cisco UCS HBA support
-CONFIG_FCOE_FNIC=m
+
 CONFIG_SCSI_SNIC=m
 
 # Disable virtio drivers unused in Bottlerocket
