@@ -13,9 +13,13 @@ Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
 Source3: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 
+# Custom Bottlerocket kernel configurations.
 Source100: config-bottlerocket
-Source101: config-full-bottlerocket-x86_64
-Source102: config-full-bottlerocket-aarch64
+Source101: config-bottlerocket-x86_64
+Source102: config-bottlerocket-aarch64
+# Fully generated kernel configurations used for validation.
+Source110: config-full-bottlerocket-x86_64
+Source111: config-full-bottlerocket-aarch64
 
 # This list of FIPS modules is extracted from /etc/fipsmodules in the initramfs
 # after placing AL2023 in FIPS mode.
@@ -46,7 +50,7 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 # Drop AL revert of upstream patch to minimize delta. The necessary dependency
 # options for nvidia are instead included through DRM_SIMPLE
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
-# Backport patch to ensure NUL-terminated task->comm buffer 
+# Backport patch to ensure NUL-terminated task->comm buffer
 Patch1006: 1006-strscpy-write-destination-buffer-only-once.patch
 
 BuildRequires: bc
@@ -227,13 +231,16 @@ scripts/kconfig/merge_config.sh \
   ../config-%{_cross_arch} \
 %if "%{_cross_arch}" == "x86_64"
   ../config-microcode \
+  %{S:101} \
+%else
+  %{S:102} \
 %endif
   %{S:100}
 
 %if "%{_cross_arch}" == "x86_64"
-SOURCE_FILE="%{S:101}"
+SOURCE_FILE="%{S:110}"
 %else
-SOURCE_FILE="%{S:102}"
+SOURCE_FILE="%{S:111}"
 %endif
 if ! diff "${KCONFIG_CONFIG}" "${SOURCE_FILE}"; then
   echo "error: source and build kernel configurations do not match"
