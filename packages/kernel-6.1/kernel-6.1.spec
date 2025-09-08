@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.147
+Version: 6.1.148
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/6e81340988cafcf5d2b83ee0051ebed2a007f77aac3c7630caa9120fac3536bc/kernel-6.1.147-172.266.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/e2871ba1c3ef588c0296cb16b86d378d090ddf63b72d968bdb2d1b0cf337b9e2/kernel-6.1.148-173.267.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
@@ -48,8 +48,6 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
 # Backport patch to ensure NUL-terminated task->comm buffer 
 Patch1006: 1006-strscpy-write-destination-buffer-only-once.patch
-# Backport patch to prevent race conditions in SMB's open_cached_dir
-Patch1007: 1007-smb-client-Avoid-race-in-open_cached_dir-with-lease-.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
