@@ -1,3 +1,21 @@
+# v4.3.0 (2025-09-08)
+## OS Changes
+* Update kernel from 6.1.147-172.266 to 6.1.148-173.267 ([#268])
+* Update kernel from 6.12.40-63.114 to 6.12.40-64.114 ([#269], [#270], [#271])
+* Add package definitions for NVIDIA R580 driver ([#255])
+* Enable FIPS support for kernel-6.12 ([#263])
+
+## Build Changes
+* Generate full kernel configuration in the Bottlerocket SDK ([#247])
+
+[#247]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/247
+[#255]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/255
+[#263]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/263
+[#268]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/268
+[#269]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/269
+[#270]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/270
+[#271]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/271
+
 # v4.2.0 (2025-08-25)
 ## OS Changes
 * Update to neuron 2.21.37.0 ([#250])
