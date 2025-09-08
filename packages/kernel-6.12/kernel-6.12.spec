@@ -10,7 +10,7 @@ Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/8d0c6b5bec3d237426610b35ee6d90b147f09becd3a62304794c67a471e250e3/kernel6.12-6.12.40-63.114.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/d9f128189bb87083f93221463a88c2b9051e274502707f2eb0de8fa461646e2d/kernel6.12-6.12.40-64.114.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
@@ -49,8 +49,6 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 Patch1005: 1005-Lustre-cast-unsigned-long-to-pointer.patch
 # Select prerequisites for GPU drivers
 Patch1006: 1006-Select-prerequisites-for-gpu-drivers.patch
-# Backport patch to ensure NUL-terminated task->comm buffer
-Patch1007: 1007-strscpy-write-destination-buffer-only-once.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
@@ -1074,17 +1072,12 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arp_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arpt_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arptable_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/ip_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_ah.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_ECN.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_REJECT.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_rpfilter.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_SYNPROXY.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_nat.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_raw.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_security.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_defrag_ipv4.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_dup_ipv4.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_nat_h323.%{_ko}
@@ -1126,7 +1119,6 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv6/ip6_vti.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/ipcomp6.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/mip6.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_ah.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_eui64.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_frag.%{_ko}
@@ -1138,10 +1130,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_rt.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_srh.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_SYNPROXY.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_nat.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_raw.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_security.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/nf_defrag_ipv6.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/nf_dup_ipv6.%{_ko}
