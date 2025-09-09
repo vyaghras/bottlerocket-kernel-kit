@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-w4wfwisqfdsj"
+title = "kernel CVE-2025-38206"
+cve = "CVE-2025-38206"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: exfat: fix double free in delayed_free"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.148"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.40"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-09-09T17:25:05Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.0"
