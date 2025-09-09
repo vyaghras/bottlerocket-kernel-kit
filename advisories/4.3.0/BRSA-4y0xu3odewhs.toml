@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-4y0xu3odewhs"
+title = "kernel CVE-2025-38587"
+cve = "CVE-2025-38587"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: ipv6: fix possible infinite loop in fib6_info_uses_dev()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.148"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-09-09T17:25:07Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.0"
