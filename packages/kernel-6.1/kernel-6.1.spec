@@ -46,7 +46,7 @@ Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
 # Drop AL revert of upstream patch to minimize delta. The necessary dependency
 # options for nvidia are instead included through DRM_SIMPLE
 Patch1005: 1005-Revert-Revert-drm-fb_helper-improve-CONFIG_FB-depend.patch
-# Backport patch to ensure NUL-terminated task->comm buffer 
+# Backport patch to ensure NUL-terminated task->comm buffer
 Patch1006: 1006-strscpy-write-destination-buffer-only-once.patch
 
 BuildRequires: bc
@@ -78,7 +78,7 @@ Requires: (%{name}-bootconfig-metal if %{_cross_os}variant-platform(metal))
 # Pull in platform-dependent modules.
 Requires: (%{name}-modules-metal if %{_cross_os}variant-platform(metal))
 %if "%{_cross_arch}" == "x86_64"
-Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without %{_cross_os}variant-flavor(nvidia)))
+Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without (%{_cross_os}variant-flavor(nvidia) or %{_cross_os}variant-flavor(nvidia-fips))))
 %endif
 
 # Pull in FIPS-related files if needed.
@@ -158,6 +158,7 @@ Requires: %{name}
 Requires: %{_cross_os}ghostdog
 Requires: %{_cross_os}variant-platform(aws)
 Conflicts: %{_cross_os}variant-flavor(nvidia)
+Conflicts: %{_cross_os}variant-flavor(nvidia-fips)
 
 # Previously the neuron kmod was in a separate package, so provide that
 # name for backwards compatibility.
