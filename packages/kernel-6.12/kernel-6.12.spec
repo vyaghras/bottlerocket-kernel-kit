@@ -87,7 +87,7 @@ Requires: (%{name}-bootconfig-vmware if %{_cross_os}variant-platform(vmware))
 
 # Pull in platform-dependent modules.
 %if "%{_cross_arch}" == "x86_64"
-Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without %{_cross_os}variant-flavor(nvidia)))
+Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without (%{_cross_os}variant-flavor(nvidia) or %{_cross_os}variant-flavor(nvidia-fips))))
 %endif
 
 # Pull in FIPS-related files if needed.
@@ -136,6 +136,7 @@ Requires: %{name}
 Requires: %{_cross_os}ghostdog
 Requires: %{_cross_os}variant-platform(aws)
 Conflicts: %{_cross_os}variant-flavor(nvidia)
+Conflicts: %{_cross_os}variant-flavor(nvidia-fips)
 
 %description modules-neuron
 %{summary}.
