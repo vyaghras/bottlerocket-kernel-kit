@@ -1,3 +1,16 @@
+# v4.3.1 (2025-09-15)
+## OS Changes
+* Update kernel from 6.1.148-173.267 to 6.1.150-174.273 ([#274])
+
+## Build Changes
+* Split kernel configurations per architecture ([#266])
+* Improve Bottlerocket's final kernel configuration validation ([#266])
+* Exclude Neuron modules from all NVIDIA flavors ([#273]) Thanks, @fletcherw!
+
+[#266]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/266
+[#273]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/273
+[#274]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/274
+
 # v4.3.0 (2025-09-08)
 ## OS Changes
 * Update kernel from 6.1.147-172.266 to 6.1.148-173.267 ([#268])
