@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-egy9hx8xsy3q"
+title = "kernel CVE-2025-38491"
+cve = "CVE-2025-38491"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: mptcp: make fallback action and fallback decision atomic"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.150"
+patched-epoch = "0"
+
+[updateinfo]
+author = "jweiw"
+issue-date = 2025-09-15T22:34:51Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.1"
