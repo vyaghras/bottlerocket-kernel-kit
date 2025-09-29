@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-lhj8fo9kxqoh"
+title = "kernel CVE-2025-39846"
+cve = "CVE-2025-39846"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: pcmcia: Fix a NULL pointer dereference in __iodyn_find_io_region()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.153"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"

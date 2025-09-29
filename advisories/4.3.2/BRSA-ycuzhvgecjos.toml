@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ycuzhvgecjos"
+title = "kernel CVE-2025-38670"
+cve = "CVE-2025-38670"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: arm64/entry: Mask DAIF in cpu_switch_to(), call_on_irq_stack()"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"

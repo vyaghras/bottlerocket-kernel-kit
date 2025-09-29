@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-odkekj0an4hj"
+title = "kernel CVE-2025-38615"
+cve = "CVE-2025-38615"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: fs/ntfs3: cancle set bad inode after removing name fails"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"

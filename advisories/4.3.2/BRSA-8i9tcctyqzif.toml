@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-8i9tcctyqzif"
+title = "kernel CVE-2025-38701"
+cve = "CVE-2025-38701"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: ext4: do not BUG when INLINE_DATA_FL lacks system.data xattr"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"

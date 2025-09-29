@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-mah3f0ppcpsn"
+title = "kernel CVE-2025-38691"
+cve = "CVE-2025-38691"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: pNFS: Fix uninited ptr deref in block/scsi layout"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"

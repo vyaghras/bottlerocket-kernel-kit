@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ktih2vjopwzb"
+title = "kernel CVE-2025-40300"
+cve = "CVE-2025-40300"
+severity = "low"
+description = "In the Linux kernel, the following vulnerability has been resolved: x86/vmscape: Add conditional IBPB mitigation"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.153"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"

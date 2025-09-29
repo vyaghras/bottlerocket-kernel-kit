@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ixov422gwxfd"
+title = "kernel CVE-2025-38617"
+cve = "CVE-2025-38617"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: net/packet: fix a race in packet_set_ring() and packet_notifier()"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"
