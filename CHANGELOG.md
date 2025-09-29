@@ -1,3 +1,11 @@
+# v4.3.2 (2025-09-29)
+## OS Changes
+* Update kernel from 6.1.150-174.273 to 6.1.153-175.280 ([#279])
+* Update kernel from 6.12.40-64.114 to 6.12.46-66.121 ([#280])
+
+[#279]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/279
+[#280]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/280
+
 # v4.3.1 (2025-09-15)
 ## OS Changes
 * Update kernel from 6.1.148-173.267 to 6.1.150-174.273 ([#274])
