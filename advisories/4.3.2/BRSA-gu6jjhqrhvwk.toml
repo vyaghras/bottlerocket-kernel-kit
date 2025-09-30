@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-gu6jjhqrhvwk"
+title = "kernel CVE-2025-38571"
+cve = "CVE-2025-38571"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: sunrpc: fix client side handling of tls alerts"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"

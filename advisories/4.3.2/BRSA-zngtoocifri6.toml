@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-zngtoocifri6"
+title = "kernel CVE-2025-39763"
+cve = "CVE-2025-39763"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ACPI: APEI: send SIGBUS to current task if synchronous memory error not recovered"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"

@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-l5qzo2i9ns9y"
+title = "kernel CVE-2025-39718"
+cve = "CVE-2025-39718"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: vsock/virtio: Validate length in packet header before skb_put()"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.46"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.2"

@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-0j10l02cdw6s"
+title = "kernel CVE-2025-39848"
+cve = "CVE-2025-39848"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: ax25: properly unshare skbs in ax25_kiss_rcv()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.153"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"

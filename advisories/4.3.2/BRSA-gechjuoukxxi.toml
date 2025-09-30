@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-gechjuoukxxi"
+title = "kernel CVE-2024-57924"
+cve = "CVE-2024-57924"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: fs: relax assertions on failure to encode file handles"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.153"
+patched-epoch = "0"
+
+[updateinfo]
+author = "vyaghras"
+issue-date = 2025-09-29T22:42:23Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.2"
