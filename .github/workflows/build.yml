@@ -21,6 +21,8 @@ on:
       - 'advisories/**'
       # VSCode configurations
       - '.vscode/**'
+      # GitHub codeowners
+      - '.github/CODEOWNERS'
 
 concurrency:
   group: ${{ github.ref }}
