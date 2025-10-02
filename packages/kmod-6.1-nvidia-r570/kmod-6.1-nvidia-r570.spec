@@ -2,6 +2,7 @@
 %global tesla_minor 195
 %global tesla_patch 03
 %global tesla_ver %{tesla_major}.%{tesla_minor}.%{tesla_patch}
+%global grid_ver grid-18.5
 %if "%{?_cross_arch}" == "aarch64"
 %global nvidia_arch sbsa
 %else
@@ -29,8 +30,10 @@ URL: http://www.nvidia.com/
 # NVIDIA .run scripts for kernel and userspace drivers
 Source0: https://us.download.nvidia.com/tesla/%{tesla_ver}/NVIDIA-Linux-x86_64-%{tesla_ver}.run
 Source1: https://us.download.nvidia.com/tesla/%{tesla_ver}/NVIDIA-Linux-aarch64-%{tesla_ver}.run
-Source2: NVidiaEULAforAWS.pdf
-Source3: COPYING
+Source2: https://s3.amazonaws.com/ec2-linux-nvidia-drivers/%{grid_ver}/NVIDIA-Linux-x86_64-%{tesla_ver}-grid-aws.run
+Source3: NVidiaEULAforAWS.pdf
+Source4: COPYING
+Source5: NvidiaGridAWSUserLicenseAgreement.DOCX
 
 # fabricmanager for NVSwitch
 Source10: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvidia-fabric-manager-%{tesla_ver}-1.x86_64.rpm
@@ -44,6 +47,8 @@ Source204: nvidia-fabricmanager.cfg
 Source205: nvidia-sysusers.conf
 Source206: nvidia-persistenced.service
 Source207: fabricmanager.env
+Source208: gridd.conf
+Source209: nvidia-gridd.service
 
 # NVIDIA tesla conf files from 300 to 399
 Source300: nvidia-tesla-tmpfiles.conf
@@ -100,9 +105,10 @@ Requires: %{name}
 %package grid
 Summary: NVIDIA %{tesla_major} GRID driver
 Version: %{tesla_ver}
-License: MIT AND GPL-2.0-only
+License: MIT AND GPL-2.0-only AND LicenceRef-NVIDIA-GRID-AWS-EULA
 Requires: %{_cross_os}variant-platform(aws)
 Requires: %{name}
+Requires: %{_cross_os}libstdc++
 
 %description grid
 %{summary}.
@@ -127,8 +133,15 @@ sh %{_sourcedir}/NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}.run -x
 # Move to the sources directory and apply patch
 pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}
 %patch 1 -p1
-cp -r kernel-open grid
 popd
+
+# Extract GRID drivers just like Tesla
+%if "%{_cross_arch}" == "x86_64"
+sh %{_sourcedir}/NVIDIA-Linux-x86_64-%{tesla_ver}-grid-aws.run -x
+pushd NVIDIA-Linux-x86_64-%{tesla_ver}-grid-aws
+%patch 1 -p1
+popd
+%endif
 
 # Extract fabricmanager from the rpm via cpio rather than `%%setup` since the
 # correct source is architecture-dependent.
@@ -136,7 +149,7 @@ mkdir fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 rpm2cpio %{_sourcedir}/nvidia-fabric-manager-%{tesla_ver}-1.%{_cross_arch}.rpm | cpio -idmV -D fabricmanager-linux-%{nvidia_arch}-%{tesla_ver}-archive
 
 # Add the license.
-install -p -m 0644 %{S:2} %{S:3} .
+install -p -m 0644 %{S:3} %{S:4} %{S:5} .
 
 %global kernel_sources %{_builddir}/kernel-devel
 tar -xf %{_cross_datadir}/bottlerocket/kernel-devel.tar.xz
@@ -188,11 +201,11 @@ popd
 
 %if "%{_cross_arch}" == "x86_64"
 # Begin GRID build
-pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}/grid
+pushd NVIDIA-Linux-%{_cross_arch}-%{tesla_ver}-grid-aws/kernel-open
 
 # We set IGNORE_CC_MISMATCH even though we are using the same compiler used to
 # compile the kernel, if we don't set this flag the compilation fails
-make %{?_smp_mflags} ARCH=%{_cross_karch} IGNORE_CC_MISMATCH=1 GRID_BUILD=1 GRID_BUILD_CSP=1 SYSSRC=%{kernel_sources} CC=%{_cross_target}-gcc LD=%{_cross_target}-ld
+make %{?_smp_mflags} ARCH=%{_cross_karch} IGNORE_CC_MISMATCH=1 SYSSRC=%{kernel_sources} CC=%{_cross_target}-gcc LD=%{_cross_target}-ld
 
 # Strip symbols out of the .ko files
 for module in *.ko; do
@@ -362,21 +375,27 @@ ln -rs %{buildroot}%{_cross_datadir}/vulkan/icd.d/nvidia_layers.json %{buildroot
 
 %if "%{_cross_arch}" == "x86_64"
 # GRID driver
+pushd ../NVIDIA-Linux-x86_64-%{tesla_ver}-grid-aws
 install -d %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
-install grid/nvidia.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install kernel-open/nvidia.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
 
 # uvm
-install grid/nvidia-uvm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install kernel-open/nvidia-uvm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
 
 # modeset
-install grid/nvidia-modeset.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install kernel-open/nvidia-modeset.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
 
 # peermem
-install grid/nvidia-peermem.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install kernel-open/nvidia-peermem.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
 
 # drm
-install grid/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
+install kernel-open/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/drivers/
 
+# Install nvidia-gridd and related files
+install -m 755 nvidia-gridd %{buildroot}%{_cross_bindir}/nvidia-gridd
+install -m 644 %{S:208} %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/gridd.conf
+install -p -m 0644 %{S:209} %{buildroot}%{_cross_unitdir}
+popd
 # End GRID driver
 %endif
 
@@ -696,8 +715,13 @@ popd
 %if "%{_cross_arch}" == "x86_64"
 %files grid
 %license COPYING
+%license NvidiaGridAWSUserLicenseAgreement.DOCX
+%license NVIDIA-Linux-x86_64-%{tesla_ver}-grid-aws/grid-third-party-licenses.txt
 %dir %{_cross_datadir}/nvidia/grid/drivers
 %dir %{_cross_factorydir}/nvidia/grid
+%{_cross_bindir}/nvidia-gridd
+%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/gridd.conf
+%{_cross_unitdir}/nvidia-gridd.service
 
 %{_cross_datadir}/nvidia/grid/drivers/nvidia.ko
 %{_cross_datadir}/nvidia/grid/drivers/nvidia-uvm.ko
