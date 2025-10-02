@@ -17,6 +17,10 @@ url = "https://s3.amazonaws.com/EULA/NVidiaEULAforAWS.pdf"
 sha512 = "e1926fe99afc3ab5b2f2744fcd53b4046465aefb2793e2e06c4a19455a3fde895e00af1415ff1a5804c32e6a2ed0657e475de63da6c23a0e9c59feeef52f3f58"
 
 [[package.metadata.build-package.external-files]]
+url = "https://aws-nvidia-license-agreement.s3.amazonaws.com/NvidiaGridAWSUserLicenseAgreement.DOCX"
+sha512 = "915d76bc26f7b39202883b6f902ebde1194d1f3e45e6c858ee42ac48615e4b315c658ba78d24bd72a3011289c2ea888ee17089f674497f1cba58d0e0c8f37c7a"
+
+[[package.metadata.build-package.external-files]]
 url = "https://us.download.nvidia.com/tesla/570.195.03/NVIDIA-Linux-x86_64-570.195.03.run"
 sha512 = "77041ef60bd4c637a53750b6ef5c5121e3eb299c5b2859d65fd0a3683c4fb32b5fd34ae419cfdb982588992706264c839338d1ff02850cae2c88fd67f7cda27d"
 force-upstream = true
@@ -34,6 +38,11 @@ force-upstream = true
 [[package.metadata.build-package.external-files]]
 url = "https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvidia-fabric-manager-570.195.03-1.aarch64.rpm"
 sha512 = "99ffb000ebc59d2e501ed4a38913dd9a1669a94edbc45c730a9d34b743590da726fa094cd08aef96c4cc147f238183098d09c9fe5234e14c1f26f8d3d8e7e1d2"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
+url = "https://s3.amazonaws.com/ec2-linux-nvidia-drivers/grid-18.5/NVIDIA-Linux-x86_64-570.195.03-grid-aws.run"
+sha512 = "7b824cf7ddcde4739cadf99dad136a6cb90f19cc759c907e8f856574abf2bb513efb19d2b564f44403f1662e9978e1cbcdbb92d3ed49d6d048088c9fdf27de8f"
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
