@@ -27,22 +27,22 @@ sha512 = "4ed4c4863dce0ec53a9fa1a7e3cdc7ce3e915db4ec014b2c5030e8a6c961d4e58c99c4
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-fabric-manager-570.195.03-1.x86_64.rpm"
+url = "https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvidia-fabric-manager-570.195.03-1.x86_64.rpm"
 sha512 = "2b26abd802e4360cc51b4990e1925732437817e6e9fac94fd2c629f2b74dffe04ea913771a61d77957a4791610d90288c7ac6a474d634b63173e3f11dce299ac"
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-fabric-manager-570.195.03-1.aarch64.rpm"
+url = "https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvidia-fabric-manager-570.195.03-1.aarch64.rpm"
 sha512 = "99ffb000ebc59d2e501ed4a38913dd9a1669a94edbc45c730a9d34b743590da726fa094cd08aef96c4cc147f238183098d09c9fe5234e14c1f26f8d3d8e7e1d2"
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-imex-570-570.195.03-1.x86_64.rpm"
+url = "https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvidia-imex-570-570.195.03-1.x86_64.rpm"
 sha512 = "15d8a8653520994204e345d589f84c750b38924b9e4e3bb949d43c2a702bd04c946b993da158145f38dea1cf459aa2d9cec0f16828aad8e2b95a3b27f85d629a"
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-url = "https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-imex-570-570.195.03-1.aarch64.rpm"
+url = "https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvidia-imex-570-570.195.03-1.aarch64.rpm"
 sha512 = "d620a3f02ce673cd27f96d9a3206c04d13a047c03da03ebb2a93db7335b2c620c249f826d80885783f3f0a676ce622ca882f6e1144afd7258351c5b79ccbeba9"
 force-upstream = true
 
