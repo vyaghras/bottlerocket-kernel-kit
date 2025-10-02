@@ -36,12 +36,12 @@ Source2: NVidiaEULAforAWS.pdf
 Source3: COPYING
 
 # fabricmanager for NVSwitch
-Source10: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-fabricmanager-%{tesla_ver}-1.x86_64.rpm
-Source11: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-fabricmanager-%{tesla_ver}-1.aarch64.rpm
+Source10: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvidia-fabricmanager-%{tesla_ver}-1.x86_64.rpm
+Source11: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvidia-fabricmanager-%{tesla_ver}-1.aarch64.rpm
 
 # IMEX for GB200
-Source20: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvidia-imex-%{tesla_ver}-1.x86_64.rpm
-Source21: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvidia-imex-%{tesla_ver}-1.aarch64.rpm
+Source20: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvidia-imex-%{tesla_ver}-1.x86_64.rpm
+Source21: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvidia-imex-%{tesla_ver}-1.aarch64.rpm
 
 # Common NVIDIA conf files from 200 to 299
 Source200: nvidia-tmpfiles.conf.in
