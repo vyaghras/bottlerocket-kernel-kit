@@ -18,8 +18,8 @@ License: LicenseRef-NVIDIA-AWS-EULA
 URL: https://nvidia.com
 
 # NVIDIA rpms and license files from 0 to 199
-Source0: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/x86_64/nvlsm-%{nvlsm_ver}-1.x86_64.rpm
-Source1: https://developer.download.nvidia.com/compute/cuda/repos/rhel9/sbsa/nvlsm-%{nvlsm_ver}-1.aarch64.rpm
+Source0: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/x86_64/nvlsm-%{nvlsm_ver}-1.x86_64.rpm
+Source1: https://developer.download.nvidia.com/compute/cuda/repos/amzn2023/sbsa/nvlsm-%{nvlsm_ver}-1.aarch64.rpm
 Source2: NVidiaEULAforAWS.pdf
 
 # NVLSM configuration files
