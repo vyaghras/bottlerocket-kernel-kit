@@ -1,3 +1,13 @@
+# v4.3.3 (2025-10-03)
+## OS Changes
+* Update r570 NVIDIA driver to 570.195.03 ([#283])
+* Update r580 NVIDIA driver to 580.95.05 ([#283])
+* Update nvlsm to 2025.06.6 ([#283])
+* Provide nvidia-gridd as a system service ([#285])
+
+[#283]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/283
+[#285]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/285
+
 # v4.3.2 (2025-09-29)
 ## OS Changes
 * Update kernel from 6.1.150-174.273 to 6.1.153-175.280 ([#279])
