@@ -1,0 +1,27 @@
+[advisory]
+id = "BRSA-v1svnbbvzcpi"
+title = "kmod-nvidia CVE-2025-23332"
+cve = "CVE-2025-23332"
+severity = "moderate"
+description = "NVIDIA Display Driver for Linux contains a flaw that could cause a null pointer deference which might lead to denial of service."
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.195.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.195.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r580"
+patched-version = "580.95.05"
+patched-epoch = "1"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-09T17:31:22Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.3"

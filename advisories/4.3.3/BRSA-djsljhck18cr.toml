@@ -1,0 +1,27 @@
+[advisory]
+id = "BRSA-djsljhck18cr"
+title = "kmod-nvidia CVE-2025-23345"
+cve = "CVE-2025-23345"
+severity = "moderate"
+description = "NVIDIA Display Driver for Linux contains a vulnerability in a video decoder that might cause an out-of-bounds read which could lead to information disclosure or denial of service."
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.195.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.195.03"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r580"
+patched-version = "580.95.05"
+patched-epoch = "1"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-09T17:31:27Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.3"
