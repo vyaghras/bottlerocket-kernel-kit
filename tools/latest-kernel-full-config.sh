@@ -210,43 +210,33 @@ fi
 # In kernel kit automation, CodePipeline updates each kernel separately.
 # This script processes only kernels that have available RPM files,
 # skipping any kernel packages without corresponding source RPMs.
-kernels_to_process=()
+# Process kernels with available RPMs
+found_any_rpm=0
 for kernel_dir in "${KERNEL_KIT_DIR}/packages"/kernel-*; do
-    if [[ -d "${kernel_dir}" ]]; then
-        kernel_pkg=$(basename "${kernel_dir}")
-        # In CodePipeline, only one RPM exists per kernel package, but during development
-        # multiple RPMs can coexist. Use version sorting to select the latest RPM.
-        # Sorting rules: https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html
-        rpm_file=$(find "${kernel_dir}" -name "kernel*.src.rpm" | sort -V | tail -1)
-        if [[ -n "${rpm_file}" ]]; then
-            kernels_to_process+=("${kernel_pkg}")
-            echo "Found RPM for ${kernel_pkg}: $(basename "${rpm_file}")"
-        else
-            echo "No RPM found for ${kernel_pkg}, skipping"
-        fi
-    else
+    if [[ ! -d "${kernel_dir}" ]]; then
         bail "No Kernel directory found for ${kernel_dir}"
     fi
-done
 
-if [[ ${#kernels_to_process[@]} -eq 0 ]]; then
-    bail "No kernel RPMs found in any package directory"
-fi
+    kernel_pkg=$(basename "${kernel_dir}")
+    # Multiple RPMs can coexist. Use version sorting to select the latest RPM.
+    rpm_file=$(find "${kernel_dir}" -name "kernel*.src.rpm" | sort -V | tail -1)
 
-# Process available kernels
-for kernel_pkg in "${kernels_to_process[@]}"; do
-    echo "Processing ${kernel_pkg}..."
+    if [[ -z "${rpm_file}" ]]; then
+        echo "No RPM found for ${kernel_pkg}, skipping"
+        continue
+    fi
+
+    found_any_rpm=$((found_any_rpm + 1))
+
+    echo "Processing ${kernel_pkg}: $(basename "${rpm_file}")"
 
     tmpdir=$(mktemp -d)
-
     pushd "${tmpdir}" || bail "Unable to enter temporary directory"
-
-    rpm_file=$(find "${KERNEL_KIT_DIR}/packages/${kernel_pkg}" -name "kernel*.src.rpm" | head -1)
 
     cp "${rpm_file}" kernel-source.rpm
 
     version="$(rpm --query --nosignature --queryformat '%{VERSION}' kernel-source.rpm)"
-    majorminor=${version%.*} # Trim after last '.', e.g. 6.1.132 -> 6.1
+    majorminor=${version%.*}
 
     merge_kernel_configs "${version}" "${majorminor}" "${tmpdir}"
 
@@ -255,3 +245,8 @@ for kernel_pkg in "${kernels_to_process[@]}"; do
 
     popd || bail "Could not return from temporary directory"
 done
+
+# Check if we found any RPMs at all
+if [ "${found_any_rpm}" -eq 0 ]; then
+    bail "No kernel RPMs found in any directory"
+fi
