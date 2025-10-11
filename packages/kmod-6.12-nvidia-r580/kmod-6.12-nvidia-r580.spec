@@ -56,6 +56,11 @@ Source206: nvidia-persistenced.service
 Source207: fabricmanager.env
 Source208: gridd.conf
 Source209: nvidia-gridd.service
+Source210: grid-license-check.service
+Source211: grid-license-check.timer
+Source212: open-gpu-license-fallback.service
+Source213: tesla-license-fallback.service
+Source214: grid-license-file-check.conf
 
 # NVIDIA tesla conf files from 300 to 399
 Source300: nvidia-tesla-tmpfiles.conf
@@ -410,7 +415,9 @@ install kernel-open/nvidia-drm.ko %{buildroot}%{_cross_datadir}/nvidia/grid/driv
 # Install nvidia-gridd and related files
 install -m 755 nvidia-gridd %{buildroot}%{_cross_bindir}/nvidia-gridd
 install -m 644 %{S:208} %{buildroot}%{_cross_factorydir}%{_cross_sysconfdir}/nvidia/gridd.conf
-install -p -m 0644 %{S:209} %{buildroot}%{_cross_unitdir}
+install -p -m 0644 %{S:209} %{S:210} %{S:211} %{S:212} %{S:213} %{buildroot}%{_cross_unitdir}
+install -d %{buildroot}%{_cross_unitdir}/nvidia-k8s-device-plugin.service.d
+install -p -m 0644 %{S:214} %{buildroot}%{_cross_unitdir}/nvidia-k8s-device-plugin.service.d
 popd
 # End GRID driver
 %endif
@@ -754,6 +761,11 @@ popd
 %{_cross_bindir}/nvidia-gridd
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/gridd.conf
 %{_cross_unitdir}/nvidia-gridd.service
+%{_cross_unitdir}/grid-license-check.service
+%{_cross_unitdir}/grid-license-check.timer
+%{_cross_unitdir}/open-gpu-license-fallback.service
+%{_cross_unitdir}/tesla-license-fallback.service
+%{_cross_unitdir}/nvidia-k8s-device-plugin.service.d/grid-license-file-check.conf
 
 %{_cross_datadir}/nvidia/grid/drivers/nvidia.ko
 %{_cross_datadir}/nvidia/grid/drivers/nvidia-uvm.ko
