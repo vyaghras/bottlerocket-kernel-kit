@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 set -e -o pipefail
 
+TQ_IMAGE=ghcr.io/mdm-code/tq:v2.4.0
 
 bail() {
     if [[ $# -gt 0 ]]; then
@@ -9,17 +10,23 @@ bail() {
     exit 1
 }
 
+find_sdk() {
+  docker run --rm \
+      -v "$(pwd):/bottlerocket-kernel-kit:ro" \
+      --user "$(id -u):$(id -g)" \
+      --network none \
+      "${TQ_IMAGE}" \
+      tq -q "[sdk][source]" /bottlerocket-kernel-kit/Twoliter.lock
+}
+
 SCRIPT_PATH="$1"
 
-source="$(tq -r ".sdk.source" -f Twoliter.lock)"
-version="$(tq -r ".sdk.version" -f Twoliter.lock)"
-_name="$(tq -r ".sdk.name" -f Twoliter.lock)"
-_registry="${source%/*}"
+if [[ -z "${SDK}" ]]; then
+  echo "Retriving SDK from Twoliter.lock"
+  SDK="$(find_sdk)"
+fi
 
-registry="$(tq -r ".bottlerocket.bottlerocket-sdk.registry" -f Twoliter.override 2>/dev/null || echo "$_registry")"
-name="$(tq -r ".bottlerocket.bottlerocket-sdk.name" -f Twoliter.override 2>/dev/null || echo "$_name")"
-
-SDK="${registry}/${name}:v${version}"
+echo "Using SDK: ${SDK} to run the provided script"
 
 docker run --rm \
     -v "$(pwd):/bottlerocket-kernel-kit" \
