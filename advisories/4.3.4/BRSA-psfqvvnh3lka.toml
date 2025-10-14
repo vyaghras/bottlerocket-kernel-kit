@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-psfqvvnh3lka"
+title = "kernel CVE-2025-39844"
+cve = "CVE-2025-39844"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: mm: move page table sync declarations to linux/pgtable.h"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.155"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-14T20:26:26Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.4"

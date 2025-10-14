@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-svdnxgwslsol"
+title = "kernel CVE-2025-37931"
+cve = "CVE-2025-37931"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: btrfs: adjust subpage bit start based on sectorsize"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.155"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-14T20:26:26Z
+arches = ["x86_64", "aarch64"]
+version = "4.3.4"
