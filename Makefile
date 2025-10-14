@@ -12,6 +12,7 @@ KIT ?= bottlerocket-kernel-kit
 UNAME_ARCH = $(shell uname -m)
 ARCH ?= $(UNAME_ARCH)
 VENDOR ?= bottlerocket
+SDK ?= ""
 
 ifeq ($(UNAME_ARCH), aarch64)
 	TWOLITER_SHA256=$(TWOLITER_SHA256_AARCH64)
@@ -23,7 +24,7 @@ endif
 all: build
 
 full-config:
-	./tools/docker-run.sh "/bottlerocket-kernel-kit/tools/latest-kernel-full-config.sh"
+	SDK=$(SDK) ./tools/docker-run.sh "/bottlerocket-kernel-kit/tools/latest-kernel-full-config.sh"
 
 prep:
 	@mkdir -p $(TWOLITER_DIR)

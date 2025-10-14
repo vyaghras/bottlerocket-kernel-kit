@@ -39,6 +39,22 @@ bail() {
     exit 1
 }
 
+# Fetch the sources of the configured kernels
+fetch_sources() {
+    # Use the tools available in the Bottlerocket SDK (curl, grep , sed) since
+    # the running container is configured with the caller's UID which prevents
+    # from installing tools at /home/builder/
+    for kernel_dir in "${KERNEL_KIT_DIR}/packages"/kernel-*; do
+        pushd "${kernel_dir}" || bail "Unable to enter kernel directory '${kernel_dir}'"
+        grep 'url =' "Cargo.toml" | while IFS= read -r url; do
+            url=$(echo "${url#*\"}" | cut -d '"' -f 1)
+            echo "Fetching: ${url}"
+            curl -LOs "${url}"
+        done
+        popd || bail "Could not exit kernel directory '${kernel_dir}'"
+    done
+}
+
 # Function to merge kernel configurations for a specific kernel version
 merge_kernel_configs() {
     local version="$1"
@@ -207,9 +223,10 @@ if [[ ! -d "${KERNEL_KIT_DIR}" ]]; then
     bail
 fi
 
-# In kernel kit automation, CodePipeline updates each kernel separately.
-# This script processes only kernels that have available RPM files,
-# skipping any kernel packages without corresponding source RPMs.
+# Guarantee that at least the kernel sources provided by the kernels are available
+# to generate the configuration.
+fetch_sources
+
 # Process kernels with available RPMs
 found_any_rpm=0
 for kernel_dir in "${KERNEL_KIT_DIR}/packages"/kernel-*; do
