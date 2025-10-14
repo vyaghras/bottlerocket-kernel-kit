@@ -1,3 +1,15 @@
+# v4.3.4 (2025-10-14)
+## OS Changes
+* Update kernel from 6.1.153-175.280 to 6.1.155-176.282 ([#290])
+
+## Build Changes
+* Fully containerize latest-kernel-full-config.sh ([#258], [#288], [#289])
+
+[#258]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/258
+[#288]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/288
+[#289]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/289
+[#290]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/290
+
 # v4.3.3 (2025-10-03)
 ## OS Changes
 * Update r570 NVIDIA driver to 570.195.03 ([#283])
