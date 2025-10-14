@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-oao5ikkiowhr"
+title = "kernel CVE-2025-39838"
+cve = "CVE-2025-39838"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: cifs: prevent NULL pointer dereference in UTF16 conversion"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.155"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-14T20:26:26Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.4"

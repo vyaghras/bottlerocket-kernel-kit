@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-yyrtvfosa3x0"
+title = "kernel CVE-2025-39880"
+cve = "CVE-2025-39880"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: libceph: fix invalid accesses to ceph_connection_v1_info"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.155"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2025-10-14T20:26:26Z
+arches = ["aarch64", "x86_64"]
+version = "4.3.4"
