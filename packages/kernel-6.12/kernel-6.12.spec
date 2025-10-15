@@ -1082,17 +1082,12 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arp_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arpt_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/arptable_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/ip_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_ah.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_ECN.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_REJECT.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_rpfilter.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/ipt_SYNPROXY.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_nat.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_raw.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv4/netfilter/iptable_security.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_defrag_ipv4.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_dup_ipv4.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv4/netfilter/nf_nat_h323.%{_ko}
@@ -1134,7 +1129,6 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv6/ip6_vti.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/ipcomp6.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/mip6.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6_tables.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_ah.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_eui64.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_frag.%{_ko}
@@ -1146,10 +1140,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_rt.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_srh.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6t_SYNPROXY.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_filter.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_mangle.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_nat.%{_ko}
-%{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_raw.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/ip6table_security.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/nf_defrag_ipv6.%{_ko}
 %{_cross_kmoddir}/kernel/net/ipv6/netfilter/nf_dup_ipv6.%{_ko}
