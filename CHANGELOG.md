@@ -1,3 +1,13 @@
+# v4.4.0 (2025-10-16)
+## OS Changes
+* Move netfilter modules to built-in ([#296])
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.65.0 ([#295])
+
+[#295]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/295
+[#296]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/296
+
 # v4.3.4 (2025-10-14)
 ## OS Changes
 * Update kernel from 6.1.153-175.280 to 6.1.155-176.282 ([#290])
