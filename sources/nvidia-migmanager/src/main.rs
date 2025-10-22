@@ -97,6 +97,7 @@ enum NvidiaGpu {
     H100_80GB,
     H200_141GB,
     B200_180GB,
+    RtxPro6000_96GB,
     Other,
 }
 
@@ -210,6 +211,9 @@ fn get_gpu_model(pci_device_id: &str) -> Result<NvidiaGpu> {
     } else if pci_device_id.starts_with("0x2901") || pci_device_id.starts_with("0x2941") {
         info!("Found NVIDIA B200-180GB GPU.");
         Ok(NvidiaGpu::B200_180GB)
+    } else if pci_device_id.starts_with("0x2BB5") {
+        info!("Found NVIDIA RTX PRO 6000 Blackwell GPU.");
+        Ok(NvidiaGpu::RtxPro6000_96GB)
     } else {
         warn!("Found NVIDIA Device but couldn't confirm variant.");
         Ok(NvidiaGpu::Other)
@@ -402,6 +406,9 @@ fn enable_mig(mig_settings: NvidiaMigConfig, gpu_info: &[MigGpu]) -> Result<()> 
         Ok(NvidiaGpu::B200_180GB) => {
             process_mig_config::<NvidiaB200_180gbMigProfile>("b200.180gb", &mig_settings)
         }
+        Ok(NvidiaGpu::RtxPro6000_96GB) => {
+            process_mig_config::<NvidiaRtxPro6000_96gbMigProfile>("rtxpro6000.96gb", &mig_settings)
+        }
         _ => {
             let known_gpus: Vec<&str> = vec![
                 "a100.40gb",
@@ -409,6 +416,7 @@ fn enable_mig(mig_settings: NvidiaMigConfig, gpu_info: &[MigGpu]) -> Result<()> 
                 "h100.80gb",
                 "h200.141gb",
                 "b200.180gb",
+                "rtxpro6000.96gb",
             ];
             let mut filtered_map = mig_settings.profile;
             filtered_map.retain(|key, _| !known_gpus.contains(&key.as_str()));

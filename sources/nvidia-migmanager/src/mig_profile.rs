@@ -190,6 +190,32 @@ impl MigGpuProfile for NvidiaB200_180gbMigProfile {
     }
 }
 
+#[derive(Deserialize)]
+pub(crate) enum NvidiaRtxPro6000_96gbMigProfile {
+    #[serde(alias = "1g.24gb")]
+    #[serde(alias = "4")]
+    Mig1g24gb,
+
+    #[serde(alias = "2g.48gb")]
+    #[serde(alias = "2")]
+    Mig2g48gb,
+
+    #[serde(alias = "4g.96gb")]
+    #[serde(alias = "1")]
+    #[serde(other)]
+    Mig4g96gb,
+}
+
+impl MigGpuProfile for NvidiaRtxPro6000_96gbMigProfile {
+    fn get_mig_profile(&self) -> &str {
+        match self {
+            NvidiaRtxPro6000_96gbMigProfile::Mig4g96gb => "4g.96gb",
+            NvidiaRtxPro6000_96gbMigProfile::Mig2g48gb => "2g.48gb,2g.48gb",
+            NvidiaRtxPro6000_96gbMigProfile::Mig1g24gb => "1g.24gb,1g.24gb,1g.24gb,1g.24gb",
+        }
+    }
+}
+
 pub(crate) trait MigGpuProfile: for<'de> Deserialize<'de> {
     fn get_mig_profile(&self) -> &str;
 }
