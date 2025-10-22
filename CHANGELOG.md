@@ -1,3 +1,10 @@
+# v4.4.1 (2025-10-22)
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.65.1 ([#299])
+
+[#299]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/299
+
 # v4.4.0 (2025-10-16)
 ## OS Changes
 * Move netfilter modules to built-in ([#296])
