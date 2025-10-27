@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 6.12.46 Kernel Configuration
+# Linux/arm64 6.12.53 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="aarch64-bottlerocket-linux-gnu-gcc (Buildroot 2024.11.1) 13.3.0"
 CONFIG_CC_IS_GCC=y
@@ -859,8 +859,6 @@ CONFIG_GCC_PLUGINS=y
 CONFIG_FUNCTION_ALIGNMENT_4B=y
 CONFIG_FUNCTION_ALIGNMENT_8B=y
 CONFIG_FUNCTION_ALIGNMENT=8
-CONFIG_AS_HAS_SFRAME_SUPPORT=y
-CONFIG_SFRAME_UNWIND_TABLE=y
 # end of General architecture-dependent options
 
 CONFIG_RT_MUTEXES=y
@@ -6241,7 +6239,6 @@ CONFIG_HAVE_SAMPLE_FTRACE_DIRECT_MULTI=y
 # CONFIG_PID_IN_CONTEXTIDR is not set
 # CONFIG_DEBUG_EFI is not set
 # CONFIG_ARM64_RELOC_TEST is not set
-CONFIG_SFRAME_UNWINDER=y
 # CONFIG_CORESIGHT is not set
 # end of arm64 Debugging
 
