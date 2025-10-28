@@ -1,0 +1,5 @@
+[neuron-inf1]
+lib-modules-path = "kernel/drivers/neuron"
+
+[neuron-inf1.kernel-modules."neuron.ko.gz"]
+copy-source = "__NEURON_MODULES__/neuron_2_21"
