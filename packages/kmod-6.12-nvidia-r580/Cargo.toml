@@ -56,8 +56,7 @@ sha512 = "fdc8279a147a491a2cfed6a7883515ddd824108b4003d70b97b43a70ab5912285d832c
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-# No 580 branch yet, we should shift to that when available
-url = "https://raw.githubusercontent.com/NVIDIA/open-gpu-kernel-modules/570/COPYING"
+url = "https://raw.githubusercontent.com/NVIDIA/open-gpu-kernel-modules/580.95.05/COPYING"
 sha512 = "f9cee68cbb12095af4b4e92d01c210461789ef41c70b64efefd6719d0b88468b7a67a3629c432d4d9304c730b5d1a942228a5bcc74a03ab1c411c77c758cd938"
 force-upstream = true
 
