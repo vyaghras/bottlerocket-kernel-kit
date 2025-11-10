@@ -1,0 +1,22 @@
+[advisory]
+id = "BRSA-asdyj04knyha"
+title = "kernel CVE-2025-39998"
+cve = "CVE-2025-39998"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: scsi: target: target_core_configfs: Add length check to avoid buffer overflow"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.156"
+patched-epoch = "0"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.53"
+patched-epoch = "0"
+
+[updateinfo]
+author = "tianhg"
+issue-date = 2025-10-28T18:38:50Z
+arches = ["aarch64", "x86_64"]
+version = "4.4.2"

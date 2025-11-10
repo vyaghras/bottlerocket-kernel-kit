@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-slnfeuobycei"
+title = "kernel CVE-2025-39961"
+cve = "CVE-2025-39961"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: iommu/amd/pgtbl: Fix possible race while increase page table level"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.53"
+patched-epoch = "0"
+
+[updateinfo]
+author = "tianhg"
+issue-date = 2025-10-28T18:38:50Z
+arches = ["x86_64", "aarch64"]
+version = "4.4.2"

@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ceygfdsmh0ff"
+title = "kernel CVE-2025-39956"
+cve = "CVE-2025-39956"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: igc: don't fail igc_probe() on LED setup error"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.53"
+patched-epoch = "0"
+
+[updateinfo]
+author = "tianhg"
+issue-date = 2025-10-28T18:38:50Z
+arches = ["x86_64", "aarch64"]
+version = "4.4.2"

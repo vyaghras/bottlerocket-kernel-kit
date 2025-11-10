@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-c5mvbcbh2eha"
+title = "kernel CVE-2025-39816"
+cve = "CVE-2025-39816"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: io_uring/kbuf: always use READ_ONCE() to read ring provided buffer lengths"
+
+[[advisory.products]]
+package-name = "kernel-6.12"
+patched-version = "6.12.53"
+patched-epoch = "0"
+
+[updateinfo]
+author = "tianhg"
+issue-date = 2025-10-28T18:38:50Z
+arches = ["x86_64", "aarch64"]
+version = "4.4.2"
