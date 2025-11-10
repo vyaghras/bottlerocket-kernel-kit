@@ -1,13 +1,13 @@
 %global debug_package %{nil}
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.156
+Version: 6.1.158
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/387d7cc72456719d56361a5aee79223187f4cf5b0a79abc92769387d75f9585f/kernel-6.1.156-177.286.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/dbc4df0c62c8c863eb445c191b24c570b417237431b75aef9fe8ae43e5a97a5a/kernel-6.1.158-178.288.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-2.21-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
