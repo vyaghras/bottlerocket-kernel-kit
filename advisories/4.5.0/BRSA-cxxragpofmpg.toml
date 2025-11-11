@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-cxxragpofmpg"
+title = "kernel CVE-2025-40019"
+cve = "CVE-2025-40019"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: crypto: essiv - Check ssize for decryption and in-place encryption"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.158"
+patched-epoch = "0"
+
+[updateinfo]
+author = "tianhg"
+issue-date = 2025-11-11T21:19:43Z
+arches = ["aarch64", "x86_64"]
+version = "4.5.0"
