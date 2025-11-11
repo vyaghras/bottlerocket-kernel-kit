@@ -1,3 +1,17 @@
+# v4.5.0 (2025-11-10)
+## OS Changes
+* Update kernel from 6.1.156-177.286 to 6.1.158-178.288([#310])
+* Update kernel from to 6.12.53-69.119 to 6.12.55-74.119 ([#311])
+* Add additional Neuron module in 6.1 and 6.12 Kernels ([#277])
+* Add RTX PRO 6000 profiles ([#300])
+* Disable PCR 9 measurement in 6.1 and 6.12 Kernels ([#305])
+
+[#277]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/277
+[#300]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/300
+[#305]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/305
+[#310]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/310
+[#311]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/311
+
 # v4.4.2 (2025-10-27)
 ## OS Changes
 * Update kernel from 6.1.155-176.282 to 6.1.156-177.286 ([#302])
