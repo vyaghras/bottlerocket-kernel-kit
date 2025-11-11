@@ -4,13 +4,13 @@
 %global kmajor 6.12
 
 Name: %{_cross_os}kernel-%{kmajor}
-Version: 6.12.53
+Version: 6.12.55
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/49d5661cf5235c5087bc00b20150ad73bc13d59ed112111993f9d658d2537e8e/kernel6.12-6.12.53-69.119.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/1f9a0e4340695bd79eeda126295b4e9e75844ce4af246f88b514a084d7826f72/kernel6.12-6.12.55-74.119.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-2.21-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
@@ -618,12 +618,13 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/crypto/cryptd.%{_ko}
 %endif
 %{_cross_kmoddir}/kernel/drivers/acpi/ac.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/acpi/acpi_ipmi.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/acpi/button.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/acpi/thermal.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/acpi/video.%{_ko}
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/acpi/acpi_extlog.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/acpi/acpi_pad.%{_ko}
-%{_cross_kmoddir}/kernel/drivers/acpi/video.%{_ko}
 %endif
 %{_cross_kmoddir}/kernel/drivers/amazon/media/v4l2-loopback/v4l2loopback.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.%{_ko}
@@ -635,7 +636,11 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/block/null_blk/null_blk.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/block/rbd.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/block/zram/zram.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/char/ipmi/ipmi_devintf.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/char/ipmi/ipmi_msghandler.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/char/ipmi/ipmi_poweroff.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/char/ipmi/ipmi_si.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/char/ipmi/ipmi_watchdog.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/char/virtio_console.%{_ko}
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/char/hangcheck-timer.%{_ko}
@@ -692,6 +697,12 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/tiny/simpledrm.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/display/drm_display_helper.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/ttm/ttm.%{_ko}
+
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/amd/amdgpu/amdgpu.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/amd/amdxcp/amdxcp.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/drm_buddy.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/drm_exec.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/gpu/drm/scheduler/gpu-sched.%{_ko}
 
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/gpu/drm/vmwgfx/vmwgfx.%{_ko}
@@ -796,11 +807,13 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/drivers/net/hyperv/hv_netvsc.%{_ko}
 %endif
+%{_cross_kmoddir}/kernel/drivers/net/ethernet/intel/ixgbe/ixgbe.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ifb.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ipvlan/ipvlan.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ipvlan/ipvtap.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/macvlan.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/macvtap.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/mdio.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/mdio/acpi_mdio.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/mdio/fwnode_mdio.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/netdevsim/netdevsim.%{_ko}
