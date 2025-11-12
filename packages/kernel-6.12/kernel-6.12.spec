@@ -17,6 +17,7 @@ Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarc
 # Use latest-neuron-srpm-url.sh to get this.
 Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.7.0.noarch.rpm
 Source4: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
+Source5: https://efa-installer.amazonaws.com/aws-efa-installer-1.44.0.tar.gz
 
 # Custom Bottlerocket kernel configurations.
 Source100: config-bottlerocket
@@ -46,6 +47,9 @@ Source224: load-neuron-latest-modules.service
 Source300: bootconfig-aws.conf
 Source301: bootconfig-vmware.conf
 
+# Replace upstream CMakeLists.txt with one that allows overriding kernel paths.
+Source400: EFACMakeLists.txt.in
+
 # Help out-of-tree module builds run `make prepare` automatically.
 Patch1001: 1001-Makefile-add-prepare-target-for-external-modules.patch
 # Expose tools/* targets for out-of-tree module builds.
@@ -62,6 +66,8 @@ Patch1006: 1006-Select-prerequisites-for-gpu-drivers.patch
 Patch1007: 1007-strscpy-write-destination-buffer-only-once.patch
 # Disable incomplete measurement into PCR 9 on aarch64.
 Patch1008: 1008-efi-libstub-don-t-measure-kernel-command-line-into-P.patch
+# Execute EFA tests in serial; concurrency doesn't work with the `make prepare` patch.
+Patch2000: 2000-config-efa.cmake-execute-config-tests-in-serial.patch
 
 BuildRequires: bc
 BuildRequires: elfutils-devel
@@ -197,7 +203,7 @@ for patch in ${patches[@]}; do
     patch -p1 <../"$patch"
 done
 # Patches listed in this spec (Patch0001...)
-%autopatch -p1
+%autopatch -p1 -m 1000 -M 1999
 
 %if "%{_cross_arch}" == "x86_64"
 microcode="$(find %{_cross_libdir}/firmware -type f -path '*/*-ucode/*' -printf '%%P\n' | sort | tr '\n' ' ')"
@@ -232,9 +238,9 @@ if ! diff "${KCONFIG_CONFIG}" "${SOURCE_FILE}"; then
 fi
 
 rm -f ../config-* ../*.patch
+cd %{_builddir}
 
 %if "%{_cross_arch}" == "x86_64"
-cd %{_builddir}
 # 2.21 for inf1 support
 rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:2} --dbpath "${PWD}/rpmdb"
@@ -252,14 +258,29 @@ find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_latest \;
 rm -r usr
 %endif
 
-%global kmake \
-make -s\\\
-  ARCH="%{_cross_karch}"\\\
-  CROSS_COMPILE="%{_cross_target}-"\\\
-  INSTALL_HDR_PATH="%{buildroot}%{_cross_prefix}"\\\
-  INSTALL_MOD_PATH="%{buildroot}%{_cross_prefix}"\\\
-  INSTALL_MOD_STRIP=1\\\
-%{nil}
+# EFA driver
+tar -xf %{S:5}
+rpm2cpio aws-efa-installer/RPMS/ALINUX2023/%{_cross_arch}/efa-driver/efa-*.%{_cross_arch}.rpm | cpio -idmu './usr/src/efa-*'
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} efa_driver \;
+rm -r aws-efa-installer
+mkdir efa_driver/build
+sed \
+  -e "s|__KERNEL_VERSION__|%{version}|g" \
+  -e "s|__KERNEL_DIR__|%{builddir}/linux-%{version}|g" \
+  -e "s|__KERNEL_MAKEFILE__|%{builddir}/linux-%{version}/Makefile|g" %{S:400} > efa_driver/CMakeLists.txt
+
+pushd efa_driver
+%patch -P 2000 -p1 -d .
+popd
+
+%global kmake %{shrink: \
+make -s \
+  ARCH="%{_cross_karch}" \
+  CROSS_COMPILE="%{_cross_target}-" \
+  INSTALL_HDR_PATH="%{buildroot}%{_cross_prefix}" \
+  INSTALL_MOD_PATH="%{buildroot}%{_cross_prefix}" \
+  INSTALL_MOD_STRIP=1 \
+  %{nil}}
 
 %build
 %kmake mrproper
@@ -271,6 +292,18 @@ make -s\\\
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron_2_21
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron_latest
 %endif
+
+# Build EFA driver
+pushd %{_builddir}/efa_driver/build
+sed -i -e 's,$(MAKE),%{kmake},g' ../config/Makefile
+
+# Prevent polluting the parent environment by configuring CMAKE in a subshell
+(
+%{cross_cmake} ..
+)
+
+%kmake %{?_smp_mflags} M=%{_builddir}/efa_driver/build modules
+popd
 
 make -C tools/bpf/bpftool bootstrap
 ./tools/bpf/bpftool/bootstrap/bpftool btf dump file vmlinux format c > vmlinux.h
@@ -287,6 +320,7 @@ install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
 mv %{buildroot}%{_cross_kmoddir}/neuron_2_21/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
 mv %{buildroot}%{_cross_kmoddir}/neuron_latest/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
 %endif
+mv %{_builddir}/efa_driver/build/src/efa.%{_ko} %{buildroot}%{_cross_kmoddir}/kernel/drivers/amazon/net/efa/
 
 install -d %{buildroot}/boot
 install -T -m 0755 arch/%{_cross_karch}/boot/%{_cross_kimage} %{buildroot}/boot/vmlinuz

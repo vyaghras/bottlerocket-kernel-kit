@@ -27,5 +27,9 @@ sha512 = "4bdb01d846f12a04bdbe6902c3008ebadbcb50d4d94e8f81b524c02a4e94da7041cdb5
 url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.7.0.noarch.rpm"
 sha512 = "2892ad1c6c4ff670d8e4aa0151af57b2b437f647a58ffa58901377b2ddeb504a9e4cce6c148643f8340e1ede8bb26ab66039b0a6bbb184bf5d647c6c71720186"
 
+[[package.metadata.build-package.external-files]]
+url = "https://efa-installer.amazonaws.com/aws-efa-installer-1.44.0.tar.gz"
+sha512 = "eaa336d8eb2affed5f5960a133af9f98b2b113c2dde17246c51947324f2318710012e7bced124e73f7113c8261748aaa0f4856063d71340b2d85a7f089551526"
+
 [build-dependencies]
 microcode = { path = "../microcode" }
