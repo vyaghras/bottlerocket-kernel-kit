@@ -16,4 +16,4 @@ RemainAfterExit=true
 StandardError=journal+console
 
 [Install]
-RequiredBy=preconfigured.target
+RequiredBy=drivers.target
