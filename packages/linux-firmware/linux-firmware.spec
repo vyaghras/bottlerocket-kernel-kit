@@ -30,6 +30,13 @@ Source2: gpgkey-4CDE8575E547BF835FE15807A31B6BD72486CFD6.asc
 %description
 %{summary}.
 
+%package amdgpu
+Summary: Firmware for amdgpu drivers
+License: GPL-1.0-or-later AND GPL-2.0-or-later
+
+%description amdgpu
+%{summary}.
+
 %prep
 %{gpgverify} --data=<(xzcat %{S:0}) --signature=%{S:1} --keyring=%{S:2}
 %autosetup -n linux-firmware-%{version} -p1
@@ -475,3 +482,8 @@ install -d %{buildroot}/%{fwdir}
 %exclude %{fwdir}/intel/IntcSST2.bin.zst
 %exclude %{fwdir}/intel/ipu3-fw.bin.zst
 %exclude %{fwdir}/intel/irci_*.bin.zst
+
+%files amdgpu
+%license LICENSE.amdgpu
+%dir %{fwdir}/amdgpu
+%{fwdir}/amdgpu/*
