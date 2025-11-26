@@ -13,8 +13,8 @@ releases-url = "https://repo.radeon.com/amdgpu/"
 path = "../packages.rs"
 
 [[package.metadata.build-package.external-files]]
-url = "https://repo.radeon.com/amdgpu/30.20/el/10/main/x86_64/amdgpu-dkms-6.16.6-2238411.el10.noarch.rpm"
-sha512 = "978eff171b54e02cd831ff06d541506891f149037a7a81d3e48bb8ffb5e80b3964d529868bcce32a7f33e2a7ceb8ebbfb2900e4e5108231c4adb50c4b6b0bed8"
+url = "https://repo.radeon.com/amdgpu/30.20.1/el/10.1/main/x86_64/amdgpu-dkms-6.16.6-2255209.el10.noarch.rpm"
+sha512 = "a6abf721863e843ffdd5e78ccf76842c38cc22f50aacc35b0666a0c51d648c8ab32cb7248fab8da28a8155575a960119d7c677399fa9d019a3a2bd26510a479e"
 
 [build-dependencies]
 kernel-6_12 = { path = "../kernel-6.12" }
