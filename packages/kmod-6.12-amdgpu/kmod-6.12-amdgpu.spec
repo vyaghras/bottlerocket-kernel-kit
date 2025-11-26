@@ -5,13 +5,13 @@
 %global _ko ko
 
 Name: %{_cross_os}kmod-6.12-amdgpu
-Version: 30.20
+Version: 30.20.1
 Release: 1%{?dist}
 Summary: AMD GPU drivers for the 6.12 kernel
 License: MIT AND GPL-2.0-only AND (GPL-2.0-only WITH Linux-syscall-note) AND GPL-2.0-or-later AND (GPL-2.0-or-later WITH Linux-syscall-note) AND LGPL-2.0-or-later AND (BSD-3-Clause OR GPL-2.0-only)
 URL: https://repo.radeon.com/amdgpu/
 
-Source0: https://repo.radeon.com/amdgpu/30.20/el/10/main/x86_64/amdgpu-dkms-6.16.6-2238411.el10.noarch.rpm
+Source0: https://repo.radeon.com/amdgpu/30.20.1/el/10.1/main/x86_64/amdgpu-dkms-6.16.6-2255209.el10.noarch.rpm
 Source1: gpgkey-9386B48A1A693C5C.asc
 
 BuildRequires: %{_cross_os}kernel-6.12-devel
