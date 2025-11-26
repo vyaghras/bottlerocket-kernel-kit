@@ -93,6 +93,8 @@ Requires: (%{name}-modules-metal if %{_cross_os}variant-platform(metal))
 Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without (%{_cross_os}variant-flavor(nvidia) or %{_cross_os}variant-flavor(nvidia-fips))))
 %endif
 
+Requires: %{_cross_os}kmod-6.1-efa
+
 # Pull in FIPS-related files if needed.
 Requires: (%{name}-fips if %{_cross_os}image-feature(fips))
 
@@ -673,7 +675,6 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/acpi/video.ko.*
 %endif
 %{_cross_kmoddir}/kernel/drivers/amazon/media/v4l2-loopback/v4l2loopback.ko.gz
-%{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.ko.*
 %{_cross_kmoddir}/kernel/drivers/amazon/net/ena/ena.ko.*
 %{_cross_kmoddir}/kernel/drivers/amazon/scsi/mpi3mr/mpi3mr.ko.gz
 %if "%{_cross_arch}" == "aarch64"
@@ -1535,6 +1536,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/sfc/sfc.ko.gz
 %{_cross_kmoddir}/kernel/drivers/net/mdio.ko.gz
 %{_cross_kmoddir}/kernel/drivers/scsi/snic/snic.ko.gz
+%exclude %{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.ko.*
 
 %if "%{_cross_arch}" == "x86_64"
 %files modules-neuron
