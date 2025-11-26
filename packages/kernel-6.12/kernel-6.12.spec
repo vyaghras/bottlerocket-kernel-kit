@@ -508,6 +508,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_ksrcdir}
 %{_cross_kmoddir}/source
 %{_cross_kmoddir}/build
+%attr(775, root, builder) %{_cross_ksrcdir}/scripts/*
 
 %files fips
 %{_cross_unitdir}/check-fips-modules.service.d/*.conf
