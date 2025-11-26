@@ -255,3 +255,6 @@ CONFIG_INFINIBAND_USER_MAD=m
 
 # Enable CephFS SELinux labels
 CONFIG_CEPH_FS_SECURITY_LABEL=y
+
+# Disable in-tree AMD driver
+# CONFIG_DRM_AMDGPU is not set

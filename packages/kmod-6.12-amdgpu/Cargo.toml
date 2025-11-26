@@ -1,0 +1,20 @@
+[package]
+name = "kmod-6_12-amdgpu"
+version = "0.1.0"
+edition = "2021"
+publish = false
+build = "../build.rs"
+
+[package.metadata.build-package]
+package-name = "kmod-6.12-amdgpu"
+releases-url = "https://repo.radeon.com/amdgpu/"
+
+[lib]
+path = "../packages.rs"
+
+[[package.metadata.build-package.external-files]]
+url = "https://repo.radeon.com/amdgpu/30.20/el/10/main/x86_64/amdgpu-dkms-6.16.6-2238411.el10.noarch.rpm"
+sha512 = "978eff171b54e02cd831ff06d541506891f149037a7a81d3e48bb8ffb5e80b3964d529868bcce32a7f33e2a7ceb8ebbfb2900e4e5108231c4adb50c4b6b0bed8"
+
+[build-dependencies]
+kernel-6_12 = { path = "../kernel-6.12" }
