@@ -101,6 +101,8 @@ Requires: (%{name}-bootconfig-vmware if %{_cross_os}variant-platform(vmware))
 Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without (%{_cross_os}variant-flavor(nvidia) or %{_cross_os}variant-flavor(nvidia-fips))))
 %endif
 
+Requires: %{_cross_os}kmod-6.12-efa
+
 # Pull in FIPS-related files if needed.
 Requires: (%{name}-fips if %{_cross_os}image-feature(fips))
 
@@ -628,7 +630,6 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/acpi/acpi_pad.%{_ko}
 %endif
 %{_cross_kmoddir}/kernel/drivers/amazon/media/v4l2-loopback/v4l2loopback.%{_ko}
-%{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/amazon/net/ena/ena.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/block/brd.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/block/drbd/drbd.%{_ko}
@@ -1450,6 +1451,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %if "%{_cross_arch}" == "x86_64"
 %{_cross_kmoddir}/kernel/virt/lib/irqbypass.ko
 %endif
+%exclude %{_cross_kmoddir}/kernel/drivers/amazon/net/efa/efa.%{_ko}
 
 %if "%{_cross_arch}" == "x86_64"
 %files modules-neuron
