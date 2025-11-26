@@ -1,4 +1,5 @@
 %global debug_package %{nil}
+%global kmajor 6.1
 
 Name: %{_cross_os}kernel-6.1
 Version: 6.1.158
@@ -451,6 +452,9 @@ rm -f %{buildroot}%{_cross_kmoddir}/build %{buildroot}%{_cross_kmoddir}/source
 ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{_cross_kmoddir}/build
 ln -sf %{_usrsrc}/kernels/%{version} %{buildroot}%{_cross_kmoddir}/source
 
+# Make it easy to find sources and modules across minor version changes.
+ln -rs %{buildroot}%{_cross_kmoddir} %{buildroot}%{_cross_libdir}/modules/%{kmajor}
+
 # Install a copy of System.map so that module dependencies can be regenerated.
 install -p -m 0600 System.map %{buildroot}%{_cross_kmoddir}
 
@@ -564,6 +568,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 
 %files modules
 %dir %{_cross_libdir}/modules
+%{_cross_libdir}/modules/%{kmajor}
 %dir %{_cross_kmoddir}
 %{_cross_kmoddir}/modules.alias
 %{_cross_kmoddir}/modules.alias.bin
