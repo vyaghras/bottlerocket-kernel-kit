@@ -1,3 +1,23 @@
+# v4.6.0 (2025-11-28)
+## OS Changes
+* Add package definition for NVIDIA R580 driver for kernel-6.1 ([#304]). Thanks, @mselim00!
+* Provide EFA kernel modules as kmod packages ([#319], [#322], [#327])
+* Add kmod-6.12-amdgpu package and update linux-firmware ([#320], [#325], [#326])
+* Load NVIDIA kmods at `drivers.target` ([#321])
+
+## Build Changes
+* Scope down GitHub Token permissions ([#298]). Thanks, @AdnaneKhan!
+
+[#298]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/298
+[#304]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/304
+[#319]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/319
+[#320]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/320
+[#321]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/321
+[#322]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/322
+[#325]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/325
+[#326]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/326
+[#327]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/327
+
 # v4.5.1 (2025-11-12)
 ## OS Changes
 * Include EFA from efa-installer in kernel-6.12 ([#313])
