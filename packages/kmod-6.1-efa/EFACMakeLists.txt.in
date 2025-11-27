@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(efa C)
 
-set(KERNEL_VER "__KERNEL_VERSION__")
 set(KERNEL_DIR "__KERNEL_DIR__")
 set(KERNEL_MAKEFILE "__KERNEL_MAKEFILE__")
 
