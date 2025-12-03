@@ -1,5 +1,9 @@
 use serde::Deserialize;
 
+pub(crate) trait MigGpuProfile: for<'de> Deserialize<'de> {
+    fn get_mig_profile(&self) -> &str;
+}
+
 #[derive(Deserialize)]
 pub(crate) enum NvidiaA100_40gbMigProfile {
     #[serde(alias = "1g.5gb")]
@@ -216,6 +220,42 @@ impl MigGpuProfile for NvidiaRtxPro6000_96gbMigProfile {
     }
 }
 
-pub(crate) trait MigGpuProfile: for<'de> Deserialize<'de> {
-    fn get_mig_profile(&self) -> &str;
+#[derive(Deserialize)]
+pub(crate) enum NvidiaB300_269gbMigProfile {
+    #[serde(alias = "1g.34gb")]
+    #[serde(alias = "7")]
+    Mig1g34gb,
+
+    #[serde(alias = "1g.67gb")]
+    #[serde(alias = "4")]
+    Mig1g67gb,
+
+    #[serde(alias = "2g.67gb")]
+    #[serde(alias = "3")]
+    Mig2g67gb,
+
+    #[serde(alias = "3g.135gb")]
+    #[serde(alias = "2")]
+    Mig3g135gb,
+
+    #[serde(alias = "4g.135gb")]
+    Mig4g135gb,
+
+    #[serde(alias = "7g.269gb")]
+    #[serde(alias = "1")]
+    #[serde(other)]
+    Mig7g269gb,
+}
+
+impl MigGpuProfile for NvidiaB300_269gbMigProfile {
+    fn get_mig_profile(&self) -> &str {
+        match self {
+            Self::Mig7g269gb => "7g.269gb",
+            Self::Mig4g135gb => "4g.135gb",
+            Self::Mig3g135gb => "3g.135gb,3g.135gb",
+            Self::Mig2g67gb => "2g.67gb,2g.67gb,2g.67gb",
+            Self::Mig1g67gb => "1g.67gb,1g.67gb,1g.67gb,1g.67gb",
+            Self::Mig1g34gb => "1g.34gb,1g.34gb,1g.34gb,1g.34gb,1g.34gb,1g.34gb,1g.34gb",
+        }
+    }
 }

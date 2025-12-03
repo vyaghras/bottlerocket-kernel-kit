@@ -97,6 +97,7 @@ enum NvidiaGpu {
     H100_80GB,
     H200_141GB,
     B200_180GB,
+    B300_269GB,
     RtxPro6000_96GB,
     Other,
 }
@@ -214,6 +215,9 @@ fn get_gpu_model(pci_device_id: &str) -> Result<NvidiaGpu> {
     } else if pci_device_id.starts_with("0x2BB5") {
         info!("Found NVIDIA RTX PRO 6000 Blackwell GPU.");
         Ok(NvidiaGpu::RtxPro6000_96GB)
+    } else if pci_device_id.starts_with("0x3182") {
+        info!("Found NVIDIA B300-269GB GPU.");
+        Ok(NvidiaGpu::B300_269GB)
     } else {
         warn!("Found NVIDIA Device but couldn't confirm variant.");
         Ok(NvidiaGpu::Other)
@@ -408,6 +412,9 @@ fn enable_mig(mig_settings: NvidiaMigConfig, gpu_info: &[MigGpu]) -> Result<()> 
         }
         Ok(NvidiaGpu::RtxPro6000_96GB) => {
             process_mig_config::<NvidiaRtxPro6000_96gbMigProfile>("rtxpro6000.96gb", &mig_settings)
+        }
+        Ok(NvidiaGpu::B300_269GB) => {
+            process_mig_config::<NvidiaB300_269gbMigProfile>("b300.269gb", &mig_settings)
         }
         _ => {
             let known_gpus: Vec<&str> = vec![
