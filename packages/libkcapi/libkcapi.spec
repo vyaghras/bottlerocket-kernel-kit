@@ -5,6 +5,7 @@
 # We need to compute the HMAC after the binaries have been stripped.
 %define __spec_install_post\
 %{?__debug_package:%{__debug_install_post}}\
+%{?__sbom_package:%{__sbom_install_post}}\
 %{__arch_install_post}\
 %{__os_install_post}\
 cd %{buildroot}/%{_cross_bindir}\
