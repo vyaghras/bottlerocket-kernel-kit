@@ -1,0 +1,113 @@
+From 3ae6e04ef40dd5d1916dda95334e3278dd23494b Mon Sep 17 00:00:00 2001
+From: Ben Cressey <bcressey@amazon.com>
+Date: Tue, 4 Nov 2025 17:53:03 +0000
+Subject: [PATCH] Hard-code BOOT_IMAGE on kernel command line
+
+GRUB sets the first argument (argv[0]) for the kernel to:
+  BOOT_IMAGE=(hdX,gptY)/vmlinuz
+
+For variants that do not support in-place updates, "gptY" will always
+be "gpt3", the first boot partition. However, "hdX" is unpredictable
+and may change depending on how disks are enumerated by the firmware,
+which makes the kernel command line measured into PCR 9 unpredictable
+in turn.
+
+Hard-code argv[0] to the following predictable value:
+  BOOT_IMAGE=/vmlinuz
+
+The actual partition selected is still implicitly part of the kernel
+command line, since the dm-mod.create argument includes $boot_uuid to
+pass offsets to the root filesystem and hash tree:
+  dm-mod.create=" ... PARTUUID=$boot_uuid/PARTNROFF=1 PARTUUID=$boot_uuid/PARTNROFF=2 ..."
+
+For variants that support in-place updates, it's not possible to
+predict PCR 9 because the kernel and userspace that occupy the first
+and second partition banks may change over time because of updates.
+
+Signed-off-by: Ben Cressey <bcressey@amazon.com>
+---
+ grub-core/loader/arm64/linux.c    |  8 ++++----
+ grub-core/loader/i386/efi/linux.c |  8 ++++----
+ grub-core/loader/i386/linux.c     | 10 ++++------
+ include/grub/lib/cmdline.h        |  1 +
+ 4 files changed, 13 insertions(+), 14 deletions(-)
+
+diff --git a/grub-core/loader/arm64/linux.c b/grub-core/loader/arm64/linux.c
+index 419f2201d..a4877b35f 100644
+--- a/grub-core/loader/arm64/linux.c
++++ b/grub-core/loader/arm64/linux.c
+@@ -419,16 +419,16 @@ grub_cmd_linux (grub_command_t cmd __attribute__ ((unused)),
+   grub_free(kernel);
+   kernel = NULL;
+ 
+-  cmdline_size = grub_loader_cmdline_size (argc, argv) + sizeof (LINUX_IMAGE);
++  cmdline_size = grub_loader_cmdline_size (argc - 1, argv + 1) + sizeof (LINUX_IMAGE_FULL);
+   linux_args = grub_malloc (cmdline_size);
+   if (!linux_args)
+     {
+       grub_error (GRUB_ERR_OUT_OF_MEMORY, N_("out of memory"));
+       goto fail;
+     }
+-  grub_memcpy (linux_args, LINUX_IMAGE, sizeof (LINUX_IMAGE));
+-  err = grub_create_loader_cmdline (argc, argv,
+-				    linux_args + sizeof (LINUX_IMAGE) - 1,
++  grub_memcpy (linux_args, LINUX_IMAGE_FULL, sizeof (LINUX_IMAGE_FULL));
++  err = grub_create_loader_cmdline (argc - 1, argv + 1,
++				    linux_args + sizeof (LINUX_IMAGE_FULL) - 1,
+ 				    cmdline_size,
+ 				    GRUB_VERIFY_KERNEL_CMDLINE);
+   if (err)
+diff --git a/grub-core/loader/i386/efi/linux.c b/grub-core/loader/i386/efi/linux.c
+index 33a7e8860..fe3714896 100644
+--- a/grub-core/loader/i386/efi/linux.c
++++ b/grub-core/loader/i386/efi/linux.c
+@@ -489,10 +489,10 @@ grub_cmd_linux (grub_command_t cmd __attribute__ ((unused)),
+     goto fail;
+   grub_dprintf ("linux", "cmdline = %p\n", cmdline);
+ 
+-  grub_memcpy (cmdline, LINUX_IMAGE, sizeof (LINUX_IMAGE));
+-  grub_create_loader_cmdline (argc, argv,
+-                              cmdline + sizeof (LINUX_IMAGE) - 1,
+-			      lh->cmdline_size - (sizeof (LINUX_IMAGE) - 1),
++  grub_memcpy (cmdline, LINUX_IMAGE_FULL, sizeof (LINUX_IMAGE_FULL));
++  grub_create_loader_cmdline (argc - 1, argv + 1,
++                              cmdline + sizeof (LINUX_IMAGE_FULL) - 1,
++			      lh->cmdline_size - (sizeof (LINUX_IMAGE_FULL) - 1),
+ 			      GRUB_VERIFY_KERNEL_CMDLINE);
+ 
+   grub_dprintf ("linux", "cmdline:%s\n", cmdline);
+diff --git a/grub-core/loader/i386/linux.c b/grub-core/loader/i386/linux.c
+index 3c1ff6476..2061dcc51 100644
+--- a/grub-core/loader/i386/linux.c
++++ b/grub-core/loader/i386/linux.c
+@@ -1010,14 +1010,12 @@ grub_cmd_linux (grub_command_t cmd __attribute__ ((unused)),
+   linux_cmdline = grub_zalloc (maximal_cmdline_size + 1);
+   if (!linux_cmdline)
+     goto fail;
+-  grub_memcpy (linux_cmdline, LINUX_IMAGE, sizeof (LINUX_IMAGE));
++  grub_memcpy (linux_cmdline, LINUX_IMAGE_FULL, sizeof (LINUX_IMAGE_FULL));
+   {
+     grub_err_t err;
+-    err = grub_create_loader_cmdline (argc, argv,
+-				      linux_cmdline
+-				      + sizeof (LINUX_IMAGE) - 1,
+-				      maximal_cmdline_size
+-				      - (sizeof (LINUX_IMAGE) - 1),
++    err = grub_create_loader_cmdline (argc - 1, argv + 1,
++				      linux_cmdline + sizeof (LINUX_IMAGE_FULL) - 1,
++				      maximal_cmdline_size - (sizeof (LINUX_IMAGE_FULL) - 1),
+ 				      GRUB_VERIFY_KERNEL_CMDLINE);
+     if (err)
+       goto fail;
+diff --git a/include/grub/lib/cmdline.h b/include/grub/lib/cmdline.h
+index cdca09b7a..256d665d1 100644
+--- a/include/grub/lib/cmdline.h
++++ b/include/grub/lib/cmdline.h
+@@ -24,6 +24,7 @@
+ #include <grub/verify.h>
+ 
+ #define LINUX_IMAGE "BOOT_IMAGE="
++#define LINUX_IMAGE_FULL LINUX_IMAGE "/vmlinuz "
+ 
+ unsigned int grub_loader_cmdline_size (int argc, char *argv[]);
+ grub_err_t grub_create_loader_cmdline (int argc, char *argv[], char *buf,
