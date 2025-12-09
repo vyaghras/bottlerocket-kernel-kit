@@ -1,4 +1,4 @@
-From 05a7163507930b56804896818c80e92a2454ef4d Mon Sep 17 00:00:00 2001
+From cfede7055134b412d9c7a293b9064ca89a19f3d1 Mon Sep 17 00:00:00 2001
 From: Arnaldo Garcia Rincon <agarrcia@amazon.com>
 Date: Wed, 22 Jun 2022 19:26:43 +0000
 Subject: [PATCH] Revert "kbuild: hide tools/ build targets from external
@@ -10,44 +10,45 @@ they are required by the kmod kit since the 'tools/*' binaries are not
 distributed as part of the archive.
 
 Signed-off-by: Arnaldo Garcia Rincon <agarrcia@amazon.com>
+Signed-off-by: Gaurav Sharma <mgsharm@amazon.com>
 ---
  Makefile | 16 ++++++++--------
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 340da92..27269cb 100644
+index 35d423fde..9ce64894e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1357,14 +1357,6 @@ ifneq ($(wildcard $(resolve_btfids_O)),)
+@@ -1370,14 +1370,6 @@ ifneq ($(wildcard $(resolve_btfids_O)),)
  	$(Q)$(MAKE) -sC $(srctree)/tools/bpf/resolve_btfids O=$(resolve_btfids_O) clean
  endif
- 
+
 -tools/: FORCE
 -	$(Q)mkdir -p $(objtree)/tools
--	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
+-	$(Q)$(MAKE) O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
 -
 -tools/%: FORCE
 -	$(Q)mkdir -p $(objtree)/tools
--	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
+-	$(Q)$(MAKE) O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
 -
  # ---------------------------------------------------------------------------
  # Kernel selftest
- 
-@@ -2054,6 +2046,14 @@ kernelversion:
+
+@@ -2080,6 +2072,14 @@ kernelversion:
  image_name:
  	@echo $(KBUILD_IMAGE)
- 
+
 +tools/: FORCE
 +	$(Q)mkdir -p $(objtree)/tools
-+	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
++	$(Q)$(MAKE) O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/
 +
 +tools/%: FORCE
 +	$(Q)mkdir -p $(objtree)/tools
-+	$(Q)$(MAKE) LDFLAGS= O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
++	$(Q)$(MAKE) O=$(abspath $(objtree)) subdir=tools -C $(srctree)/tools/ $*
 +
  PHONY += run-command
  run-command:
  	$(Q)$(KBUILD_RUN_COMMAND)
--- 
-2.47.1
+--
+2.50.1
 
