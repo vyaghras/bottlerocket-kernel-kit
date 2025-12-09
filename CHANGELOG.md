@@ -1,3 +1,17 @@
+# v4.6.1 (2025-12-10)
+## OS Changes
+* Update kernel from 6.1.158-178.288 to 6.1.158-180.294 ([#332])
+* Update kernel from 6.12.55-74.119 to 6.12.58-82.121 ([#333])
+
+## Build Changes
+* Update to Twoliter 0.14.0 ([#331])
+* Update libkcapi `_spec_install_post` override for SBOM feature compatibility ([#330])
+
+[#330]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/330
+[#331]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/331
+[#332]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/332
+[#333]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/333
+
 # v4.6.0 (2025-12-05)
 ## OS Changes
 * Add package definition for NVIDIA R580 driver for kernel-6.1 ([#304]). Thanks, @mselim00!
