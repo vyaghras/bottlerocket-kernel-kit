@@ -1,4 +1,4 @@
-# v4.7.0 (2025-12-10)
+# v4.7.0 (2025-12-11)
 ## Build Changes
 * Update the Bottlerocket SDK to v0.66.0 ([#336])
 
