@@ -159,9 +159,6 @@ install -p -m 0644 %{S:3} %{S:4} %{S:5} .
 %global kernel_sources %{_builddir}/kernel-devel
 tar -xf %{_cross_datadir}/bottlerocket/kernel-devel.tar.xz
 
-%define _kernel_version %(ls %{kernel_sources}/include/config/kernel.release)
-%global _cross_kmoddir %{_cross_libdir}/modules/%{_kernel_version}
-
 # This recipe was based in the NVIDIA yum/dnf specs:
 # https://github.com/NVIDIA/yum-packaging-precompiled-kmod
 
