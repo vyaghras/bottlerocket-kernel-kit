@@ -86,6 +86,7 @@ Requires: %{name}-open-gpu
 %if "%{_cross_arch}" == "x86_64"
 Requires: %{name}-grid
 %endif
+Requires: %{name}-mps
 
 %description
 %{summary}.
@@ -140,6 +141,13 @@ Provides: %{name}-tesla(fabricmanager)
 
 %description tesla
 %{summary}
+
+%package mps
+Summary: NVIDIA CUDA Multi-Process Service
+Requires: %{name}
+
+%description mps
+%{summary}.
 
 %prep
 # Extract nvidia sources with `-x`, otherwise the script will try to install
@@ -692,10 +700,7 @@ popd
 %exclude %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia-peermem.o
 %exclude %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia-drm.mod.o
 %exclude %{_cross_datadir}/nvidia/tesla/module-objects.d/nvidia-drm.o
-%exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-control
-%exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-server
-%exclude %{_cross_bindir}/nvidia-cuda-mps-control
-%exclude %{_cross_bindir}/nvidia-cuda-mps-server
+
 %if "%{_cross_arch}" == "x86_64"
 %exclude %{_cross_libexecdir}/nvidia/tesla/bin/nvidia-ngx-updater
 %exclude %{_cross_bindir}/nvidia-ngx-updater
@@ -755,6 +760,12 @@ popd
 %{_cross_datadir}/nvidia/grid/drivers/nvidia-drm.ko
 %{_cross_datadir}/nvidia/grid/drivers/nvidia-peermem.ko
 %endif
+
+%files mps
+%{_cross_bindir}/nvidia-cuda-mps-control
+%{_cross_bindir}/nvidia-cuda-mps-server
+%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-control
+%{_cross_libexecdir}/nvidia/tesla/bin/nvidia-cuda-mps-server
 
 %files fabricmanager
 %{_cross_factorydir}%{_cross_sysconfdir}/nvidia/fabricmanager.cfg
