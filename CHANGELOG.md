@@ -1,3 +1,30 @@
+# v4.7.1 (2026-01-07)
+## OS Changes
+* Add dependency on the GRID license for NVIDIA k8s device plugin ([#294])
+* Update Neuron driver to 2.25.4.0 ([#344], [#350])
+* Adjust BOOT_IMAGE for PCR 9 predictions ([#343])
+* Fix typo in NVLSM service ([#351])
+* Update kernel from 6.1.158-180.294 to 6.1.159-181.297 ([#353])
+* Update kernel from 6.12.58-82.121 to 6.12.63-84.121 ([#348],[#352])
+
+## Build Changes
+* Clean up NVIDIA kmod spec files ([#341])
+* Update twoliter to 0.16.0 ([#342], [#349])
+* Override SBOM generation for nvidia-migmanager ([#346])
+
+[#294]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/294
+[#341]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/341
+[#342]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/342
+[#343]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/343
+[#344]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/344
+[#346]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/346
+[#348]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/348
+[#349]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/349
+[#350]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/350
+[#351]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/351
+[#352]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/352
+[#353]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/353
+
 # v4.7.0 (2025-12-11)
 ## Build Changes
 * Update the Bottlerocket SDK to v0.66.0 ([#336])
