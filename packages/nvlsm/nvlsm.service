@@ -9,7 +9,7 @@ PIDFile=/run/nvidia-fabricmanager/nvlsm.pid
 ExecCondition=[ -s /etc/nvidia/nvlsm.env ]
 EnvironmentFile=-/etc/nvidia/nvlsm.env
 ExecStart=/usr/bin/nvlsm -F /usr/share/nvidia/nvlsm/nvlsm.conf -f stdout --pid_file /var/run/nvidia-fabricmanager/nvlsm.pid $GUID_ARG
-Restart=Always
+Restart=always
 StandardError=journal+console
 
 [Install]
