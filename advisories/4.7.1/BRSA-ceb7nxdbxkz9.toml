@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-ceb7nxdbxkz9"
+title = "kernel CVE-2025-40257"
+cve = "CVE-2025-40257"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: mptcp: fix a race in mptcp_pm_del_add_timer()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.159"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2026-01-07T22:40:19Z
+arches = ["x86_64", "aarch64"]
+version = "4.7.1"
