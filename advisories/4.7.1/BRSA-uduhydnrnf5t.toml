@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-uduhydnrnf5t"
+title = "kernel CVE-2025-38556"
+cve = "CVE-2025-38556"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: HID: core: Harden s32ton() against conversion to 0 bits"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.159"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2026-01-07T22:40:19Z
+arches = ["x86_64", "aarch64"]
+version = "4.7.1"

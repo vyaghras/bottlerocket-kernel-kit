@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-6ykznzxl4erk"
+title = "kernel CVE-2025-38678"
+cve = "CVE-2025-38678"
+severity = "moderate"
+description = "In the Linux kernel, the following vulnerability has been resolved: netfilter: nf_tables: reject duplicate device on updates"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.159"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2026-01-07T22:40:19Z
+arches = ["x86_64", "aarch64"]
+version = "4.7.1"

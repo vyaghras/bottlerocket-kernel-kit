@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-w8nulkponfiz"
+title = "kernel CVE-2025-40211"
+cve = "CVE-2025-40211"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: ACPI: video: Fix use-after-free in acpi_video_switch_brightness()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.159"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2026-01-07T22:40:19Z
+arches = ["aarch64", "x86_64"]
+version = "4.7.1"

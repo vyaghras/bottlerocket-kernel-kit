@@ -1,0 +1,17 @@
+[advisory]
+id = "BRSA-5cn3amm3akwc"
+title = "kernel CVE-2025-40273"
+cve = "CVE-2025-40273"
+severity = "high"
+description = "In the Linux kernel, the following vulnerability has been resolved: NFSD: free copynotify stateid in nfs4_free_ol_stateid()"
+
+[[advisory.products]]
+package-name = "kernel-6.1"
+patched-version = "6.1.159"
+patched-epoch = "0"
+
+[updateinfo]
+author = "yeazelm"
+issue-date = 2026-01-07T22:40:19Z
+arches = ["aarch64", "x86_64"]
+version = "4.7.1"
