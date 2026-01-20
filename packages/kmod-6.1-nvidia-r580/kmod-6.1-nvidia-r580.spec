@@ -1,8 +1,8 @@
 %global tesla_major 580
-%global tesla_minor 95
-%global tesla_patch 05
+%global tesla_minor 126
+%global tesla_patch 09
 %global tesla_ver %{tesla_major}.%{tesla_minor}.%{tesla_patch}
-%global grid_ver grid-19.2
+%global grid_ver grid-19.4
 %if "%{?_cross_arch}" == "aarch64"
 %global nvidia_arch sbsa
 %else
@@ -703,12 +703,12 @@ popd
 %exclude %{_cross_libdir}/nvidia/tesla/nvidia_drv.so
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-wayland.so.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-gbm.so.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-gbm.so.1.1.2
+%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-gbm.so.1.1.3
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-wayland.so.1.1.20
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1.0.3
+%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1.0.4
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1.0.3
+%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1.0.4
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.%{tesla_ver}
 %if "%{_cross_arch}" == "x86_64"
