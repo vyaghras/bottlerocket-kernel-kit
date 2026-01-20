@@ -1,8 +1,8 @@
 %global tesla_major 570
-%global tesla_minor 195
-%global tesla_patch 03
+%global tesla_minor 211
+%global tesla_patch 01
 %global tesla_ver %{tesla_major}.%{tesla_minor}.%{tesla_patch}
-%global grid_ver grid-18.5
+%global grid_ver grid-18.6
 %if "%{?_cross_arch}" == "aarch64"
 %global nvidia_arch sbsa
 %else
@@ -727,9 +727,9 @@ popd
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-gbm.so.1.1.2
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-wayland.so.1.1.20
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1.0.3
+%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xcb.so.1.0.4
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1
-%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1.0.3
+%exclude %{_cross_libdir}/nvidia/tesla/libnvidia-egl-xlib.so.1.0.4
 %if "%{_cross_arch}" == "x86_64"
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.1
 %exclude %{_cross_libdir}/nvidia/tesla/libnvidia-sandboxutils.so.%{tesla_ver}
