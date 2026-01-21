@@ -1,3 +1,18 @@
+# v4.8.0 (2026-01-21)
+## OS Changes
+* Add MPS subpackage to NVIDIA kmod packages ([#347])
+* Update r570 NVIDIA driver to 570.211.01 ([#357])
+* Update r580 NVIDIA driver to 580.126.09 ([#357])
+* Disable ext4 debugging for 6.12 kernel ([#356])
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.70.0 ([#358])
+
+[#347]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/347
+[#356]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/356
+[#357]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/357
+[#358]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/358
+
 # v4.7.1 (2026-01-07)
 ## OS Changes
 * Add dependency on the GRID license for NVIDIA k8s device plugin ([#294])
