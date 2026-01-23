@@ -1,3 +1,11 @@
+# v4.8.1 (2026-01-23)
+## OS Changes
+* Update kernel from 6.1.159-181.297 to 6.1.159-182.297 ([#360])
+* Update kernel from 6.12.63-84.121 to 6.12.64-87.122 ([#359])
+
+[#360]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/359
+[#359]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/360
+
 # v4.8.0 (2026-01-21)
 ## OS Changes
 * Add MPS subpackage to NVIDIA kmod packages ([#347])
