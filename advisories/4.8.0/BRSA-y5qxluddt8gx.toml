@@ -1,0 +1,32 @@
+[advisory]
+id = "BRSA-y5qxluddt8gx"
+title = "kmod-nvidia CVE-2025-33219"
+cve = "CVE-2025-33219"
+severity = "high"
+description = "NVIDIA Display Driver for Linux contains a vulnerability in the NVIDIA kernel module which could trigger an integer overflow or wraparound which might lead to code execution, escalation of privileges, data tampering, denial of service, or information disclosure."
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r570"
+patched-version = "570.211.01"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r570"
+patched-version = "570.211.01"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.1-nvidia-r580"
+patched-version = "580.126.09"
+patched-epoch = "1"
+
+[[advisory.products]]
+package-name = "kmod-6.12-nvidia-r580"
+patched-version = "580.126.09"
+patched-epoch = "1"
+
+[updateinfo]
+author = "kssessio"
+issue-date = 2026-01-22T01:20:57Z
+arches = ["aarch64", "x86_64"]
+version = "4.8.0"
