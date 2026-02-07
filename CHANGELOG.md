@@ -1,3 +1,11 @@
+# v4.8.2 (2026-02-07)
+## OS Changes
+* Update kernel from 6.1.159-182.297 to 6.1.161-183.298 ([#366])
+* Update kernel from 6.12.64-87.122 to 6.12.66-88.122 ([#367])
+
+[#366]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/366
+[#367]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/367
+
 # v4.8.1 (2026-01-23)
 ## OS Changes
 * Update kernel from 6.1.159-181.297 to 6.1.159-182.297 ([#360])
