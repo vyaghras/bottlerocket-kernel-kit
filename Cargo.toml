@@ -5,6 +5,7 @@ members = [
     "packages/grub",
     "packages/kernel-6.1",
     "packages/kernel-6.12",
+    "packages/kernel-6.18",
     "packages/kmod-6.1-efa",
     "packages/kmod-6.1-nvidia-r580",
     "packages/kmod-6.12-amdgpu",
