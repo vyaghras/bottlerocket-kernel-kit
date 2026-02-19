@@ -19,4 +19,4 @@ patched-epoch = "2"
 author = "mgsharm"
 issue-date = 2026-02-12T23:30:55Z
 arches = ["x86_64", "aarch64"]
-version = "staging"
+version = "5.0.0"
