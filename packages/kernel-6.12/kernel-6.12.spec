@@ -4,13 +4,13 @@
 %global kmajor 6.12
 
 Name: %{_cross_os}kernel-%{kmajor}
-Version: 6.12.66
+Version: 6.12.68
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/64ca3b22598c391ddeef513bb1c5fb6731d9d6f6e38fd71c8ee3730030e599b7/kernel6.12-6.12.66-88.122.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/aa7ca944bcb6107a0840b7ef430a6cb3ddede1f2a477e94f5bbff3d47d879c9c/kernel6.12-6.12.68-92.122.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-2.21-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
@@ -809,6 +809,7 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/intel/igb/igb.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/intel/igc/igc.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/intel/ixgbevf/ixgbevf.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ethernet/intel/ice/ice.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/mellanox/mlx5/core/mlx5_core.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/mellanox/mlxfw/mlxfw.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/ethernet/realtek/r8169.%{_ko}
@@ -830,6 +831,15 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %{_cross_kmoddir}/kernel/drivers/net/netdevsim/netdevsim.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/net_failover.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/nlmon.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/bsd_comp.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_async.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_deflate.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_generic.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_mppe.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_synctty.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/pppoe.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/ppp/pppox.%{_ko}
+%{_cross_kmoddir}/kernel/drivers/net/slip/slhc.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/phy/fixed_phy.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/phy/libphy.%{_ko}
 %{_cross_kmoddir}/kernel/drivers/net/phy/mdio_devres.%{_ko}
