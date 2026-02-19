@@ -1,3 +1,15 @@
+# v5.0.0 (2026-02-19)
+## OS Changes
+* Remove EOL r570 NVIDIA driver ([#370])
+* Update kernel from 6.12.66-88.122 to 6.12.68-92.122 ([#372])
+
+## Build Changes
+* Bump cargo dependencies ([#371])
+
+[#370]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/370
+[#371]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/371
+[#372]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/372
+
 # v4.8.2 (2026-02-07)
 ## OS Changes
 * Update kernel from 6.1.159-182.297 to 6.1.161-183.298 ([#366])
