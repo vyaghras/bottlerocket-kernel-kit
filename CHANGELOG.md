@@ -1,3 +1,11 @@
+# v5.0.1 (2026-02-26)
+## OS Changes
+* Fix WireGuard regression affecting Cilium pod connectivity ([#375])
+* Update Neuron driver to 2.26.5.0 ([#377])
+
+[#375]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/375
+[#377]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/377
+
 # v5.0.0 (2026-02-19)
 ## OS Changes
 * Remove EOL r570 NVIDIA driver ([#370])
