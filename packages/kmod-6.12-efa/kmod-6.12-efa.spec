@@ -1,11 +1,11 @@
-%global efa_installer_ver 1.44.0
+%global efa_installer_ver 1.47.0
 %global kernel_sources %{_cross_usrsrc}/kernels/6.12
 %define _kernel_version %(cat %{kernel_sources}/include/config/kernel.release)
 %global _cross_kmoddir %{_cross_libdir}/modules/%{_kernel_version}
 %global _ko ko
 
 Name: %{_cross_os}kmod-6.12-efa
-Version: 2.17.3g
+Version: 3.0.0
 Release: 1%{?dist}
 Epoch: 1
 Summary: EFA driver for the 6.12 kernel

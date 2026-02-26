@@ -13,8 +13,8 @@ package-name = "kmod-6.12-efa"
 releases-url = "https://github.com/amzn/amzn-drivers/releases"
 
 [[package.metadata.build-package.external-files]]
-url = "https://efa-installer.amazonaws.com/aws-efa-installer-1.44.0.tar.gz"
-sha512 = "eaa336d8eb2affed5f5960a133af9f98b2b113c2dde17246c51947324f2318710012e7bced124e73f7113c8261748aaa0f4856063d71340b2d85a7f089551526"
+url = "https://efa-installer.amazonaws.com/aws-efa-installer-1.47.0.tar.gz"
+sha512 = "4d190358e6394d55cf93b35f34a8bf8eba0f49514af4a7bdc328dbbc9d25722e6d47bc5a471837ef8edfcbe283a7e4cbfe1607f6c8c34ebffb602ae16109f835"
 
 [[package.metadata.build-package.external-files]]
 # The installer doesn't ship with the COPYING file
