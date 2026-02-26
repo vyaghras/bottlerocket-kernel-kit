@@ -1,11 +1,11 @@
-%global efa_installer_ver 1.44.0
+%global efa_installer_ver 1.47.0
 %global kmajor 6.1
 %global kernel_sources %{_builddir}/kernel-devel
 %global _cross_kmoddir %{_cross_libdir}/modules/%{kmajor}
 %global _ko ko.gz
 
 Name: %{_cross_os}kmod-6.1-efa
-Version: 2.17.3g
+Version: 3.0.0
 Release: 1%{?dist}
 Epoch: 1
 Summary: EFA driver for the 6.1 kernel
