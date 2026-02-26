@@ -46,6 +46,8 @@ Source224: load-neuron-latest-modules.service
 Source300: bootconfig-aws.conf
 Source301: bootconfig-vmware.conf
 
+Patch0001: 0001-Revert-wireguard-device-enable-threaded-NAPI.patch
+
 # Help out-of-tree module builds run `make prepare` automatically.
 Patch1001: 1001-Makefile-add-prepare-target-for-external-modules.patch
 # Expose tools/* targets for out-of-tree module builds.
