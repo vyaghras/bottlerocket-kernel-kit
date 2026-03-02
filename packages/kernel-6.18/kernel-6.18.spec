@@ -27,6 +27,19 @@ Source210: var-lib-kernel-devel-lower.mount.drop-in.conf.in
 # Bootconfig snippets to adjust the default kernel command line for the platform.
 Source300: bootconfig-aws.conf
 
+# Help out-of-tree module builds run `make prepare` automatically.
+Patch1001: 1001-Makefile-add-prepare-target-for-external-modules.patch
+# Expose tools/* targets for out-of-tree module builds.
+Patch1002: 1002-Revert-kbuild-hide-tools-build-targets-from-external.patch
+# Enable INITRAMFS_FORCE config option for our use case.
+Patch1003: 1003-initramfs-unlink-INITRAMFS_FORCE-from-CMDLINE_-EXTEN.patch
+# Increase default of sysctl net.unix.max_dgram_qlen to 512.
+Patch1004: 1004-af_unix-increase-default-max_dgram_qlen-to-512.patch
+# Select prerequisites for GPU drivers.
+Patch1005: 1005-drm-simpledrm-Select-prerequisites-for-gpu-drivers.patch
+# Disable incomplete measurement into PCR 9 on aarch64.
+Patch1006: 1006-efi-libstub-don-t-measure-kernel-command-line-into-P.patch
+
 BuildRequires: bc
 BuildRequires: elfutils-devel
 BuildRequires: hostname
