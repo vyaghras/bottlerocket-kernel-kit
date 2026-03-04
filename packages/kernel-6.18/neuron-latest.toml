@@ -1,0 +1,5 @@
+[neuron-latest]
+lib-modules-path = "kernel/drivers/neuron"
+
+[neuron-latest.kernel-modules."neuron.ko"]
+copy-source = "__NEURON_MODULES__/neuron_latest"

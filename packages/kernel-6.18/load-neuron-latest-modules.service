@@ -1,0 +1,19 @@
+[Unit]
+Description=Load Neuron Latest modules
+After=local-fs.target
+Requires=local-fs.target
+# Disable manual restarts to prevent loading kernel modules
+# that weren't linked by the running system
+RefuseManualStart=true
+RefuseManualStop=true
+
+[Service]
+Type=oneshot
+ExecCondition=/usr/bin/ghostdog match-driver neuron latest
+ExecStart=/usr/bin/driverdog --modules-set neuron-latest link-modules
+ExecStart=/usr/bin/driverdog --modules-set neuron-latest load-modules
+RemainAfterExit=true
+StandardError=journal+console
+
+[Install] 
+RequiredBy=drivers.target
