@@ -95,6 +95,8 @@ Requires: (%{name}-bootconfig-aws if %{_cross_os}variant-platform(aws))
 Requires: (%{name}-modules-neuron if (%{_cross_os}variant-platform(aws) without (%{_cross_os}variant-flavor(nvidia) or %{_cross_os}variant-flavor(nvidia-fips))))
 %endif
 
+Requires: %{_cross_os}kmod-6.18-efa
+
 %global _cross_ksrcdir %{_cross_usrsrc}/kernels/%{version}
 %global _cross_kmoddir %{_cross_libdir}/modules/%{version}
 
