@@ -2,13 +2,13 @@
 %global kmajor 6.1
 
 Name: %{_cross_os}kernel-6.1
-Version: 6.1.161
+Version: 6.1.163
 Release: 1%{?dist}
 Summary: The Linux kernel
 License: GPL-2.0 WITH Linux-syscall-note
 URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
-Source0: https://cdn.amazonlinux.com/al2023/blobstore/9c7c7a58a23cdf6dcb74c53686e94fba870c78283906fe2697b1f2620ee05711/kernel-6.1.161-183.298.amzn2023.src.rpm
+Source0: https://cdn.amazonlinux.com/al2023/blobstore/5345c8e36a653c0013bb38f8973f652a2d1958438662b44dc22efc0972ab647b/kernel-6.1.163-186.299.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-2.21-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
@@ -860,6 +860,15 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 %{_cross_kmoddir}/kernel/drivers/net/netdevsim/netdevsim.ko.*
 %{_cross_kmoddir}/kernel/drivers/net/net_failover.ko.*
 %{_cross_kmoddir}/kernel/drivers/net/nlmon.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/bsd_comp.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_async.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_deflate.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_generic.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_mppe.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/ppp_synctty.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/pppoe.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/ppp/pppox.ko.*
+%{_cross_kmoddir}/kernel/drivers/net/slip/slhc.ko.*
 %{_cross_kmoddir}/kernel/drivers/net/phy/fixed_phy.ko.*
 %{_cross_kmoddir}/kernel/drivers/net/phy/libphy.ko.*
 %{_cross_kmoddir}/kernel/drivers/net/phy/mdio_devres.ko.*
