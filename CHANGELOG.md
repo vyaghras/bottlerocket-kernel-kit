@@ -1,3 +1,17 @@
+# v5.0.2 (2026-03-06)
+## OS Changes
+* Update kernel from 6.1.161-183.298 to 6.1.163-186.299 ([#384])
+* Update kernel from 6.12.68-92.122 to 6.12.73-95.123 ([#383])
+* Update EFA driver to 3.0.0 ([#380])
+
+## Build Changes
+* Bump Twoliter to 0.17.0 ([#379])
+
+[#379]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/379
+[#380]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/380
+[#383]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/383
+[#384]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/384
+
 # v5.0.1 (2026-02-26)
 ## OS Changes
 * Fix WireGuard regression affecting Cilium pod connectivity ([#375])
