@@ -38,6 +38,7 @@ Source224: load-neuron-latest-modules.service
 
 # Bootconfig snippets to adjust the default kernel command line for the platform.
 Source300: bootconfig-aws.conf
+Source301: bootconfig-vmware.conf
 
 # Help out-of-tree module builds run `make prepare` automatically.
 Patch1001: 1001-Makefile-add-prepare-target-for-external-modules.patch
@@ -89,6 +90,7 @@ Requires: (%{name}-mkfs-xfs-conf if %{_cross_os}xfsprogs)
 
 # Pull in platform-dependent boot config snippets.
 Requires: (%{name}-bootconfig-aws if %{_cross_os}variant-platform(aws))
+Requires: (%{name}-bootconfig-vmware if %{_cross_os}variant-platform(vmware))
 
 # Pull in platform-dependent modules.
 %if "%{_cross_arch}" == "x86_64"
@@ -113,6 +115,12 @@ Summary: Configured Linux kernel source for module building
 Summary: Boot config snippet for the Linux kernel on AWS
 
 %description bootconfig-aws
+%{summary}.
+
+%package bootconfig-vmware
+Summary: Boot config snippet for the Linux kernel on VMware
+
+%description bootconfig-vmware
 %{summary}.
 
 %package modules
@@ -396,6 +404,7 @@ install -p -m 0644 %{S:223} %{S:224} %{buildroot}%{_cross_unitdir}
 # Install platform-specific bootconfig snippets.
 install -d %{buildroot}%{_cross_bootconfigdir}
 install -p -m 0644 %{S:300} %{buildroot}%{_cross_bootconfigdir}/05-aws.conf
+install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 
 %files
 %license COPYING LICENSES/preferred/GPL-2.0 LICENSES/exceptions/Linux-syscall-note
@@ -452,6 +461,9 @@ install -p -m 0644 %{S:300} %{buildroot}%{_cross_bootconfigdir}/05-aws.conf
 
 %files bootconfig-aws
 %{_cross_bootconfigdir}/05-aws.conf
+
+%files bootconfig-vmware
+%{_cross_bootconfigdir}/05-vmware.conf
 
 %files modules
 %dir %{_cross_libdir}/modules
