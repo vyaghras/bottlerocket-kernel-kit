@@ -16,7 +16,13 @@ Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
 # Use latest-neuron-srpm-url.sh to get this.
 Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.5.0.noarch.rpm
-Source4: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
+# Neuron driver 2.x.7372.0
+Source4: https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.7372.0.noarch.rpm/e82516a77ab54f1c651a1f160e3a67b1cbca8bef391d78a6c683d6fc22442c8ee17df9d3fae1392ca8cffa676bb966b7088c32e634894ba142d83bef58dd2d81/aws-neuronx-dkms-2.x.7372.0.noarch.rpm
+# Neuron driver 2.x.7693.0
+Source5: https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.7693.0.noarch.rpm/4411e3d28bc307bd096408f72f9c3d9e3edcadcbeab3ca409b0f94041ac1f589120353edfb1e11c45ff5a5421808297a308f18a6ac687459abe8c5e985653d3f/aws-neuronx-dkms-2.x.7693.0.noarch.rpm
+# Neuron driver 2.x.8072.0
+Source6: https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.8072.0.noarch.rpm/d96bd0fe73482684c97faae6f779bfa8a84e9b9ca09f796031d409322550fb1744a38e6c54f5fcc8c1221f051cf04f518694876ea825722f5ed7895c2e8bb22a/aws-neuronx-dkms-2.x.8072.0.noarch.rpm
+Source7: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 
 # Custom Bottlerocket kernel configurations.
 Source100: config-bottlerocket
@@ -240,7 +246,7 @@ cd %{_builddir}
 
 %if "%{_cross_arch}" == "x86_64"
 # 2.21 for inf1 support
-rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
+rpmkeys --import %{S:7} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:2} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
 rpm2cpio %{S:2} | cpio -idmu './usr/src/aws-neuronx-*'
@@ -248,11 +254,26 @@ find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2_21 \;
 rm -r usr
 
 # latest neuron driver
-rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
+rpmkeys --import %{S:7} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:3} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
 rpm2cpio %{S:3} | cpio -idmu './usr/src/aws-neuronx-*'
 find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_latest \;
+rm -r usr
+
+# 2.x.7372.0 neuron driver
+rpm2cpio %{S:4} | cpio -idmu './usr/src/aws-neuronx-*'
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2x_7372 \;
+rm -r usr
+
+# 2.x.7693.0 neuron driver
+rpm2cpio %{S:5} | cpio -idmu './usr/src/aws-neuronx-*'
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2x_7693 \;
+rm -r usr
+
+# 2.x.8072.0 neuron driver
+rpm2cpio %{S:6} | cpio -idmu './usr/src/aws-neuronx-*'
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2x_8072 \;
 rm -r usr
 %endif
 
@@ -274,6 +295,9 @@ make -s \
 %if "%{_cross_arch}" == "x86_64"
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron_2_21
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron_latest
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2x_7372
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2x_7693
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2x_8072
 %endif
 
 make -C tools/bpf/bpftool bootstrap
@@ -286,10 +310,19 @@ make -C tools/bpf/bpftool bootstrap
 %if "%{_cross_arch}" == "x86_64"
 install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
 install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_7372/
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_7693/
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_8072/
 %kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2_21 M=%{_builddir}/neuron_2_21 modules_install
 %kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_latest M=%{_builddir}/neuron_latest modules_install
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2x_7372 M=%{_builddir}/neuron_2x_7372 modules_install
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2x_7693 M=%{_builddir}/neuron_2x_7693 modules_install
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2x_8072 M=%{_builddir}/neuron_2x_8072 modules_install
 mv %{buildroot}%{_cross_kmoddir}/neuron_2_21/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
 mv %{buildroot}%{_cross_kmoddir}/neuron_latest/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
+mv %{buildroot}%{_cross_kmoddir}/neuron_2x_7372/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_7372/
+mv %{buildroot}%{_cross_kmoddir}/neuron_2x_7693/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_7693/
+mv %{buildroot}%{_cross_kmoddir}/neuron_2x_8072/neuron.%{_ko} %{buildroot}%{_cross_libexecdir}/neuron/neuron_2x_8072/
 %endif
 
 install -d %{buildroot}/boot
@@ -1485,6 +1518,9 @@ install -p -m 0644 %{S:301} %{buildroot}%{_cross_bootconfigdir}/05-vmware.conf
 %files modules-neuron
 %{_cross_libexecdir}/neuron/neuron_2_21/neuron.%{_ko}
 %{_cross_libexecdir}/neuron/neuron_latest/neuron.%{_ko}
+%{_cross_libexecdir}/neuron/neuron_2x_7372/neuron.%{_ko}
+%{_cross_libexecdir}/neuron/neuron_2x_7693/neuron.%{_ko}
+%{_cross_libexecdir}/neuron/neuron_2x_8072/neuron.%{_ko}
 %{_cross_tmpfilesdir}/neuron.conf
 %{_cross_unitdir}/load-neuron-inf1-modules.service
 %{_cross_unitdir}/load-neuron-latest-modules.service
