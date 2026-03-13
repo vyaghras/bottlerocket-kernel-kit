@@ -18,9 +18,9 @@ sha512 = "4f4d82f5d782e82706d799529806bf0602fafaeb4ec2388aff7a7d4183e3d85d0c2b21
 force-upstream = true
 
 [[package.metadata.build-package.external-files]]
-# Use latest-2.21-neuron-srpm-url.sh to get this.
-url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm"
-sha512 = "4bdb01d846f12a04bdbe6902c3008ebadbcb50d4d94e8f81b524c02a4e94da7041cdb5e94fd564e1d9898f52a8cbd960a6a65435b90ba7d7839c807e7ca8736d"
+# Use latest-2.24-neuron-srpm-url.sh to get this.
+url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.13.0.noarch.rpm"
+sha512 = "ba2234e3aa8f5fb15a36304d811043abbed27e79bbd34bf2e0789f2f9a72d8f4c25c701be56622fc1cfdb70966d70b6bfa9d5f77127e76eec382fd0c9477f4ed"
 
 [[package.metadata.build-package.external-files]]
 # Use latest-neuron-srpm.url.sh to get this.

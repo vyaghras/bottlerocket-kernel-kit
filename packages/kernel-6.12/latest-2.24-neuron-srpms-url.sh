@@ -1,7 +1,7 @@
 #!/bin/sh
 cmd="
 dnf install -q -y --releasever=latest yum-utils &&
-dnf download -q --repofrompath neuron,https://yum.repos.neuron.amazonaws.com --repo=neuron --urls aws-neuronx-dkms-2.21*
+dnf download -q --repofrompath neuron,https://yum.repos.neuron.amazonaws.com --repo=neuron --urls aws-neuronx-dkms-2.24*
 "
 docker run --rm public.ecr.aws/amazonlinux/amazonlinux:2023 sh -c "${cmd}" \
     | grep '^http' \
