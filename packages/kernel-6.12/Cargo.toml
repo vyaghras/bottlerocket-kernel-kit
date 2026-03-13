@@ -27,5 +27,20 @@ sha512 = "4bdb01d846f12a04bdbe6902c3008ebadbcb50d4d94e8f81b524c02a4e94da7041cdb5
 url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.5.0.noarch.rpm"
 sha512 = "8e7aa38d5015cdca0274469d217bf3b5441494ef31959851113c788b147fc6f2225864d390f7f31a93bd740b5599c3dfad305893b4ad6d549656a9ed7d32e853"
 
+[[package.metadata.build-package.external-files]]
+# Neuron driver 2.x.7372.0
+url = "https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.7372.0.noarch.rpm/e82516a77ab54f1c651a1f160e3a67b1cbca8bef391d78a6c683d6fc22442c8ee17df9d3fae1392ca8cffa676bb966b7088c32e634894ba142d83bef58dd2d81/aws-neuronx-dkms-2.x.7372.0.noarch.rpm"
+sha512 = "e82516a77ab54f1c651a1f160e3a67b1cbca8bef391d78a6c683d6fc22442c8ee17df9d3fae1392ca8cffa676bb966b7088c32e634894ba142d83bef58dd2d81"
+
+[[package.metadata.build-package.external-files]]
+# Neuron driver 2.x.7693.0
+url = "https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.7693.0.noarch.rpm/4411e3d28bc307bd096408f72f9c3d9e3edcadcbeab3ca409b0f94041ac1f589120353edfb1e11c45ff5a5421808297a308f18a6ac687459abe8c5e985653d3f/aws-neuronx-dkms-2.x.7693.0.noarch.rpm"
+sha512 = "4411e3d28bc307bd096408f72f9c3d9e3edcadcbeab3ca409b0f94041ac1f589120353edfb1e11c45ff5a5421808297a308f18a6ac687459abe8c5e985653d3f"
+
+[[package.metadata.build-package.external-files]]
+# Neuron driver 2.x.8072.0
+url = "https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.8072.0.noarch.rpm/d96bd0fe73482684c97faae6f779bfa8a84e9b9ca09f796031d409322550fb1744a38e6c54f5fcc8c1221f051cf04f518694876ea825722f5ed7895c2e8bb22a/aws-neuronx-dkms-2.x.8072.0.noarch.rpm"
+sha512 = "d96bd0fe73482684c97faae6f779bfa8a84e9b9ca09f796031d409322550fb1744a38e6c54f5fcc8c1221f051cf04f518694876ea825722f5ed7895c2e8bb22a"
+
 [build-dependencies]
 microcode = { path = "../microcode" }
