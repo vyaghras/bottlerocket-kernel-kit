@@ -15,7 +15,7 @@ Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
 # Use latest-2.24-neuron-srpm-url.sh to get this.
 Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.13.0.noarch.rpm
 # Use latest-neuron-srpm-url.sh to get this.
-Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.5.0.noarch.rpm
+Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.10.0.noarch.rpm
 # Neuron driver 2.x.7372.0
 Source4: https://cache.bottlerocket.aws/aws-neuronx-dkms-2.x.7372.0.noarch.rpm/e82516a77ab54f1c651a1f160e3a67b1cbca8bef391d78a6c683d6fc22442c8ee17df9d3fae1392ca8cffa676bb966b7088c32e634894ba142d83bef58dd2d81/aws-neuronx-dkms-2.x.7372.0.noarch.rpm
 # Neuron driver 2.x.7693.0
