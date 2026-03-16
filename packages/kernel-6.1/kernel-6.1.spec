@@ -10,10 +10,10 @@ URL: https://www.kernel.org/
 # Use latest-kernel-srpm-url.sh to get this.
 Source0: https://cdn.amazonlinux.com/al2023/blobstore/5345c8e36a653c0013bb38f8973f652a2d1958438662b44dc22efc0972ab647b/kernel-6.1.163-186.299.amzn2023.src.rpm
 Source1: gpgkey-B21C50FA44A99720EAA72F7FE951904AD832C631.asc
-# Use latest-2.21-neuron-srpm-url.sh to get this.
-Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.21.37.0.noarch.rpm
+# Use latest-2.24-neuron-srpm-url.sh to get this.
+Source2: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.13.0.noarch.rpm
 # Use latest-neuron-srpm-url.sh to get this.
-Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.5.0.noarch.rpm
+Source3: https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.10.0.noarch.rpm
 Source4: gpgkey-00FA2C1079260870A76D2C285749CAD8646D9185.asc
 
 # Custom Bottlerocket kernel configurations.
@@ -264,12 +264,12 @@ rm -f ../config-* ../*.patch
 cd %{_builddir}
 
 %if "%{_cross_arch}" == "x86_64"
-# 2.21 for inf1 support
+# 2.24 for inf1 support
 rpmkeys --import %{S:4} --dbpath "${PWD}/rpmdb"
 rpmkeys --checksig %{S:2} --dbpath "${PWD}/rpmdb"
 rm -rf "${PWD}/rpmdb"
 rpm2cpio %{S:2} | cpio -idmu './usr/src/aws-neuronx-*'
-find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2_21 \;
+find usr/src/ -mindepth 1 -maxdepth 1 -type d -exec mv {} neuron_2_24 \;
 rm -r usr
 
 # latest neuron driver
@@ -297,7 +297,7 @@ make -s \
 %kmake %{?_smp_mflags} modules
 
 %if "%{_cross_arch}" == "x86_64"
-%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2_21
+%kmake %{?_smp_mflags} M=%{_builddir}/neuron_2_24
 %kmake %{?_smp_mflags} M=%{_builddir}/neuron_latest
 %endif
 
@@ -306,11 +306,11 @@ make -s \
 %kmake %{?_smp_mflags} modules_install
 
 %if "%{_cross_arch}" == "x86_64"
-install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
+install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_24/
 install -d %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
-%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2_21 M=%{_builddir}/neuron_2_21 modules_install
+%kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_2_24 M=%{_builddir}/neuron_2_24 modules_install
 %kmake %{?_smp_mflags} INSTALL_MOD_DIR=neuron_latest M=%{_builddir}/neuron_latest modules_install
-mv %{buildroot}%{_cross_kmoddir}/neuron_2_21/neuron.ko.gz %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_21/
+mv %{buildroot}%{_cross_kmoddir}/neuron_2_24/neuron.ko.gz %{buildroot}%{_cross_libexecdir}/neuron/neuron_2_24/
 mv %{buildroot}%{_cross_kmoddir}/neuron_latest/neuron.ko.gz %{buildroot}%{_cross_libexecdir}/neuron/neuron_latest/
 %endif
 
@@ -1551,7 +1551,7 @@ install -p -m 0644 %{S:302} %{buildroot}%{_cross_bootconfigdir}/05-metal.conf
 
 %if "%{_cross_arch}" == "x86_64"
 %files modules-neuron
-%{_cross_libexecdir}/neuron/neuron_2_21/neuron.ko.gz
+%{_cross_libexecdir}/neuron/neuron_2_24/neuron.ko.gz
 %{_cross_libexecdir}/neuron/neuron_latest/neuron.ko.gz
 %{_cross_tmpfilesdir}/neuron.conf
 %{_cross_unitdir}/load-neuron-inf1-modules.service
