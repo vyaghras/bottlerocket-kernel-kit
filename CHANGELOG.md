@@ -1,3 +1,15 @@
+# v5.1.0 (2026-03-17)
+## OS Changes
+* Add Neuron driver 2.x.7372.0, 2.x.7693.0, and 2.x.8072.0 ([#388])
+* Update Neuron driver to 2.24.13.0, and 2.26.10.0 ([#389])
+
+## Build Changes
+* Update the Bottlerocket SDK to v0.71.0 ([#387])
+
+[#387]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/387
+[#388]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/388
+[#389]: https://github.com/bottlerocket-os/bottlerocket-kernel-kit/pull/389
+
 # v5.0.2 (2026-03-06)
 ## OS Changes
 * Update kernel from 6.1.161-183.298 to 6.1.163-186.299 ([#384])
