@@ -1,0 +1,31 @@
+[package]
+name = "kernel-6_18"
+version = "0.1.0"
+edition = "2021"
+publish = false
+build = "../build.rs"
+
+[package.metadata.build-package]
+package-name = "kernel-6.18"
+
+[lib]
+path = "../packages.rs"
+
+[[package.metadata.build-package.external-files]]
+# Use latest-kernel-srpm-url.sh to get this.
+url = "https://cdn.amazonlinux.com/al2023/blobstore/0211e61d89515be990de21def45b93a544d5cced37cbfda50b50227359268db4/kernel6.18-6.18.8-9.213.amzn2023.src.rpm"
+sha512 = "84886d037a336ec1bfda25a2c377a11169cfa55544018fece60d02c1ff99378f95b3f7350015ff175e2e904b85659a61a91b8ff15bdee0ccf26b329576358376"
+force-upstream = true
+
+[[package.metadata.build-package.external-files]]
+# Use latest-2.24-neuron-srpm-url.sh to get this.
+url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.24.13.0.noarch.rpm"
+sha512 = "ba2234e3aa8f5fb15a36304d811043abbed27e79bbd34bf2e0789f2f9a72d8f4c25c701be56622fc1cfdb70966d70b6bfa9d5f77127e76eec382fd0c9477f4ed"
+
+[[package.metadata.build-package.external-files]]
+# Use latest-neuron-srpm-url.sh to get this.
+url = "https://yum.repos.neuron.amazonaws.com/aws-neuronx-dkms-2.26.10.0.noarch.rpm"
+sha512 = "ee49ab3aa9f4273a91aef305f30ed213c90c46317e72cfe46dd1d0e7088f0758039f998589ffc1080523f0af8f3348f9db4fe763b6fe8a0fd7d3119546cb1936"
+
+[build-dependencies]
+microcode = { path = "../microcode" }

@@ -63,14 +63,15 @@ merge_kernel_configs() {
 
     local kernel_package_dir="${KERNEL_KIT_DIR}/packages/kernel-${majorminor}"
 
-    if [ "${majorminor}" == "6.12" ]; then
-        # kernel 6.12 has a patch file that is not applied to the kernel sources, so
-        # only pick up the 1000-series kernel patches for our purposes here.
-        readarray -t br_patches < <(find "${kernel_package_dir}" -maxdepth 1 -name "10*.patch")
+    readarray -t br_patches < <(find "${kernel_package_dir}" -maxdepth 1 -name "*.patch")
+
+    if [ "${majorminor}" == "6.18" ]; then
+        spec_file="kernel6.18.spec"
+        microcode_file="config-microcode-6-18"
+    elif [ "${majorminor}" == "6.12" ]; then
         spec_file="kernel6.12.spec"
         microcode_file="config-microcode-6-12"
     else
-        readarray -t br_patches < <(find "${kernel_package_dir}" -maxdepth 1 -name "*.patch")
         spec_file="kernel.spec"
         microcode_file="config-microcode"
     fi
